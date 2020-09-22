@@ -3,7 +3,7 @@
 ## InvestmentSimulator
 **COMP 3900 Group Project, 20T3**
 
-Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {5194996, z5137430, z5191682, z5191673, z5075710}ad.unsw.edu.au
+Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {z5194996, z5137430, z5191682, z5191673, z5075710}ad.unsw.edu.au
 
 For coding style, please see [style.md](style.md)
 
