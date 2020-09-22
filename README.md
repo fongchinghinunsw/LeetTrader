@@ -7,7 +7,7 @@ Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {5194996, z5137430, z
 
 For coding style, please see [style.md](style.md)
 
-User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy_juoyw0GSKjq9C_CvKsfS-bi2kkq4/edit#gid=0
+User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy_juoyw0GSKjq9C_CvKsfS-bi2kkq4/edit
 
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
