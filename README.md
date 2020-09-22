@@ -5,7 +5,7 @@
 
 Scrum Master: Stephen Fong
 
-Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {z5194996, z5137430, z5191682, z5191673, z5075710}ad.unsw.edu.au
+Scrum Members: Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {z5194996, z5137430, z5191682, z5191673, z5075710}ad.unsw.edu.au
 
 For coding style, please see [style.md](style.md)
 
