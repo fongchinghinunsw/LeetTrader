@@ -1,14 +1,14 @@
 # LeetTrader
 
 ## InvestmentSimulator
+**COMP 3900 Group Project, 20T3**
 
 Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {5194996, z5137430, z5191682, z5191673, z5075710}ad.unsw.edu.au
 
-For coding style, please see [style.md](docs/style.md)
+For coding style, please see [style.md](style.md)
 
 User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy_juoyw0GSKjq9C_CvKsfS-bi2kkq4/edit#gid=0
 
-**COMP 3900 Group Project, 20T3**
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
 Investors can look for stocks using a "stock code", with the search resultshowing the stock name,
