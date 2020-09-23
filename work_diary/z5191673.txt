@@ -1,0 +1,4 @@
+Week 1
+
+Group formed. I created the Jira & Github accounts, together with all the other teammates, I have drawn up the draft of the user story of the proposal. I have also discussed with my team about the libraries and APIs that can be useful for the project. I have set up the github classroom repo, now the virtual environment and auto Python style checking tools are in-place.
+We have planned to finish off the ER diagram and class diagram by next week.
