@@ -13,6 +13,8 @@ Project Proposal currently at https://docs.google.com/document/d/1zsgIKx4NSf6KvM
 
 User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy_juoyw0GSKjq9C_CvKsfS-bi2kkq4/edit
 
+Meeting Record currently at https://docs.google.com/spreadsheets/d/13wvUGb-VASsreEom_8FQIn0RhHlZj1STH8I1AjZZrLU/edit
+
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
 Investors can look for stocks using a "stock code", with the search resultshowing the stock name,
