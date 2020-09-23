@@ -15,6 +15,12 @@ User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy
 
 Meeting Record currently at https://docs.google.com/spreadsheets/d/13wvUGb-VASsreEom_8FQIn0RhHlZj1STH8I1AjZZrLU/edit
 
+Use Case Diagram currently at https://app.diagrams.net/#G1lWNhVEAr1oos60C0-sI2-eYgOQLJYSt1
+
+ER Diagram currently at https://app.diagrams.net/#G14wLbZnKkU2A1pPMKqlVXBp0KtjyaL5bI
+
+Class Diagram currently at https://app.diagrams.net/#G1ItJ5CR8XRURJ2h7F94dfDA3yyno9oPBJ
+
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
 Investors can look for stocks using a "stock code", with the search resultshowing the stock name,
