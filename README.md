@@ -9,6 +9,8 @@ Scrum Members: Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {z5194
 
 For coding style, please see [style.md](style.md)
 
+Project Proposal currently at https://docs.google.com/document/d/1zsgIKx4NSf6KvMcyXh27L2-45Z2Wn8Drh5oCXqKEg9g/edit
+
 User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy_juoyw0GSKjq9C_CvKsfS-bi2kkq4/edit
 
 ### Project Description
