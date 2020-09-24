@@ -21,6 +21,10 @@ ER Diagram currently at https://app.diagrams.net/#G14wLbZnKkU2A1pPMKqlVXBp0Ktjya
 
 Class Diagram currently at https://app.diagrams.net/#G1ItJ5CR8XRURJ2h7F94dfDA3yyno9oPBJ
 
+Interface Diagram currently at https://app.diagrams.net/#G1p5AWh7D17fQBYaWxoNrH7Oxr1PMmqHSO
+
+Flow Diagram currently at https://app.diagrams.net/#G1aJBUNcoBgG6TOdupeDQ12A_eP6WPmwiz
+
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
 Investors can look for stocks using a "stock code", with the search resultshowing the stock name,
