@@ -23,7 +23,7 @@ Class Diagram currently at https://app.diagrams.net/#G1ItJ5CR8XRURJ2h7F94dfDA3yy
 
 Interface Diagram currently at https://app.diagrams.net/#G1p5AWh7D17fQBYaWxoNrH7Oxr1PMmqHSO
 
-Flow Diagram currently at https://app.diagrams.net/#G1aJBUNcoBgG6TOdupeDQ12A_eP6WPmwiz
+Flow Diagram currently at https://app.diagrams.net/#G1JiLYfyhUndb77u5k-gWxUgk7IeS6M-jj
 
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
