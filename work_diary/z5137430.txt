@@ -1,9 +1,10 @@
 Week 1
 I wrote some simple python files to test the API of Finnhub and Tinngo. 
 The test file would print the company name and last price of APPL and AMZN to the console.
-I also restructured the project specification, make it point form and in a more easy-to-read manner.
+I pushed the files to my own git and shared it to my teammates. 
+I also restructured the project specification, make it point-form and in a more easy-to-read manner.
 
 Week 2
-I drafted the user storeis and epics together with my team, then I drafted the use case diagram with Stephon.
+I drafted the user stories and ER diagram together with my team, then I drafted the use case diagram with Stephon.
 During the meeting, I created a progression check table to ensure that our team can finsih the proposal on time. 
 At the end of the week 2 I drafted the process flow chart. 
