@@ -15,6 +15,8 @@ User stories currently at https://docs.google.com/spreadsheets/d/1i7SLrJjYA4pUAy
 
 Meeting Record currently at https://docs.google.com/spreadsheets/d/13wvUGb-VASsreEom_8FQIn0RhHlZj1STH8I1AjZZrLU/edit
 
+System Architecture currently at https://app.diagrams.net/#G1ZkLURBTiKzgldmG9Tu277hAKCC48rsgz
+
 Use Case Diagram currently at https://app.diagrams.net/#G1lWNhVEAr1oos60C0-sI2-eYgOQLJYSt1
 
 ER Diagram currently at https://app.diagrams.net/#G14wLbZnKkU2A1pPMKqlVXBp0KtjyaL5bI
