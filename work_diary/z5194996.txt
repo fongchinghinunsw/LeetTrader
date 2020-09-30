@@ -1,0 +1,11 @@
+Week 1
+
+Group formed. I suggested the group name for the project. Joined the github repo and the jira board. Contributed to the user stories about the user account management. 
+
+Week 2
+
+Refined and added more acceptence criteria in a couple of user stories. Collaborated with the teammates to work on the ER diagram. Drafted most of the interface diagram. Discussed more on the technologies that we are trying to use. Debated on whether to use traditional web apps or single page applications and their related technical difficulties.
+
+Week 3
+
+Finish the draft of the interface diagram. Working on the proposal.
