@@ -1,0 +1,17 @@
+
+Week 1 
+1. Form a group with the other four guys
+2. Contribute to finish the first draft of user stories and epic stories.
+
+
+Week 2
+1. Finished the background part of the proposal 
+2. Finished the novel functionality with my team 
+3. We went through the class Diagram and Use case diagram
+
+
+Week 3
+
+1. Finish all the user story editing, make it the final edition part of proposal
+2. Move all the user story to Jira
+3. Finished the proposal with team members.
