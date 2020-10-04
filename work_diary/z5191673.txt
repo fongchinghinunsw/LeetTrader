@@ -6,3 +6,7 @@ We have planned to finish off the ER diagram and class diagram by next week.
 Week 2
 
 I finished up the Class Diagram with The Tran and the Use Case Diagram with Luna. I completed the ER diagram after gathering advices from all the teammates. Our team also improved the USs further, by spliting up large USs into smaller USs and changed a few acceptance criteria of certain USs. The progress of the project goes well, we will be wrapping up all the things required in the proposal next week.
+
+Week 3
+
+Our team and I have rechecked all the contents in the proposal, the major obstacle is we need to synchronize all our works, e.g. make sure the User Stories are in accordance with all of our graphs. All of the members have put a lot of time on that. We will start our first sprint next week. I wrotee some code to construct our project skeleton, so that other team members can work more smoothly later on.
