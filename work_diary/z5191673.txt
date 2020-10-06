@@ -1,12 +1,22 @@
 Week 1
 
-Group formed. I created the Jira & Github accounts, together with all the other teammates, I have drawn up the draft of the user story of the proposal. I have also discussed with my team about the libraries and APIs that can be useful for the project. I have set up the github classroom repo, now the virtual environment and auto Python style checking tools are in-place.
+Group formed. I created the Jira & Github accounts, together with all the other teammates,
+I have drawn up the draft of the user story of the proposal. I have also discussed with my team about the libraries and APIs that can be useful for the project.
+I have set up the github classroom repo, now the virtual environment and auto Python style checking tools are in-place.
 We have planned to finish off the ER diagram and class diagram by next week.
 
 Week 2
 
-I finished up the Class Diagram with The Tran and the Use Case Diagram with Luna. I completed the ER diagram after gathering advices from all the teammates. Our team also improved the USs further, by spliting up large USs into smaller USs and changed a few acceptance criteria of certain USs. The progress of the project goes well, we will be wrapping up all the things required in the proposal next week.
+I finished up the Class Diagram with The Tran and the Use Case Diagram with Luna.
+I completed the ER diagram after gathering advices from all the teammates. Our team also improved the USs further,
+by spliting up large USs into smaller USs and changed a few acceptance criteria of certain USs.
+The progress of the project goes well, we will be wrapping up all the things required in the proposal next week.
 
 Week 3
 
-Our team and I have rechecked all the contents in the proposal, the major obstacle is we need to synchronize all our works, e.g. make sure the User Stories are in accordance with all of our graphs. All of the members have put a lot of time on that. We will start our first sprint next week. I wrotee some code to construct our project skeleton, so that other team members can work more smoothly later on.
+Our team and I have rechecked all the contents in the proposal, the major obstacle is we need to synchronize all our works,
+e.g. make sure the User Stories are in accordance with all of our graphs. All of the members have put a lot of time on that.
+We will start our first sprint next week. I wrotee some code to construct our project skeleton, so that other team members can work more smoothly later on.
+
+Week 4
+I have setup the the landing page, the overall file structure and the database of the project, teammates can now easily start their work based on these. 
