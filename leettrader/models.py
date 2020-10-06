@@ -20,6 +20,9 @@ watchlist_items = db.Table('watchlist_items',
                   db.Column('stock_id', db.Integer, db.ForeignKey('stock.id'), primary_key=True)
                   )
 
+  def getUserName():
+    return self.username;
+
 
 class Watchlist(db.Model):
   """Watchlist class"""
