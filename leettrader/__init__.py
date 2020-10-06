@@ -10,6 +10,10 @@ def create_app(config_class=Config):
 
   db.init_app(app)
 
+  # run this to reinitialize the database
+  #with app.app_context():
+  #  db.create_all()
+
   from leettrader.main.routes import main
 
   app.register_blueprint(main)
