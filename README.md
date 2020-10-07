@@ -29,6 +29,8 @@ Flow Diagram currently at https://app.diagrams.net/#G1JiLYfyhUndb77u5k-gWxUgk7Ie
 
 APIs usage currently at https://docs.google.com/document/d/1YRUvGNo87vkZKh3YlYKCOZl21fWax3nQcpXpfBu9C1w/edit?usp=sharing
 
+Code Review currently at https://docs.google.com/spreadsheets/d/1utComw0ELxKtZN3wX4K8oQauqzD2dnYj-nBWxyI7iw4/edit
+
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
 Investors can look for stocks using a "stock code", with the search resultshowing the stock name,
