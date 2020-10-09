@@ -15,13 +15,15 @@ class User(db.Model):
   own_stock = db.relationship('OwnStock', backref='user', lazy=True)
   watchlist = db.relationship('Watchlist', backref='user', lazy=True, uselist=False)
 
-watchlist_items = db.Table('watchlist_items',
-                  db.Column('watchlist_id', db.Integer, db.ForeignKey('watchlist.id'), primary_key=True),
-                  db.Column('stock_id', db.Integer, db.ForeignKey('stock.id'), primary_key=True)
-                  )
-
-  def getUserName():
+  def getUserName(self):
     return self.username;
+
+  def __repr__(self):
+    return f"User('{self.username}', '{self.email}', '{self.balance}')"
+
+
+watchlist_items = db.Table('watchlist_items', db.Column('watchlist_id', db.Integer, db.ForeignKey('watchlist.id'), primary_key=True), db.Column('stock_id', db.Integer, db.ForeignKey('stock.id'), primary_key=True))
+
 
 
 class Watchlist(db.Model):
@@ -39,6 +41,9 @@ class Stock(db.Model):
   code = db.Column(db.String(20), nullable=False)
   ownstock_id = db.Column(db.Integer, db.ForeignKey('own_stock.id'))
   watchlist = db.relationship('Watchlist', secondary=watchlist_items, lazy=True)
+
+  def __repr__(self):
+    return f"Stock('{self.name}', '{self.code}')"
 
 
 class ActionType(enum.Enum):
