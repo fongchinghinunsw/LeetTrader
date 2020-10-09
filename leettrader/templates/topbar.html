@@ -12,6 +12,39 @@
       <li class="nav-item">
 	<a class="nav-link" href="#">Register</a>
       </li>
+      <li class="nav-item">
+	<form class="form-inline">
+	  <input id="search-bar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+	  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	</form>
+      </li>
     </ul>
   </div>
 </nav>
+<script>
+$( function() {
+  var availableTags = {{ stocks|tojson }};
+  var NoResultsLabel = "No matching stocks";
+  $("#search-bar").autocomplete({
+    source: function(request, response) {
+      var results = $.ui.autocomplete.filter(availableTags, request.term);
+
+      if (!results.length) {
+	results = [NoResultsLabel];
+      }
+
+      response(results);
+    },
+    select: function (event, ui) {
+      if (ui.item.label === NoResultsLabel) {
+	event.preventDefault();
+      }
+    },
+    focus: function (event, ui) {
+      if (ui.item.label === NoResultsLabel) {
+	event.preventDefault();
+      }
+    }
+  })
+} );
+</script>
