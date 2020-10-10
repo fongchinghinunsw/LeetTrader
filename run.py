@@ -9,7 +9,7 @@ app = create_app()
 def inject_list_of_stocks():
   """ Inject the variable `stocks` in all the templates """
   stocks = Stock.query.all()
-  stocks = [stock.name + " " + stock.code for stock in stocks]
+  stocks = [stock.name + " (" + stock.code + ")" for stock in stocks]
   return dict(stocks=stocks)
 
 @app.context_processor
