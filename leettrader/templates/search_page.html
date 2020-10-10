@@ -4,8 +4,17 @@
     <div class="row">
       <div class="col-md-5">
         <h5>{{ stock }}</h5>
-        <p>Current Price:<p>
-        <p>% Changes:<p>
+        <p>Current Price: {{ price }}</p>
+        {% if color == "green" %}
+	  <p>price change: <span style="color:green;">{{ price_change }}</span></p>
+	  <p>% Changes: <span style="color:green;">{{ percent_change }}</span></p>
+        {% elif color == "red" %}
+	  <p>price change: <span style="color:red;">{{ price_change }}</span></p>
+	  <p>% Changes: <span style="color:red;">{{ percent_change }}</span></p>
+        {% else %}
+	  <p>price change: {{ price_change }}</p>
+	  <p>% Changes: {{ percent_change }}</p>
+        {% endif %}
       </div>
       <div class="col-md-7">
         <p>This area is reserved for the graph</p>
