@@ -13,9 +13,22 @@
 	<a class="nav-link" href="#">Register</a>
       </li>
       <li class="nav-item">
+        <!--
 	<form class="form-inline">
 	  <input id="search-bar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 	  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	</form>
+        -->
+	<form method="POST" class="form-inline" action="{{ url_for('stock.search_stock', stock=form.stock.data) }}">
+          {{form.hidden_tag() }}
+          <fieldset class="form-group">
+            <dir class="form-group">
+              {{ form.stock(id="search-bar", class="form-control mr-sm-2") }}
+            </dir>
+            <dir class="form-group">
+              {{ form.submit(class="btn btn-outline-success my-2 my-sm-0") }}
+            </dir>
+          </fieldset>
 	</form>
       </li>
     </ul>

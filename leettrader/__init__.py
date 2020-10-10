@@ -15,7 +15,9 @@ def create_app(config_class=Config):
   #  db.create_all()
 
   from leettrader.main.routes import main
+  from leettrader.stock.routes import stock
 
   app.register_blueprint(main)
+  app.register_blueprint(stock)
 
   return app
