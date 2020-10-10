@@ -1,8 +1,15 @@
 import enum
-from leettrader import db
+from leettrader import db, login_manager
+from flask_login import UserMixin
+
+# reloading the user from Userid from stored in the session
+# from https://flask-login.readthedocs.io/en/latest/
+@login_manager.user_loader
+def load_user(user_id):
+  return User.query.get(int(user_id))
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
   """User class"""
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(20), unique=True, nullable=False)
@@ -14,6 +21,9 @@ class User(db.Model):
   transactions = db.relationship('TransactionRecord', backref='user', lazy=True)
   own_stock = db.relationship('OwnStock', backref='user', lazy=True)
   watchlist = db.relationship('Watchlist', backref='user', lazy=True, uselist=False)
+
+  def __repr__(self):
+    return f"User('{self.username}', '{self.email}', '{self.password}')"
 
 watchlist_items = db.Table('watchlist_items',
                   db.Column('watchlist_id', db.Integer, db.ForeignKey('watchlist.id'), primary_key=True),

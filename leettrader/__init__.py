@@ -1,21 +1,17 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
-from leettrader.config import Config
+from flask_login import LoginManager
 
-db = SQLAlchemy()
+app = Flask(__name__)
+main = Blueprint('main', __name__)
 
-def create_app(config_class=Config):
-  app = Flask(__name__)
-  app.config.from_object(Config)
+app.config['SECRET_KEY'] = '7b0dff182c1a883a7c12855dcc6f411d'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' # construct relative path from the current file
+app.register_blueprint(main)
 
-  db.init_app(app)
+# add functionalities to our flask application
+db = SQLAlchemy(app)
+login_manager = LoginManager(app)
 
-  # run this to reinitialize the database
-  #with app.app_context():
-  #  db.create_all()
-
-  from leettrader.main.routes import main
-
-  app.register_blueprint(main)
-
-  return app
+# prevent circular import
+from leettrader.main import routes
