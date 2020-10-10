@@ -21,6 +21,7 @@ watchlist_items = db.Table('watchlist_items',
                   )
 
 
+
 class Watchlist(db.Model):
   """Watchlist class"""
   id = db.Column(db.Integer, primary_key=True)

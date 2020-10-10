@@ -12,12 +12,11 @@ def home():
 @main.route("/register", methods=['GET', 'POST'])
 def register():
   rform = RegisterForm()
-  if rform.validate_on_submit:
-    print('sd')
-  #   user = User(username=rform.username.data, email=rform.email.data, password=rform, balance=1000000.0)
-  #   db.session.add(user)
-  #   db.session.commit()
-  #   return redirect(url_for('login'))
+  if rform.validate_on_submit():
+    user = User(username=rform.username.data, email=rform.email.data, password=rform.password.data, balance=0)
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for('main.login'))
   return render_template('register.html', title='register', form=rform)
 
 @main.route("/login", methods=['GET', 'POST'])

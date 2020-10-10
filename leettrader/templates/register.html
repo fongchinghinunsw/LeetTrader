@@ -11,24 +11,22 @@
       <!-- protect our form from certain attacks -->
       {{ form.hidden_tag() }}
       <!-- Bootstrap stuff -->
-      <fieldset class="form-group">
-        <div class="form-group">
-          {{ form.username.label(class="form-control-label") }}
-          {{ form.username(class="form-control form-control-lg") }}
-        </div>
-        <div class="form-group">
-          {{ form.email.label(class="form-control-label") }}
-          {{ form.email(class="form-control form-control-lg") }}
-        </div>
-        <div class="form-group">
-          {{ form.password.label(class="form-control-label") }}  
-          {{ form.password(class="form-control form-control-lg") }}    
-        </div>
-        <div class="form-group">
-          {{ form.confirm_password.label(class="form-control-label") }}
-          {{ form.confirm_password(class="form-control form-control-lg") }}
-        </div>
-      </fieldset>
+      <div class="form-group">
+        {{ form.username.label(class="form-control-label") }}
+        {{ form.username(class="form-control form-control-lg") }}
+      </div>
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }}
+        {{ form.email(class="form-control form-control-lg") }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label(class="form-control-label") }}  
+        {{ form.password(class="form-control form-control-lg") }}    
+      </div>
+      <div class="form-group">
+        {{ form.confirm_password.label(class="form-control-label") }}
+        {{ form.confirm_password(class="form-control form-control-lg") }}
+      </div>
       <div class="form-group">
           {{ form.submit(class="btn btn-outline-info") }}
       </div>
