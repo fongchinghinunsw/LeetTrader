@@ -69,3 +69,10 @@
   position: relative;
   top: 450px;
 }
+
+.input-item {
+  background: #fff;
+  color: #333;
+  padding: 14.5px 0px 15px 9px;
+  border-radius: 5px 0px 0px 5px;
+}

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<div id='landing-container'>
+  <!-- <div id='landing-img'></div> -->
+  <!-- <div class="clear"></div> -->
+  <!-- <div id='landing-subsection-0'> -->
+  <!-- <div class="jumbotron" style="padding-left:20px"></div> -->
+  <h1 class="display-5" style="padding-top:70px; padding-bottom: 20px; padding-left: 20px;">Create an account to start your Journey...</h1>
+  <div>
+    <form method="POST" action="">
+      <!-- protect our form from certain attacks -->
+      {{ form.hidden_tag() }}
+      <!-- Bootstrap stuff -->
+      <fieldset class="form-group">
+        <div class="form-group">
+          {{ form.username.label(class="form-control-label") }}
+          {{ form.username(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+          {{ form.email.label(class="form-control-label") }}
+          {{ form.email(class="form-control form-control-lg") }}
+        </div>
+        <div class="form-group">
+          {{ form.password.label(class="form-control-label") }}  
+          {{ form.password(class="form-control form-control-lg") }}    
+        </div>
+        <div class="form-group">
+          {{ form.confirm_password.label(class="form-control-label") }}
+          {{ form.confirm_password(class="form-control form-control-lg") }}
+        </div>
+      </fieldset>
+      <div class="form-group">
+          {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+    </form>
+  </div>
+
+  <small class="text-muted">
+    Alreaday have an account ? <a href="/login">log in</a>
+  </small>
+
+  <footer id='footer'>
+    <div class="footer-copyright text-center py-3" style="color: white;">
+      © 2020 Copyright:<a href="/"> leettrader.com</a>
+    </div>
+  </footer>
+</div>
+{% endblock content %}
