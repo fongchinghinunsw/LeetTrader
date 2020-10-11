@@ -7,8 +7,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 user = Blueprint('user', __name__)
 
 
-@user.route("/<int:userID>")
-def home(userID):
+@user.route("/home")
+def home():
   return render_template('home.html')
 
 
@@ -33,7 +33,7 @@ def login():
     if user and user.password == login_form.password.data:
       login_user(user, remember=login_form.remember.data)
 
-      return redirect(url_for('user.home', userID=user.id))
+      return redirect(url_for('user.home'))
     
   return render_template('login.html', title='login', form=login_form)
 
