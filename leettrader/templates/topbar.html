@@ -1,4 +1,8 @@
-<nav id='top-navbar' class="navbar navbar-expand-md navbar-dark bg-dark">
+{% if url_for(request.endpoint) != '/' %}
+<nav id='top-navbar-notfixed' class="navbar navbar-expand-md navbar-dark bg-dark">
+{% else %}
+<nav id='top-navbar-fixed' class="navbar navbar-expand-md navbar-dark bg-dark">
+{% endif %}
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     {% if current_user.is_authenticated %}
       <a class="navbar-brand mr-auto" href="{{ url_for("user.home") }}">LeetTrader</a>

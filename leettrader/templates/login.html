@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class='container'>
+<div class='form-container container'>
   <div>
     <form method="POST" action="">
       <!-- protect our form from certain attacks -->
@@ -44,19 +44,24 @@
             </ul>
           {% endif %}
         {% endwith %}
-
       </div>
 
-      <div class="form-check" style="padding-left: 80pt;">
+      <div class="form-check form-group">
         {{ form.remember(class="form-check-input") }}
         {{ form.remember.label(class="form-check-label") }}
       </div>
 
 
-      <div class="form-group"  style="padding-top: 30px">
+      <div class="form-group">
 	{{ form.submit(class="btn btn-outline-info") }}
-	<small class="text-muted" style="padding-left: 80px;">
-	  Forgot your password ? <a href="/login">find your password here</a>
+      </div>
+      <div>
+	<small class="text-muted">
+	  Forgot your password?
+	</small>
+        <br>
+        <small>
+	  <a href="/login">find your password here</a>
 	</small>
       </div>
     

@@ -7,10 +7,15 @@
   clear: both;
 }
 
-#top-navbar {
+#top-navbar-fixed {
   height: 60px;
   width: 100%;
   position: fixed;
+}
+
+#top-navbar-notfixed {
+  height: 60px;
+  width: 100%;
 }
 
 .ui-autocomplete {
@@ -32,8 +37,13 @@
   width: 100%;
 }
 
-.container {
-  padding: 60px;
+.form-container {
+  background: #ffffff;
+  margin-top: 60px;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
 }
 
 #landing-img {
