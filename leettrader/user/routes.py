@@ -45,4 +45,4 @@ def settings():
 @user.route("/logout", methods=['GET', 'POST'])
 def logout():
   logout_user()
-  return redirect(url_for('main.home'))
+  return redirect(url_for('main.landing'))
