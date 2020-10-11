@@ -34,16 +34,17 @@
           {{ form.password(class="form-control form-control-lg") }}
         {% endif %}
         
-        <!-- wrong match password found -->
+        <!-- wrong match password found, using flash -->
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             <ul class=flashes>
               {% for category, message in messages %}
-                <li class="{{ category }}" style="color: red;">{{ message }}</li>
+                <a class="{{ category }}" style="color: red;">{{ message }}</a>
               {% endfor %}
             </ul>
           {% endif %}
         {% endwith %}
+        
       </div>
 
       <div class="form-check form-group">
