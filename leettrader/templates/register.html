@@ -2,11 +2,10 @@
 {% block content %}
 <div class='form-container container'>
   <div>
-    <h1>Create an account to start your Journey...</h1>
     <form method="POST" action="">
       <!-- protect our form from certain attacks -->
       {{ form.hidden_tag() }}
-      <!-- Bootstrap stuff -->
+      <legend class="border-bottom mb-4">Create an account to start your Journey...</legend>
       <div class="form-group">
         {{ form.username.label(class="form-control-label") }}
         {% if form.username.errors %}

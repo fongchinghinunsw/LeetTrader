@@ -17,7 +17,7 @@ def search_stock():
 
   return render_template('home.html')
 
-@stock.route('/<string:code>', methods=['GET', 'POST'])
+@stock.route('/search/<string:code>')
 def search_page(code):
   stock = Stock.query.filter_by(code=code).first()
   print(stock.code)
@@ -31,4 +31,6 @@ def search_page(code):
   else:
     color = "red"
 
-  return render_template('search_page.html', stock=stock, price=result['price'], price_change=result['price_change'], percent_change=result['percent_change'], color=color)
+  print(result)
+
+  return render_template('search_result.html', code=code, stock=stock, price=result['price'], price_change=result['price_change'], percent_change=result['percent_change'], color=color)
