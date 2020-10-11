@@ -10,7 +10,6 @@ user = Blueprint('user', __name__)
 def home():
   return render_template('home.html')
 
-
 @user.route("/register", methods=['GET', 'POST'])
 def register():
   rform = RegisterForm()
