@@ -32,9 +32,10 @@ def login():
     user = User.query.filter_by(email=login_form.email.data).first()
     if user and user.password == login_form.password.data:
       login_user(user, remember=login_form.remember.data)
-
       return redirect(url_for('user.home', userID=user.id))
-    
+    else:
+      flash('Wrong password, please try again', 'danger')
+      
   return render_template('login.html', title='login', form=login_form)
 
 @user.route("/settings")

@@ -5,21 +5,21 @@
     <form method="POST" action="">
       <!-- protect our form from certain attacks -->
       {{ form.hidden_tag() }}
-      <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Log In</legend>
-	<div class="form-group">
-	  {{ form.email.label(class="form-control-label") }}
-	  {% if form.email.errors %}
-	    {{ form.email(class="class=form-control form-control-lg is-invalid") }}
-	    <div class="alert alert-primary" role="alert">
-		{% for error in form.email.errors %}
-		  <span>{{ error }}</span>
-		{% endfor %}
-	    </div>
-	  {% else %}
-	      {{ form.email(class="form-control form-control-lg") }}
-	  {% endif %}
-	</div>
+      <legend class="border-bottom mb-4">Log In</legend>
+
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }}
+        {% if form.email.errors %}
+          {{ form.email(class="class=form-control form-control-lg is-invalid") }}
+          <div class="alert alert-primary" role="alert">
+            {% for error in form.email.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+            {{ form.email(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
 
       <div class="form-group">
         {{ form.password.label(class="form-control-label") }}
@@ -32,14 +32,26 @@
           </div>
         {% else %}
           {{ form.password(class="form-control form-control-lg") }}
-        {% endif %}  
+        {% endif %}
+        
+        <!-- wrong match password found -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class=flashes>
+              {% for category, message in messages %}
+                <li class="{{ category }}" style="color: red;">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
       </div>
 
       <div class="form-check" style="padding-left: 80pt;">
         {{ form.remember(class="form-check-input") }}
         {{ form.remember.label(class="form-check-label") }}
       </div>
-      </fieldset>
+
 
       <div class="form-group"  style="padding-top: 30px">
 	{{ form.submit(class="btn btn-outline-info") }}
