@@ -1,0 +1,66 @@
+<nav id='top-navbar' class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+    <a class="navbar-brand mr-auto" href="#">LeetTrader</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+    </button>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+      {% if current_user.is_authenticated %}
+	<li class="nav-item">
+	  <li class="nav-item">
+	    <a class="nav-link">hello {{ current_user.username }}</a>
+	  </li>
+	  <a class="nav-link" href="/logout">, Logout here</a>
+	</li>
+	<li class="nav-item">
+	  <form method="POST" class="form-inline" action="{{ url_for('stock.search_stock', stock=form.stock.data) }}">
+	    {{form.hidden_tag() }}
+	    <fieldset class="form-group">
+	      <dir class="form-group">
+		{{ form.stock(id="search-bar", class="form-control mr-sm-2") }}
+	      </dir>
+	      <dir class="form-group">
+		{{ form.submit(class="btn btn-outline-success my-2 my-sm-0") }}
+	      </dir>
+	    </fieldset>
+	  </form>
+	</li>
+      {% else %}
+	<li class="nav-item">
+	  <a class="nav-link" href="/login">Login</a>
+	</li>
+	<li class="nav-item">
+	  <a class="nav-link" href="/register">Register</a>
+	</li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<script>
+$( function() {
+  var availableTags = {{ stocks|tojson }};
+  var NoResultsLabel = "No matching stocks";
+  $("#search-bar").autocomplete({
+    source: function(request, response) {
+      var results = $.ui.autocomplete.filter(availableTags, request.term);
+
+      if (!results.length) {
+	results = [NoResultsLabel];
+      }
+
+      response(results);
+    },
+    select: function (event, ui) {
+      if (ui.item.label === NoResultsLabel) {
+	event.preventDefault();
+      }
+    },
+    focus: function (event, ui) {
+      if (ui.item.label === NoResultsLabel) {
+	event.preventDefault();
+      }
+    }
+  })
+} );
+</script>

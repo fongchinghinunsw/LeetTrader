@@ -2,6 +2,12 @@ import enum
 from leettrader import db, login_manager
 from flask_login import UserMixin
 
+
+watchlist_items = db.Table('watchlist_items',
+                  db.Column('watchlist_id', db.Integer, db.ForeignKey('watchlist.id'), primary_key=True),
+                  db.Column('stock_id', db.Integer, db.ForeignKey('stock.id'), primary_key=True)
+                  )
+
 # reloading the user from Userid from stored in the session
 # from https://flask-login.readthedocs.io/en/latest/
 @login_manager.user_loader
@@ -23,12 +29,10 @@ class User(db.Model, UserMixin):
   watchlist = db.relationship('Watchlist', backref='user', lazy=True, uselist=False)
 
   def __repr__(self):
-    return f"User('{self.username}', '{self.email}', '{self.password}')"
+    return f"User('{self.username}', '{self.email}', '{self.password}', '{self.balance}')"
 
-watchlist_items = db.Table('watchlist_items',
-                  db.Column('watchlist_id', db.Integer, db.ForeignKey('watchlist.id'), primary_key=True),
-                  db.Column('stock_id', db.Integer, db.ForeignKey('stock.id'), primary_key=True)
-                  )
+  def getUserName(self):
+    return self.username;
 
 
 
@@ -47,6 +51,9 @@ class Stock(db.Model):
   code = db.Column(db.String(20), nullable=False)
   ownstock_id = db.Column(db.Integer, db.ForeignKey('own_stock.id'))
   watchlist = db.relationship('Watchlist', secondary=watchlist_items, lazy=True)
+
+  def __repr__(self):
+    return f"Stock('{self.name}', '{self.code}')"
 
 
 class ActionType(enum.Enum):

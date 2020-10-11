@@ -13,8 +13,27 @@
   position: fixed;
 }
 
+.ui-autocomplete {
+  max-height: 200px;
+  max-width: 330px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+  height: 100px;
+}
+
 #landing-container {
   width: 100%;
+}
+
+.container {
+  padding: 60px;
 }
 
 #landing-img {
@@ -42,14 +61,14 @@
 }
 
 #ceo_image {
-    margin: 0 auto;
-    float: left;
-    height: 400px;
-    width: 450px;
-    border-radius: 5%;
-    position: relative;
-    left: 350px;
-    top: 50px;
+  margin: 0 auto;
+  float: left;
+  height: 400px;
+  width: 450px;
+  border-radius: 5%;
+  position: relative;
+  left: 350px;
+  top: 50px;
 }
 
 #ceo_intro {
@@ -75,4 +94,29 @@
   color: #333;
   padding: 14.5px 0px 15px 9px;
   border-radius: 5px 0px 0px 5px;
+}
+
+#content {
+  position: relative;
+  top: 80px;
+}
+
+#right-content {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+#search-left {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: 300px;
 }

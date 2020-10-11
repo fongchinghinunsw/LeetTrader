@@ -1,12 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<div id='landing-container'>
-  <!-- <div id='landing-img'></div> -->
-  <!-- <div class="clear"></div> -->
-  <!-- <div id='landing-subsection-0'> -->
-  <!-- <div class="jumbotron" style="padding-left:20px"></div> -->
-  <h1 class="display-5" style="padding-top:70px; padding-bottom: 20px; padding-left: 20px;">Create an account to start your Journey...</h1>
+<div class='container'>
   <div>
+    <h1>Create an account to start your Journey...</h1>
     <form method="POST" action="">
       <!-- protect our form from certain attacks -->
       {{ form.hidden_tag() }}
@@ -37,10 +33,4 @@
     Alreaday have an account ? <a href="/login">log in</a>
   </small>
 
-  <footer id='footer'>
-    <div class="footer-copyright text-center py-3" style="color: white;">
-      © 2020 Copyright:<a href="/"> leettrader.com</a>
-    </div>
-  </footer>
-</div>
 {% endblock content %}
