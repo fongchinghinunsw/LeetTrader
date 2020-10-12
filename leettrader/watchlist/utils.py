@@ -5,6 +5,7 @@ from leettrader.models import User, Watchlist, Stock
 #from leettrader.stock.utils import get_search_result
 from flask_login import current_user
 
+# Add stock to watchlist in db
 def add_stocks(current_user, code):
     watchlist = Watchlist.query.filter_by(user_id = current_user.get_id()).filter(Watchlist.stocks.any(code=code)).first()
     if watchlist is None:
@@ -17,7 +18,8 @@ def add_stocks(current_user, code):
         db.session.add(watchlist)
         db.session.commit()
 
-def remove_stocks(current_user, code):
+# Remove stock from watchlist in db
+def remove_stocks(current_user, code):  
     user_id = current_user.get_id()
     stocks = Stock.query.filter_by(code=code).first()
     watchlist = Watchlist.query.filter_by(user_id = current_user.get_id()).filter(Watchlist.stocks.any(code=code)).first()

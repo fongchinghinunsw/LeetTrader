@@ -20,6 +20,7 @@
         <p>This area is reserved for the graph</p>
       </div>
     </div>
+    <!--buttons for adding and remove stocks-->
     <div class="row" id="add-remove">
       {% if listed == False %}
       <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
@@ -53,6 +54,7 @@
     var original_code = curr_code
     curr_code = curr_code.replace(".", "_");
     
+    // Adding a stock to watch list and updating buttons
     const add = function( event ) {
     $.ajax({
       type: "POST",
@@ -64,6 +66,7 @@
       }
     })};    
     
+    // Removing the stock to watch list and updating buttons
     const del = function( event ) {
     $.ajax({
       type: "POST",
@@ -74,13 +77,14 @@
         $(id).remove();
         wl.delete(curr_code)
         $("#add-to-watchlist").on( "click", add);  
-        $("#add-remove").after('<div id="remove_alert" class="alert alert-success" role="alert">Successfully Removed</div>');
-
+        
+        $("#add-remove").after('<div id="remove_alert" class="alert alert-success mt-4" role="alert">Successfully Removed</div>');
         setTimeout(function(){ $("#remove_alert").remove() }, 1000);
       }
     })};
 
       
+    // jquery stuff, need to add event everytime dom changes
     $( "#add-to-watchlist" ).on( "click", add);    
     
     $( "#remove-from-watchlist" ).on( "click", del);     

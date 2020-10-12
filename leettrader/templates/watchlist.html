@@ -2,12 +2,15 @@
 <ul id="watchlist" class="list-group">
 </ul>
 <script>
+
+  // createing watchlist after the user logged in
+
   var wl = new Set();
   $.ajax({
       type: "GET",
       url: "/get_watchlist",
       dataType: "json",
-      success: function(data) {
+      success: function(data) { // data is in json format, data.watchlist = [code, stock name, code, stock name ...]
         let i = 0
         while ( i < data.watchlist.length) {
           var og = data.watchlist[i]
