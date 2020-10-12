@@ -18,12 +18,14 @@
       </div>
       <div class="col-md-7">
         <p>This area is reserved for the graph</p>
-        {% if listed == False %}
-        <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
-        {% else %} 
-        <button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>
-        {% endif %}
       </div>
+    </div>
+    <div class="row">
+      {% if listed == False %}
+      <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
+      {% else %} 
+      <button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>
+      {% endif %}
     </div>
   </main>
   <script>
