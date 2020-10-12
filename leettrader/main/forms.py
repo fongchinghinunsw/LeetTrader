@@ -5,9 +5,9 @@ from leettrader.models import User
 
 # forms for login and regsiter account
 class RegisterForm(FlaskForm):
-  username = StringField('Username', validators=[DataRequired(), Length(message="Username must be between 3 and 20 characters long", min=3, max=20)])
+  username = StringField('Username', validators=[DataRequired(), Length(message="Username must be between 2 and 20 characters long", min=2, max=20)])
   email = StringField('Email', validators=[DataRequired(), Email()])
-  password = PasswordField('Password', validators=[DataRequired(), Length(message="Password must be between 6 and 20 characters long", min=6, max=30)])
+  password = PasswordField('Password', validators=[DataRequired(), Length(message="Password must be between 6 and 30 characters long", min=6, max=30)])
   confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
 
   submit = SubmitField('Sign Up')
