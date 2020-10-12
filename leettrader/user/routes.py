@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, Blueprint
-from leettrader.main.forms import LoginForm, RegisterForm
+from leettrader.main.forms import LoginForm, RegisterForm, OrderForm
 from leettrader.models import User
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
@@ -47,3 +47,20 @@ def settings():
 def logout():
   logout_user()
   return redirect(url_for('main.landing'))
+
+#Order stocks
+@user.route("/order", methods=['GET', 'POST'])
+@login_required
+def proceed():
+  order_form = OrderForm()
+  if order_form.validate_on_submit():
+    quantity = order_form.quantity.data
+    return redirect(url_for('user.checkout'))
+  
+  return render_template('order.html', tital='order', form=order_form)
+
+@user.route("/checkout", methods=['GET', 'POST'])
+@login_required
+def checkout():
+  
+return render_template('checkout.html', tital='checkout')
