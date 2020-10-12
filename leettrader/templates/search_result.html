@@ -18,7 +18,43 @@
       </div>
       <div class="col-md-7">
         <p>This area is reserved for the graph</p>
+        {% if listed == False %}
+        <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
+        {% else %} 
+        <button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>
+        {% endif %}
       </div>
     </div>
   </main>
+  <script>
+    var curr_code = "{{ code }}";
+    
+    const add = function( event ) {
+    $.ajax({
+      type: "POST",
+      url: "/add/" + curr_code,
+      success: function() {
+        $( "#add-to-watchlist").replaceWith('<button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>');
+        $( "#remove-from-watchlist" ).on( "click", del) 
+      }
+    })};    
+    
+    const del = function( event ) {
+    $.ajax({
+      type: "POST",
+      url: "/remove/" + curr_code,
+      success: function() {
+        $("#remove-from-watchlist").replaceWith('<button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>');
+        $( "#add-to-watchlist" ).on( "click", add);  
+      }
+    })};
+
+      
+    $( "#add-to-watchlist" ).on( "click", add);    
+    
+    $( "#remove-from-watchlist" ).on( "click", del) 
+    
+
+
+  </script>
 {% endblock left_content %}

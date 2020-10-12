@@ -33,6 +33,9 @@ class User(db.Model, UserMixin):
 
   def getUserName(self):
     return self.username;
+    
+  def get_id(self):
+    return self.id
 
 
 

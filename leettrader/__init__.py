@@ -23,9 +23,11 @@ def create_app(config_class=Config):
   from leettrader.main.routes import main
   from leettrader.user.routes import user
   from leettrader.stock.routes import stock
+  from leettrader.watchlist.routes import watchlist
 
   app.register_blueprint(main)
   app.register_blueprint(user)
   app.register_blueprint(stock)
+  app.register_blueprint(watchlist)
 
   return app
