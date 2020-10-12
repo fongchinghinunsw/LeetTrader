@@ -1,6 +1,7 @@
 <h3>Watchlist</h3>
 <ul id="watchlist" class="list-group">
 </ul>
+
 <script>
   var wl = new Set();
   $.ajax({
@@ -9,11 +10,36 @@
       dataType: "json",
       success: function(data) {
         let i = 0
+
         while ( i < data.watchlist.length) {
           var og = data.watchlist[i]
           data.watchlist[i] = data.watchlist[i].replace(".", "_");
           wl.add(data.watchlist[i]);
-          $("#watchlist").append('<li id="'+ data.watchlist[i] + '"class="list-group-item list-group-item-light">' + data.watchlist[i+1] + '. (' + og + ') </li>');
+          
+          // Construct watchlist item
+          c = '<a href="/search/' + og + '">';
+          c += '<li id="' + data.watchlist[i] + '"class="list-group-item list-group-item-light">'; 
+          c += data.watchlist[i+1] + '. (' + og + ')';
+          c += '<br><br>';
+          c += '</li></a>';
+
+          // Append to watchlist
+          $("#watchlist").append(c);
+          $("#watchlist").append("Track!");
+
+
+          // Construct prices
+          $.ajax({
+            type: "GET",
+            url: "/get_price/" + og,
+            dataType: "json",
+            success: function(data){
+              var itemPrices = data.stockPrices['price'];
+              $("#watchlist").append(itemPrices);
+            }
+          })          
+          // Append to watchlist
+          //$("#watchlist").append(c);
           i = i + 2;
         }
       }
