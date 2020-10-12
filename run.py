@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from leettrader import create_app
 from leettrader.models import Stock
 from leettrader.stock.forms import SearchStockForm

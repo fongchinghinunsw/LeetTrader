@@ -1,8 +1,25 @@
 <h3>Watchlist</h3>
-<p class='text-muted'>You can modify this bar however suits you.</p>
-<ul class="list-group">
-  <li class="list-group-item list-group-item-light">Stock 1</li>
-  <li class="list-group-item list-group-item-light">Stock 2</li>
-  <li class="list-group-item list-group-item-light">Stock 3</li>
-  <li class="list-group-item list-group-item-light">Stock 4</li>
+<ul id="watchlist" class="list-group">
 </ul>
+<script>
+
+  // createing watchlist after the user logged in
+
+  var wl = new Set();
+  $.ajax({
+      type: "GET",
+      url: "/get_watchlist",
+      dataType: "json",
+      success: function(data) { // data is in json format, data.watchlist = [code, stock name, code, stock name ...]
+        let i = 0
+        while ( i < data.watchlist.length) {
+          var og = data.watchlist[i]
+          data.watchlist[i] = data.watchlist[i].replace(".", "_");
+          wl.add(data.watchlist[i]);
+          $("#watchlist").append('<li id="'+ data.watchlist[i] + '"class="list-group-item list-group-item-light">' + data.watchlist[i+1] + '. (' + og + ') </li>');
+          i = i + 2;
+        }
+      }
+  });
+
+</script>
