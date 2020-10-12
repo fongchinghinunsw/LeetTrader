@@ -28,13 +28,17 @@
   </main>
   <script>
     var curr_code = "{{ code }}";
+    var original_code = curr_code
+    curr_code = curr_code.replace(".", "_");
     
     const add = function( event ) {
     $.ajax({
       type: "POST",
-      url: "/add/" + curr_code,
+      url: "/add/" + original_code,
       success: function() {
         $( "#add-to-watchlist").replaceWith('<button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>');
+        $("#watchlist").append('<li id="'+ curr_code + '"class="list-group-item list-group-item-light">' + original_code + '</li>');
+        wl.add(curr_code)
         $( "#remove-from-watchlist" ).on( "click", del) 
       }
     })};    
@@ -42,9 +46,12 @@
     const del = function( event ) {
     $.ajax({
       type: "POST",
-      url: "/remove/" + curr_code,
+      url: "/remove/" + original_code,
       success: function() {
         $("#remove-from-watchlist").replaceWith('<button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>');
+        var id = "#" + curr_code
+        $(id).remove();
+        wl.delete(curr_code)
         $( "#add-to-watchlist" ).on( "click", add);  
       }
     })};

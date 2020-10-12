@@ -25,10 +25,10 @@ def remove_stocks(current_user, code):
         db.session.delete(watchlist)
         db.session.commit()
     
-def get_watchlist(current_user): #Flush watchlist on login
-    watchlist = Watchlist.query.filter_by(user_id = current_user.get_id()).all()
+def get_list(current_user): #Flush watchlist on login
     codes = []
+    watchlist = db.session.query(Watchlist).filter(Watchlist.user_id == current_user.get_id()).all()
     for i in watchlist:
-        codes.append(i.stocks.code)
+        codes.append(i.stocks[0].code)
     return codes
     
