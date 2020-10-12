@@ -15,3 +15,9 @@ Week 3
 1. Finish all the user story editing, make it the final edition part of proposal
 2. Move all the user story to Jira
 3. Finished the proposal with team members.
+
+Week 4
+
+1. finish background and competitor analysis parts for proposal
+2. implement create account / login / logout functionalites 
+3. adjust some UI stuff

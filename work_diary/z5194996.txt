@@ -1,11 +1,29 @@
 Week 1
 
-Group formed. I suggested the group name for the project. Joined the github repo and the jira board. Contributed to the user stories about the user account management. 
+Group formed. I suggested the group name for the project. 
+Joined the github repo and the jira board. 
+Contributed to the user stories about the user account management. 
 
 Week 2
 
-Refined and added more acceptence criteria in a couple of user stories. Collaborated with the teammates to work on the ER diagram. Drafted most of the interface diagram. Discussed more on the technologies that we are trying to use. Debated on whether to use traditional web apps or single page applications and their related technical difficulties.
+Refined and added more acceptence criteria in a couple of user stories. 
+Collaborated with the teammates to work on the ER diagram. 
+Drafted most of the interface diagram. 
+Discussed more on the technologies that we are trying to use. 
+Debated on whether to use traditional web apps or single page applications and their related technical difficulties.
 
 Week 3
 
-Finish the draft of the interface diagram. Working on the proposal.
+Finish the draft of the interface diagram. 
+Worked on the proposal. 
+Updated the jira board
+Remove the contents of the interface diagram to match the updated user stories. 
+Added new contents to comply with the new user stories added. 
+
+Week 4
+Discussed the work distribution
+Studied the code base
+
+Week 5
+Completed US 10 (2.5 points)
+Completed US 11 (2.5 points)
