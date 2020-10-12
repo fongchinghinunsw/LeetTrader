@@ -27,3 +27,4 @@ Studied the code base
 Week 5
 Completed US 10 (2.5 points)
 Completed US 11 (2.5 points)
+Fixed ajax waiting problem
