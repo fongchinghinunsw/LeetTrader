@@ -20,5 +20,74 @@
         <p>This area is reserved for the graph</p>
       </div>
     </div>
+    <!--buttons for adding and remove stocks-->
+    <div class="row" id="add-remove">
+      {% if listed == False %}
+      <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
+      {% else %} 
+      <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
+      {% endif %}
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Removal confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure to remove this stock from your watchlist?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="remove-from-watchlist" type="button" class="btn btn-danger float-right" data-dismiss="modal">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
+  <script>
+    var curr_code = "{{ code }}";
+    var original_code = curr_code
+    curr_code = curr_code.replace(".", "_");
+    
+    // Adding a stock to watch list and updating buttons
+    const add = function( event ) {
+    $.ajax({
+      type: "POST",
+      url: "/add/" + original_code,
+      success: function() {
+        $( "#add-to-watchlist").replaceWith('<button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>');
+        $("#watchlist").append('<li id="'+ curr_code + '"class="list-group-item list-group-item-light">' + '{{ stock }}' + '</li>');
+        wl.add(curr_code)
+      }
+    })};    
+    
+    // Removing the stock to watch list and updating buttons
+    const del = function( event ) {
+    $.ajax({
+      type: "POST",
+      url: "/remove/" + original_code,
+      success: function() {
+        $("#remove-btn").replaceWith('<button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>');
+        var id = "#" + curr_code
+        $(id).remove();
+        wl.delete(curr_code)
+        $("#add-to-watchlist").on( "click", add);  
+        
+        $("#add-remove").after('<div id="remove_alert" class="alert alert-success mt-4" role="alert">Successfully Removed</div>');
+        setTimeout(function(){ $("#remove_alert").remove() }, 1000);
+      }
+    })};
+
+      
+    // jquery stuff, need to add event everytime dom changes
+    $( "#add-to-watchlist" ).on( "click", add);    
+    
+    $( "#remove-from-watchlist" ).on( "click", del);     
+
+  </script>
 {% endblock left_content %}

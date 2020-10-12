@@ -33,6 +33,9 @@ class User(db.Model, UserMixin):
 
   def getUserName(self):
     return self.username;
+    
+  def get_id(self):
+    return self.id
 
 
 
@@ -54,6 +57,9 @@ class Stock(db.Model):
 
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"
+    
+  def get_code(self):
+    return self.code
 
 
 class ActionType(enum.Enum):
