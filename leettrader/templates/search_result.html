@@ -24,8 +24,28 @@
       {% if listed == False %}
       <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
       {% else %} 
-      <button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>
+      <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
       {% endif %}
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Removal confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure to remove this stock from your watchlist?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="remove-from-watchlist" type="button" class="btn btn-danger float-right" data-dismiss="modal">Remove</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <script>
@@ -38,10 +58,9 @@
       type: "POST",
       url: "/add/" + original_code,
       success: function() {
-        $( "#add-to-watchlist").replaceWith('<button id="remove-from-watchlist" type="button" class="btn btn-danger float-right">Remove from watchlist</button>');
+        $( "#add-to-watchlist").replaceWith('<button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>');
         $("#watchlist").append('<li id="'+ curr_code + '"class="list-group-item list-group-item-light">' + original_code + '</li>');
         wl.add(curr_code)
-        $( "#remove-from-watchlist" ).on( "click", del) 
       }
     })};    
     
@@ -50,7 +69,7 @@
       type: "POST",
       url: "/remove/" + original_code,
       success: function() {
-        $("#remove-from-watchlist").replaceWith('<button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>');
+        $("#remove-btn").replaceWith('<button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>');
         var id = "#" + curr_code
         $(id).remove();
         wl.delete(curr_code)
@@ -64,9 +83,7 @@
       
     $( "#add-to-watchlist" ).on( "click", add);    
     
-    $( "#remove-from-watchlist" ).on( "click", del) 
-    
-
+    $( "#remove-from-watchlist" ).on( "click", del);     
 
   </script>
 {% endblock left_content %}
