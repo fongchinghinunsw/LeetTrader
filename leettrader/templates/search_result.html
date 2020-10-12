@@ -20,7 +20,7 @@
         <p>This area is reserved for the graph</p>
       </div>
     </div>
-    <div class="row">
+    <div class="row" id="add-remove">
       {% if listed == False %}
       <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
       {% else %} 
@@ -54,7 +54,10 @@
         var id = "#" + curr_code
         $(id).remove();
         wl.delete(curr_code)
-        $( "#add-to-watchlist" ).on( "click", add);  
+        $("#add-to-watchlist").on( "click", add);  
+        $("#add-remove").after('<div id="remove_alert" class="alert alert-success" role="alert">Successfully Removed</div>');
+
+        setTimeout(function(){ $("#remove_alert").remove() }, 1000);
       }
     })};
 
