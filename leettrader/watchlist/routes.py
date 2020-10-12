@@ -34,10 +34,22 @@ def get_price(code):
     return jsonify(stockPrices=get_search_result(code)), 200
 
 
-# @watchlist.route('/get_watchlist_detail', methods=['GET'])
-# @login_required
-# def get_watchlist_detail():
-#     j1 = get_list(current_user)
+@watchlist.route('/get_watchlist_detail', methods=['GET'])
+@login_required
+def get_watchlist_detail():
+    wl = get_list(current_user)
+    return jsonify(watchlist=wl), 200
+    # ans = []
+    # wl = get_list(current_user)
 
+    # i = 0
+    # while i < wl.len():
+    #     c = wl[i]
+    #     prices = get_search_result(c)
+    #     p = prices['price']
+    #     ans.append(c)
+    #     ans.append(wl[i+1])
+    #     ans.append(p)
+    #     i += 2
 
-#     return jsonify(watchlist=get_list(current_user)), 200
+    # return jsonify(watchlist=ans), 200
