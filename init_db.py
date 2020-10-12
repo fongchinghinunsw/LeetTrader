@@ -1,7 +1,7 @@
 import requests
 from run import app
-from leettrader import db
-from leettrader.models import Stock
+from leettrader import db, bcrypt
+from leettrader.models import User, Stock
 
 
 def create_db():
@@ -22,6 +22,11 @@ def add_stocks():
   with app.app_context():
     for stock in stocks:
       db.session.add(Stock(name=stock['description'], code=stock['symbol']))
+
+    password_hashed = bcrypt.generate_password_hash("passw0rd").decode('utf-8')
+    admin = User(username="Donald Trump", email="trump@leettrader.com", password=password_hashed, balance=0)
+    db.session.add(admin)
+    
 
     db.session.commit()
 
