@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired, NumberRange
 from leettrader.models import User
 
 # forms for login and regsiter account
@@ -31,4 +31,6 @@ class LoginForm(FlaskForm):
   
   submit = SubmitField('Log in')
 
-
+class OrderForm(FlaskForm):
+  quantity = StringField('Quantity', validators=[InputRequired(), NumberRange(message="Quantity must be at least 1", min=1)])
+  submit = SubmitField('Proceed')
