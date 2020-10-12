@@ -19,4 +19,8 @@ e.g. make sure the User Stories are in accordance with all of our graphs. All of
 We will start our first sprint next week. I wrotee some code to construct our project skeleton, so that other team members can work more smoothly later on.
 
 Week 4
-I have setup the the landing page, the overall file structure and the database of the project, teammates can now easily start their work based on these. 
+I have setup the the landing page, the overall file structure and the database of the project, teammates can now easily start their work based on these.
+The main obstacle was fetching current stock price from online websites, the reason we need to do so is there's no free api providing New Zealand current stock price.
+I have spent some times on trying IP rotation and Agent rotation, however, since those IP I used are from public free proxies, they get blocked easily.
+To get around this, I realise yahoo finance's robots.txt mentioned that scrapers are allowed to scrap their information, therefore now I use my own IP address to scrape data from yahoo finance.
+I have also completed the autocompletion of stock search, user can now type stock names/codes in the search bar and the system will provide recommendations to the user.
