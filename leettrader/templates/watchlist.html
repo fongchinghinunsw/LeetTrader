@@ -2,9 +2,10 @@
 <ul id="watchlist" class="list-group">
 </ul>
 
-<!-- <script>
+<script>
   var wl = new Set();
-  $.ajax({
+  var info = [];
+  $.when($.ajax({
       type: "GET",
       url: "/get_watchlist",
       dataType: "json",
@@ -14,66 +15,40 @@
         while ( i < data.watchlist.length) {
           var og = data.watchlist[i]
           data.watchlist[i] = data.watchlist[i].replace(".", "_");
+          code = data.watchlist[i] 
           wl.add(data.watchlist[i]);
-          
+                   
           // Construct watchlist item
           c = '<a href="/search/' + og + '">';
           c += '<li id="' + data.watchlist[i] + '"class="list-group-item list-group-item-light">'; 
           c += data.watchlist[i+1] + '. (' + og + ')';
-          c += '<br><br>';
+          c += '<br>';
           c += '</li></a>';
-
-          // Append to watchlist
+                   
+          //Append to watchlist
           $("#watchlist").append(c);
-          $("#watchlist").append("Track!");
-
-
-          // Construct prices
-          $.ajax({
-            type: "GET",
-            url: "/get_price/" + og,
-            dataType: "json",
-            success: function(data){
-              var itemPrices = data.stockPrices['price'];
-              $("#watchlist").append(itemPrices);
-            }
-          })          
-          // Append to watchlist
-          //$("#watchlist").append(c);
-          i = i + 2;
-        }
-      }
-  });
-
-</script> -->
-
-<script>
-  var wl = new Set();
-  $.ajax({
-      type: "GET",
-      url: "/get_watchlist_detail",
-      dataType: "json",
-      success: function(data) {
-        let i = 0
-
-        while ( i < data.watchlist.length) {
-          var og = data.watchlist[i]
-          data.watchlist[i] = data.watchlist[i].replace(".", "_");
-          wl.add(data.watchlist[i]);
           
-          // Construct watchlist item
-          c = '<a href="/search/' + og + '">';
-          c += '<li id="' + data.watchlist[i] + '"class="list-group-item list-group-item-light">'; 
-          c += data.watchlist[i+1] + '. (' + og + ')';
-          c += '<br><br>';
-          c += '</li></a>';
+          // Construct prices with clojure
+          var a = {init : function(og) {$.ajax({
+                      type: "GET",
+                      url: "/get_price/" + og,
+                      dataType: "json",
+                      success: function(data){
+                        info.push(data.stockPrices)
+                        console.log(info[0])
+                        console.log(og)
+                        og = og.replace(".", "_");
+                        $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
+                        $('#' + og).append('Price change: ' + data.stockPrices['price_change'] + '<br>');
+                        $('#' + og).append('Percentage change: ' + data.stockPrices['percent_change'] + '<br>');
+                      }})}}
+                      
+          a.init(og)
 
-          // Append to watchlist
-          $("#watchlist").append(c);
-          $("#watchlist").append("Track!");
+
           i = i + 2;
-        }
+        }      
+        
       }
-  });
-
+    }))
 </script>
