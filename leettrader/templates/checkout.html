@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title> Order Summary </title>
+
+<main id="content" role="main" class="contianer">
+    <div class="row">
+        <div id="Description" class="col-md-4">
+            <p>Order description </p>
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
+    <div class="row">
+        <div id="Stock name" class="col-md-4">
+            <p> Stock name </p>
+        </div>
+        <div class="col-md-8">
+            <h5> {{ stock }} </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div id="Price" class="col-md-4">
+            <p> Price </p>
+        </div>
+        <div class="col-md-8">
+        <h5> {{ price }}
+        </div>
+    </div>
+    <div class="row">
+        <div id="Quantity" class="col-md-4">
+            <p> Quantity </p>
+        </div>
+        <div class="col-md-8">
+            <h5> {{ quantity }} </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div id="Commission" class="col-md-4">
+            <p> Commission </p>
+        </div>
+        <div class="col-md-8">
+            <h5> {{ commission }} </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div id="Total" class="col-md-4">
+            <p> Total </p>
+        </div>
+        <div class="col-md-8">
+            <h5> {{ total }} </h5>
+        </div>
+    </div>
+{% endblock content %}

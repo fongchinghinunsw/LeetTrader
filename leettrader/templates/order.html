@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class='form-container container'
+        <div>
+            <h1> Order a stock </h1>
+            <form method="POST" action="">
+            {{form.hidden_tag() }}
+            
+            <!--Quantity -->
+            <div class="form-group">
+                {{form.quantity.label(class="form-control-label") }}
+                {{ form.quantity(class="form-control is-invalid")}}
+                {% if form.quantity.errors %}
+                    <div class="alert alert-primary" role="alert">
+                        {% for error in form.quantity.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+            </div>
+            {% endif %}
+        </div>
+        <!--Proceed to checkout button-->
+        <div class="form-group">
+            {{form.submit{class="btn btn-outline-info"}}
+        </div>    
+    </div>
+
+{% endblock content %}
