@@ -63,4 +63,4 @@ def proceed():
 @login_required
 def checkout():
   
-return render_template('checkout.html', tital='checkout')
+  return render_template('checkout.html', tital='checkout')
