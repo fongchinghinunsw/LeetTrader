@@ -8,15 +8,13 @@
       <legend class="border-bottom mb-4">Create an account to start your Journey...</legend>
       <div class="form-group">
         {{ form.username.label(class="form-control-label") }}
+	{{ form.username(class="form-control is-invalid") }}
         {% if form.username.errors %}
-          {{ form.username(class="form-control is-invalid") }}
           <div class="alert alert-primary" role="alert">
               {% for error in form.username.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
           </div>
-        {% else %}
-          {{ form.username(class="form-control input-lg") }}
         {% endif %}
       </div>
       

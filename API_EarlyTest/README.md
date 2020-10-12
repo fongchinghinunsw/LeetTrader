@@ -1,2 +1,0 @@
-# LeetTrader
-COMP Project
