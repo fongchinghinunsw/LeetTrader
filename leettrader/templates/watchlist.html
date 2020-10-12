@@ -8,11 +8,13 @@
       url: "/get_watchlist",
       dataType: "json",
       success: function(data) {
-        for ( i in data.watchlist) {
+        let i = 0
+        while ( i < data.watchlist.length) {
           var og = data.watchlist[i]
           data.watchlist[i] = data.watchlist[i].replace(".", "_");
           wl.add(data.watchlist[i]);
-          $("#watchlist").append('<li id="'+ data.watchlist[i] + '"class="list-group-item list-group-item-light">' + og + '</li>');
+          $("#watchlist").append('<li id="'+ data.watchlist[i] + '"class="list-group-item list-group-item-light">' + data.watchlist[i+1] + '. (' + og + ') </li>');
+          i = i + 2;
         }
       }
   });

@@ -30,5 +30,6 @@ def get_list(current_user): #Flush watchlist on login
     watchlist = db.session.query(Watchlist).filter(Watchlist.user_id == current_user.get_id()).all()
     for i in watchlist:
         codes.append(i.stocks[0].code)
+        codes.append(i.stocks[0].name)
     return codes
     

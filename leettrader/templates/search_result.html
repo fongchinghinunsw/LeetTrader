@@ -59,7 +59,7 @@
       url: "/add/" + original_code,
       success: function() {
         $( "#add-to-watchlist").replaceWith('<button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>');
-        $("#watchlist").append('<li id="'+ curr_code + '"class="list-group-item list-group-item-light">' + original_code + '</li>');
+        $("#watchlist").append('<li id="'+ curr_code + '"class="list-group-item list-group-item-light">' + '{{ stock }}' + '</li>');
         wl.add(curr_code)
       }
     })};    
