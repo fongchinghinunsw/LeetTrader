@@ -7,7 +7,10 @@ from flask_login import current_user, login_required
 
 watchlist = Blueprint('watchlist', __name__)
 
+<<<<<<< HEAD
 # simple routing as resources, the first two did nothing except returning success , the thrid one return a json to the frontend
+=======
+>>>>>>> f6
 
 @watchlist.route('/add/<string:code>', methods=['POST'])
 @login_required
@@ -15,13 +18,42 @@ def add_stock_to_watchlist(code):
     add_stocks(current_user, code)
     return {"msg": "Added"}, 200
 
+
 @watchlist.route('/remove/<string:code>', methods=['POST'])
 @login_required
 def remove_stock_from_watchlist(code):
     remove_stocks(current_user, code)
     return {"msg": "Deleted"}, 200
-    
+
+
 @watchlist.route('/get_watchlist', methods=['GET'])
 @login_required
 def get_watchlist():
-    return jsonify(watchlist = get_list(current_user)), 200
+    return jsonify(watchlist=get_list(current_user)), 200
+
+
+@watchlist.route('/get_price/<string:code>', methods=['GET'])
+@login_required
+def get_price(code):
+    return jsonify(stockPrices=get_search_result(code)), 200
+
+
+@watchlist.route('/get_watchlist_detail', methods=['GET'])
+@login_required
+def get_watchlist_detail():
+    wl = get_list(current_user)
+    return jsonify(watchlist=wl), 200
+    # ans = []
+    # wl = get_list(current_user)
+
+    # i = 0
+    # while i < wl.len():
+    #     c = wl[i]
+    #     prices = get_search_result(c)
+    #     p = prices['price']
+    #     ans.append(c)
+    #     ans.append(wl[i+1])
+    #     ans.append(p)
+    #     i += 2
+
+    # return jsonify(watchlist=ans), 200
