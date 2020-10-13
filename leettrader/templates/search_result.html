@@ -60,51 +60,47 @@
 
 
   <script>
-    var curr_code = "{{ code }}";
-    var original_code = curr_code;
-    curr_code = curr_code.replace(".", "_");
+    var stockCode = "{{ code }}";
+    var stockCode_underline = stockCode;
+    stockCode = stockCode.replace(".", "_");
     
     // Add stock to watch list and update buttons
     const add = function( event ) {
-    $.ajax({
-      type: "POST",
-      url: "/add/" + original_code,
-      success: function() {
-        $( "#add-to-watchlist").replaceWith('<button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>');
-        $("#watchlist").append('<li id="'+ curr_code + '"class="list-group-item list-group-item-light">' + '{{ stock }}<br>Current Price: {{ price }}<br>');
+      $.ajax({
+        type: "POST",
+        url: "/add/" + stockCode_underline,
+        success: function() {
+          $( "#add-to-watchlist").replaceWith('<button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>');
+          $("#watchlist").append('<li id="'+ stockCode + '"class="list-group-item list-group-item-light">' + '{{ stock }}<br>Current Price: {{ price }}<br>');
 
+          // Set color of labels of price information
+          spanStyle = '';
+          if (color == "green"){spanStyle += '<span style="color:green;">'}
+          else if (color == "red"){spanStyle += '<span style="color:red;">'}
 
-        // Set Prices information color
-        spanStyle = '';
-        if (color == "green"){
-          spanStyle += '<span style="color:green;">'
+          // Format & Append Prices labels
+          $("#"+stockCode).append('price change: ' + spanStyle + '{{ price_change }}</span><br>')
+          $("#"+stockCode).append('% Changes: ' + spanStyle + + '{{ percent_change }}</span>')
+          $("#watchlist").append('</li>');
+          wl.add(stockCode)
         }
-        else if (color == "red"){
-          spanStyle += '<span style="color:red;">'
-        }
-
-        // Set Prices Labels
-        $("#"+curr_code).append('price change: ' + spanStyle + '{{ price_change }}</span><br>')
-        $("#"+curr_code).append('% Changes: ' + spanStyle + + '{{ percent_change }}</span>')
-        $("#watchlist").append('</li>');
-        wl.add(curr_code)
-      }
-    })};    
+      })
+    };    
     
 
     // Remove stocks from watch list and update buttons
     const del = function( event ) {
       $.ajax({
         type: "POST",
-        url: "/remove/" + original_code,
+        url: "/remove/" + stockCode_underline,
         success: function() {
           newButton = '<button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>';
           $("#remove-btn").replaceWith(newButton);
           
-          var id = "#" + curr_code
+          var id = "#" + stockCode
           $(id).remove();
           
-          wl.delete(curr_code)
+          wl.delete(stockCode)
           $("#add-to-watchlist").on( "click", add);  
           
           $("#add-remove").after('<div id="remove_alert" class="alert alert-success mt-4" role="alert">Successfully Removed</div>');
