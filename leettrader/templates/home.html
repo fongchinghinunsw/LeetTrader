@@ -1,4 +1,15 @@
 {% extends "main_layout.html" %}
 {% block left_content %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class=flashes style="padding-top: 10px;">
+	{% for category, message in messages %}
+	  <div class="alert alert-{{ category }}">
+	    {{ message }}
+	  </div>
+	{% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
   <h1 style="padding-top: 20px;padding-left: 20px;">Welcome,  {{current_user.username}} !</h1>
 {% endblock left_content %}

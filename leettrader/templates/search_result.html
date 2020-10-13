@@ -1,6 +1,7 @@
 {% extends "main_layout.html" %}
 {% block left_content %}
   <main id="content" role="main" class="container">
+
     <!-- Stock Information -->
     <div class="row">
       <div id="search-left" class="col-md-5">
@@ -8,17 +9,16 @@
         <h5>{{ stock }}</h5>
         <p>Current Price: {{ price }}</p>
           {% if color == "green" %}
-          <p>price change: <span style="color:green;">{{ price_change }}</span></p>
-          <p>% Changes: <span style="color:green;">{{ percent_change }}</span></p>
+          <p>price change: <span class="green">{{ price_change }}</span></p>
+          <p>% Changes: <span class="green">{{ percent_change }}</span></p>
           {% elif color == "red" %}
-          <p>price change: <span style="color:red;">{{ price_change }}</span></p>
-          <p>% Changes: <span style="color:red;">{{ percent_change }}</span></p>
+          <p>price change: <span class="red">{{ price_change }}</span></p>
+          <p>% Changes: <span class="red">{{ percent_change }}</span></p>
           {% else %}
           <p>price change: {{ price_change }}</p>
           <p>% Changes: {{ percent_change }}</p>
         {% endif %}
       </div>
-
       <!-- Graph of historical data -->
       <div class="col-md-7">
         <p>This area is reserved for the graph</p>
@@ -75,8 +75,8 @@
 
           // Set color of labels of price information
           spanStyle = '';
-          if (color == "green"){spanStyle += '<span style="color:green;">'}
-          else if (color == "red"){spanStyle += '<span style="color:red;">'}
+          if (color == "green"){spanStyle += '<span class="green">'}
+          else if (color == "red"){spanStyle += '<span class="red">'}
 
           // Format & Append Prices labels
           $("#"+stockCode).append('price change: ' + spanStyle + '{{ price_change }}</span><br>')
@@ -110,7 +110,7 @@
     };
 
       
-    // Jquery related codes: Add event everytime dom changes
+    // Jquery code, e.g. the first line means when the element with id add-to-watchlist is clicked, run the add()
     $( "#add-to-watchlist" ).on( "click", add);    
     $( "#remove-from-watchlist" ).on( "click", del);     
   </script>

@@ -129,3 +129,11 @@
 .form-group {
   width: 300px;
 }
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
