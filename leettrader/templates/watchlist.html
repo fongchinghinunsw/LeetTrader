@@ -55,7 +55,7 @@
               if (data.stockPrices['price_change'].startsWith("+")){
                 priceChange_color += '<span style="color:green">'
                 percentageChange_color += '<span style="color:green">'
-              }else{
+              }else if (data.stockPrices['price_change'].startsWith("-")){
                 priceChange_color += '<span style="color:red">'
                 percentageChange_color += '<span style="color:red">'
               }
