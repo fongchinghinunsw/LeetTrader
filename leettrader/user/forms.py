@@ -35,3 +35,6 @@ class OrderForm(FlaskForm):
   quantity = IntegerField('Quantity', validators=[DataRequired(message="please enter an integer"), NumberRange(message="Quantity must be at least 1", min=1)])
   submit = SubmitField('Proceed')
 
+class CheckoutForm(FlaskForm):
+  submit = SubmitField('Checkout')
+

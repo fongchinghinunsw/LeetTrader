@@ -29,5 +29,14 @@
             <p> Total: </p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+	  <form method="POST" action="">
+	    <!-- protect our form from certain attacks -->
+	    {{ form.hidden_tag() }}
+            {{ checkout_form.submit(class="btn btn-outline-info") }}
+          </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}
