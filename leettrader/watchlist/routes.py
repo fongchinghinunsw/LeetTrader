@@ -7,10 +7,6 @@ from flask_login import current_user, login_required
 
 watchlist = Blueprint('watchlist', __name__)
 
-<<<<<<< HEAD
-# simple routing as resources, the first two did nothing except returning success , the thrid one return a json to the frontend
-=======
->>>>>>> f6
 
 @watchlist.route('/add/<string:code>', methods=['POST'])
 @login_required
