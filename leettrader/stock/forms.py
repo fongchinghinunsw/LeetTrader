@@ -6,6 +6,6 @@ from leettrader.models import Stock
 
 
 class SearchStockForm(FlaskForm):
-    stock = StringField('Stock', validators=[DataRequired()])
+  stock = StringField('Stock', validators=[DataRequired()])
 
-    submit = SubmitField('Search')
+  submit = SubmitField('Search')

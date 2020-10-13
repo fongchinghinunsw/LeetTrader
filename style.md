@@ -9,7 +9,7 @@ Usage:
 pip install yapf
 (if Python2: pip install futures)
 (cd into the root directory containing README.md file)
-yapf --in-place --recursive --parallel .
+yapf --in-place --recursive --parallel --style='{based_on_style: pep8, indent_width: 2}' .
 ```
 
 ## pylint
@@ -19,5 +19,5 @@ Usage:
 ```
 pip install pylint
 (cd into the root directory containing README.md file)
-pylint {directory of Python files}
+pylint $(git ls-files '*.py')
 ```

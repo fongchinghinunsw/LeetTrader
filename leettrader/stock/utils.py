@@ -64,33 +64,31 @@ headers_list = [
 
 
 def get_search_result(stock_code):
-    source = requests.get(f'https://finance.yahoo.com/quote/{stock_code}',
-                          headers=choice(headers_list)).text
-    soup = BeautifulSoup(source, 'lxml')
+  source = requests.get(f'https://finance.yahoo.com/quote/{stock_code}',
+                        headers=choice(headers_list)).text
+  soup = BeautifulSoup(source, 'lxml')
 
-    price = soup.find('span',
-                      class_="Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)").text
-    change = soup.find('span',
-                       class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px)")
-    if change == None:
-        change = soup.find(
-            'span',
-            class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px) C($positiveColor)"
-        )
-    if change == None:
-        change = soup.find(
-            'span',
-            class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px) C($negativeColor)"
-        )
+  price = soup.find('span',
+                    class_="Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)").text
+  change = soup.find('span',
+                     class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px)")
+  if change == None:
+    change = soup.find(
+        'span',
+        class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px) C($positiveColor)")
+  if change == None:
+    change = soup.find(
+        'span',
+        class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px) C($negativeColor)")
 
-    change = change.text
+  change = change.text
 
-    change = change.split()
-    price_change = change[0]
-    percent_change = change[1].strip("()")
+  change = change.split()
+  price_change = change[0]
+  percent_change = change[1].strip("()")
 
-    return {
-        'price': price,
-        'price_change': price_change,
-        'percent_change': percent_change
-    }
+  return {
+      'price': price,
+      'price_change': price_change,
+      'percent_change': percent_change
+  }
