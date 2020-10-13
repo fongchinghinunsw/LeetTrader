@@ -38,9 +38,21 @@
                         console.log(info[0])
                         console.log(og)
                         og = og.replace(".", "_");
-                        $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
-                        $('#' + og).append('Price change: ' + data.stockPrices['price_change'] + '<br>');
-                        $('#' + og).append('Percentage change: ' + data.stockPrices['percent_change'] + '<br>');
+                        if (data.stockPrices['price_change'].startsWith("+")) {
+			  $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
+			  $('#' + og).append('Price change: <span style="color:green">' + data.stockPrices['price_change'] + '</span><br>');
+			  $('#' + og).append('Percentage change: <span style="color:green">' + data.stockPrices['percent_change'] + '</span><br>');
+
+                        } else if (data.stockPrices['price_change'].startsWith("-")) {
+			  $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
+			  $('#' + og).append('Price change: <span style="color:red">' + data.stockPrices['price_change'] + '</span><br>');
+			  $('#' + og).append('Percentage change: <span style="color:red">' + data.stockPrices['percent_change'] + '</span><br>');
+
+                        } else {
+			  $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
+			  $('#' + og).append('Price change: ' + data.stockPrices['price_change'] + '<br>');
+			  $('#' + og).append('Percentage change: ' + data.stockPrices['percent_change'] + '<br>');
+                        }
                       }})}}
                       
           a.init(og)
