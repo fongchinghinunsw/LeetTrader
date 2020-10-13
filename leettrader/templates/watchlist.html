@@ -28,7 +28,7 @@
           //Append to watchlist
           $("#watchlist").append(c);
           
-          // Construct prices with clojure
+          // Construct prices with closure
           var a = {init : function(og) {$.ajax({
                       type: "GET",
                       url: "/get_price/" + og,
