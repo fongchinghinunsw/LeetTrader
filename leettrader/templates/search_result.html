@@ -28,8 +28,8 @@
       <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
       {% endif %}
     <!--Buttons to buy and sell stocks-->
-      <button onclick="/order" id="buy-stock" type="button" class="btn btn-outline-primary float-right"> Buy Stock</button>
-      <button onclick="/order" id="sell-stock" type="button" class="btn btn-outline-primary float-right">Sell Stock</button>
+      <a href="{{ url_for('user.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right">Buy Stock</a>
+      <a href="{{ url_for('user.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right">Sell Stock</a>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
