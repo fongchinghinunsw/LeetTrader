@@ -13,10 +13,7 @@
     </div>
     <div class="row">
         <div id="Price" class="col-md-4">
-            <p> Price </p>
-        </div>
-        <div class="col-md-8">
-        <h5> {{ price }}
+            <p> Price: {{ price }}{{" " + checkout_form.current_market_price(class="form-control form-control-lg") }}</p>
         </div>
     </div>
     <div class="row">
@@ -26,7 +23,7 @@
     </div>
     <div class="row">
         <div id="Total" class="col-md-12">
-            <p> Total: </p>
+            <p> Total: {{ checkout_form.total_price(class="form-control form-control-lg") }}</p>
         </div>
     </div>
     <div class="row">

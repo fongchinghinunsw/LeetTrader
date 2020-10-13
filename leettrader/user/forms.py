@@ -36,5 +36,7 @@ class OrderForm(FlaskForm):
   submit = SubmitField('Proceed')
 
 class CheckoutForm(FlaskForm):
+  current_market_price = StringField('current_market_price', render_kw={'readonly': True})
+  total_price = StringField('total_price', render_kw={'readonly': True})
   submit = SubmitField('Checkout')
 
