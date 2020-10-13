@@ -4,63 +4,72 @@
 
 <script>
   var wl = new Set();
-  var info = [];
+  var priceInfo = [];
+  
   $.when($.ajax({
       type: "GET",
       url: "/get_watchlist",
       dataType: "json",
       success: function(data) {
-        let i = 0
-
-        while ( i < data.watchlist.length) {
-          var og = data.watchlist[i]
-          data.watchlist[i] = data.watchlist[i].replace(".", "_");
-          code = data.watchlist[i] 
-          wl.add(data.watchlist[i]);
-                   
-          // Construct watchlist item
-          c = '<a href="/search/' + og + '">';
-          c += '<li id="' + data.watchlist[i] + '"class="list-group-item list-group-item-light">'; 
-          c += data.watchlist[i+1] + '. (' + og + ')';
-          c += '<br>';
-          c += '</li></a>';
-                   
-          //Append to watchlist
-          $("#watchlist").append(c);
-          
-          // Construct prices with clojure
-          var a = {init : function(og) {$.ajax({
-                      type: "GET",
-                      url: "/get_price/" + og,
-                      dataType: "json",
-                      success: function(data){
-                        info.push(data.stockPrices)
-                        console.log(info[0])
-                        console.log(og)
-                        og = og.replace(".", "_");
-                        if (data.stockPrices['price_change'].startsWith("+")) {
-			  $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
-			  $('#' + og).append('Price change: <span style="color:green">' + data.stockPrices['price_change'] + '</span><br>');
-			  $('#' + og).append('Percentage change: <span style="color:green">' + data.stockPrices['percent_change'] + '</span><br>');
-
-                        } else if (data.stockPrices['price_change'].startsWith("-")) {
-			  $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
-			  $('#' + og).append('Price change: <span style="color:red">' + data.stockPrices['price_change'] + '</span><br>');
-			  $('#' + og).append('Percentage change: <span style="color:red">' + data.stockPrices['percent_change'] + '</span><br>');
-
-                        } else {
-			  $('#' + og).append('Price: ' + data.stockPrices['price'] + '<br>');
-			  $('#' + og).append('Price change: ' + data.stockPrices['price_change'] + '<br>');
-			  $('#' + og).append('Percentage change: ' + data.stockPrices['percent_change'] + '<br>');
-                        }
-                      }})}}
-                      
-          a.init(og)
-
-
-          i = i + 2;
-        }      
         
+        let i = 0
+        /* 
+          Loop through watchlist to create watchList items in HTML Format:
+            1. <a> tag for navigation
+            2. Stock code & name
+            3. Price informations of a stock
+          then append items into HTML page
+        */
+        for (i = 0; i < data.watchlist.length; i+=2){
+
+          // Get StockCode, StockName & SearchLink
+          var stockCode = data.watchlist[i];
+          var stockName = data.watchlist[i+1];
+          var searchLink = '/search/' + stockCode
+          wl.add(stockCode.replace(".", "_"));
+                   
+          // Format StockCode, StockName & SearchLink 
+          wlItem = '<a href=' + searchLink + '>';
+          wlItem += '<li id="' + stockCode.replace(".", "_") + '"class="list-group-item list-group-item-light">'; 
+          wlItem += stockName + '. (' + stockCode + ')';
+          wlItem += '<br>';
+          wlItem += '</li></a>';                   
+          $("#watchlist").append(wlItem);
+
+          // Construct prices with clojure
+          var a = {init : function(stockCode) {$.ajax({
+            type: "GET",
+            url: "/get_price/" + stockCode,
+            dataType: "json",
+            success: function(data){
+
+              priceInfo.push(data.stockPrices)
+              stockCode = stockCode.replace(".", "_");
+              console.log(priceInfo[0])
+              console.log(stockCode)
+
+              // Set colour of price information
+              priceChange_color = 'Price change: ';
+              percentageChange_color = 'Percentage change: ';
+
+              if (data.stockPrices['price_change'].startsWith("+")){
+                priceChange_color += '<span style="color:green">'
+                percentageChange_color += '<span style="color:green">'
+              }else{
+                priceChange_color += '<span style="color:red">'
+                percentageChange_color += '<span style="color:red">'
+              }
+
+              // Set Price Label & append
+              $('#' + stockCode).append('Price: ' + data.stockPrices['price'] + '<br>');
+              $('#' + stockCode).append(priceChange_color + data.stockPrices['price_change'] + '</span><br>');
+              $('#' + stockCode).append(percentageChange_color + data.stockPrices['percent_change'] + '</span><br>');
+            }
+          })}}
+            
+          a.init(stockCode);
+        }
       }
     }))
+
 </script>
