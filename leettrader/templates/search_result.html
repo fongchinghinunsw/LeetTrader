@@ -19,6 +19,7 @@
           <p>% Changes: {{ percent_change }}</p>
         {% endif %}
       </div>
+      
       <!-- Graph of historical data -->
       <div class="col-md-7">
         <p>This area is reserved for the graph</p>
@@ -71,17 +72,20 @@
         url: "/add/" + stockCode_underline,
         success: function() {
           $( "#add-to-watchlist").replaceWith('<button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>');
-          $("#watchlist").append('<li id="'+ stockCode + '"class="list-group-item list-group-item-light">' + '{{ stock }}<br>Current Price: {{ price }}<br>');
+          
+          // Set color of prices information label
+          if ('{{color}}' == "green"){spanStyle = '<span class="green">'}
+          else if ('{{color}}' == "red"){spanStyle = '<span class="green">'}
+          else {spanStyle = ''}
 
-          // Set color of labels of price information
-          spanStyle = '';
-          if (color == "green"){spanStyle += '<span class="green">'}
-          else if (color == "red"){spanStyle += '<span class="red">'}
-
-          // Format & Append Prices labels
-          $("#"+stockCode).append('price change: ' + spanStyle + '{{ price_change }}</span><br>')
-          $("#"+stockCode).append('% Changes: ' + spanStyle + + '{{ percent_change }}</span>')
-          $("#watchlist").append('</li>');
+          // Format watchlist item
+          wlItem = '<li id="'+ stockCode + '"class="list-group-item list-group-item-light">' 
+          wlItem += '{{ stock }}<br>Price: {{ price }}<br>'
+          wlItem += 'Price change: ' + spanStyle + '{{ price_change }}</span><br>'
+          wlItem += 'Percentage Changes: ' + spanStyle + '{{ percent_change }}</span>' + '</li>'
+          
+          // Append item to watchlist
+          $("#watchlist").append(wlItem);
           wl.add(stockCode)
         }
       })
