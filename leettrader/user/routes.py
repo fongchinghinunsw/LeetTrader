@@ -1,5 +1,5 @@
 from flask import render_template, url_for, flash, redirect, Blueprint
-from leettrader.main.forms import LoginForm, RegisterForm
+from leettrader.user.forms import LoginForm, RegisterForm
 from leettrader.models import User
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
