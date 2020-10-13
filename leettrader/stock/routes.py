@@ -41,11 +41,11 @@ def search_page(code):
     print(result)
 
     # Check if stock is already in watchlist
-    if Watchlist.query.filter_by(user_id=current_user.get_id()).filter(Watchlist.stocks.any(code=code)).first() == None:
+    if Watchlist.query.filter_by(user_id=current_user.get_id()).filter(
+            Watchlist.stocks.any(code=code)).first() == None:
         listed = False
     else:
         listed = True
-
     '''
         Export "search_result.html" from template, passing in:
             1. Stock code & name
@@ -53,4 +53,11 @@ def search_page(code):
             3. Colour of label of price information
             4. Whether stock is already in stocklist
     '''
-    return render_template('search_result.html', code=code, stock=stock, price=result['price'], price_change=result['price_change'], percent_change=result['percent_change'], color=color, listed=listed)
+    return render_template('search_result.html',
+                           code=code,
+                           stock=stock,
+                           price=result['price'],
+                           price_change=result['price_change'],
+                           percent_change=result['percent_change'],
+                           color=color,
+                           listed=listed)
