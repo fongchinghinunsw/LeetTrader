@@ -1,3 +1,7 @@
+"""
+  utils: contain all helper functions for the project configuration
+"""
+
 import requests
 from run import app
 from leettrader import db, bcrypt

@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+"""
+  run.py: create and start the flask server and inject Flask global template
+  variables
+"""
 
 from leettrader import create_app
 from leettrader.models import Stock
