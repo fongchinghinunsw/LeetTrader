@@ -9,6 +9,7 @@ user = Blueprint('user', __name__)
 
 
 @user.route("/home")
+@login_required
 def home():
   return render_template('home.html')
 
