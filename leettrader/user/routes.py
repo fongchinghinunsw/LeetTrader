@@ -137,7 +137,6 @@ def checkout(stock, action, quantity):
       current_market_price=current_market_price,
       total_price=str(float(current_market_price) * int(quantity)))
   if checkout_form.validate_on_submit():
-<<<<<<< HEAD
     # the submit button is clicked.
     if checkout_form.submit.data:
       ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
@@ -179,43 +178,6 @@ def checkout(stock, action, quantity):
     elif checkout_form.cancel.data:
       return redirect(url_for('stock.search_page', code=stock_obj.code))
 
-=======
-    ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                        stock_id=stock_id).first()
-    if ownStock is None:
-      # only true if the action is buy.
-      ownStock = OwnStock(user_id=current_user.get_id(),
-                          stock_id=stock_id,
-                          unit=int(quantity),
-                          total_purchase_price=int(quantity) *
-                          float(checkout_form.data['current_market_price']))
-      # "success" is bootstrap green alert formatting - checkout bootstrap alert
-      flash(
-          f"Brought a new stock " + stock + "! You have " + str(ownStock.unit) +
-          " units of this stock remain", "success")
-      db.session.add(ownStock)
-    else:
-      if action == "buy":
-        ownStock.unit += int(quantity)
-        ownStock.total_purchase_price += int(quantity) * float(
-            checkout_form.data['current_market_price'])
-        flash(
-            f"Brought " + stock + "! You have " + str(ownStock.unit) +
-            " units of this stock remain", "success")
-      else:
-        ownStock.unit -= int(quantity)
-        ownStock.total_purchase_price -= int(quantity) * float(
-            checkout_form.data['current_market_price'])
-        flash(
-            "Sold " + stock + "! You have " + str(ownStock.unit) +
-            " units of this stock remain", "success")
-        if ownStock.unit == 0:
-          db.session.delete(ownStock)
-
-    db.session.commit()
-    return redirect(url_for('user.home'))
-
->>>>>>> f10
   # checkout_form.data is a dict containing all fields value, e.g. {'current_market_price': None, 'total_price': None, 'submit': False, 'csrf_token': None}
   #checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']
   print(checkout_form.data)
