@@ -147,7 +147,7 @@ def checkout(stock, action, quantity):
                           float(checkout_form.data['current_market_price']))
       # "success" is bootstrap green alert formatting - checkout bootstrap alert
       flash(
-          f"Brought a new stock " + stock + "! You have" + str(ownStock.unit) +
+          f"Brought a new stock " + stock + "! You have " + str(ownStock.unit) +
           " units of this stock remain", "success")
       db.session.add(ownStock)
     else:
