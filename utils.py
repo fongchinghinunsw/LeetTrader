@@ -1,5 +1,5 @@
 """
-  utils: contain all helper functions for the project configuration
+  Utils: contain all helper functions for the project configuration
 """
 
 import requests

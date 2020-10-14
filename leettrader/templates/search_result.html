@@ -82,11 +82,13 @@
           else {spanStyle = ''}
 
           // Format watchlist item
-          wlItem = '<li id="'+ stockCode + '"class="list-group-item list-group-item-light">' 
+          wlItem = '<a href=' + '/search/' + stockCode.replace("_", ".") + '>';
+          wlItem += '<li id="'+ stockCode + '"class="list-group-item list-group-item-light">' 
           wlItem += '{{ stock }}<br>Price: {{ price }}<br>'
           wlItem += 'Price change: ' + spanStyle + '{{ price_change }}</span><br>'
-          wlItem += 'Percentage Changes: ' + spanStyle + '{{ percent_change }}</span>' + '</li>'
-          
+          wlItem += 'Percentage Changes: ' + spanStyle + '{{ percent_change }}</span>'
+          wlItem +=  '</li></a>'
+
           // Append item to watchlist
           $("#watchlist").append(wlItem);
           wl.add(stockCode)
