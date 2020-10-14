@@ -9,7 +9,6 @@
 
       <div class="form-group">
         {{ form.email.label(class="form-control-label") }}
-	{{ form.email(class="form-control form-control-lg") }}
         {% if form.email.errors %}
 	  {{ form.email(class="form-control form-control-lg is-invalid") }}
           <div class="alert alert-danger" role="alert">
@@ -24,10 +23,6 @@
 
       <div class="form-group">
         {{ form.password.label(class="form-control-label") }}
-<<<<<<< HEAD
-=======
-	{{ form.password(class="form-control form-control-lg") }}
->>>>>>> f7
         {% if form.password.errors %}
 	  {{ form.password(class="form-control form-control-lg is-invalid") }}
           <div class="alert alert-danger" role="alert">
