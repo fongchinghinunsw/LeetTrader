@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, flash
 from leettrader.models import Stock, Watchlist, User
 from leettrader.stock.forms import SearchStockForm
 from leettrader.stock.utils import get_search_result
@@ -18,6 +18,7 @@ def search_stock():
   if Stock.query.filter_by(code=code).first():
     return redirect(url_for('stock.search_page', code=code))
 
+  flash("Please enter a valid stock name/code", "warning")
   return render_template('home.html')
 
 
@@ -29,7 +30,7 @@ def search_page(code):
   code = stock_obj.code
   result = get_search_result(code)
   stock = f"{ stock_obj.name } ({ stock_obj.code })"
-  
+
   if float(result['price_change']) == 0:
     color = "black"
   elif float(result['price_change']) > 0:

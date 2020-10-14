@@ -46,11 +46,20 @@ class LoginForm(FlaskForm):
   remember = BooleanField('Remember Me')
   submit = SubmitField('Log in')
 
+
 class OrderForm(FlaskForm):
-  quantity = IntegerField('Quantity', validators=[DataRequired(message="please enter an integer"), NumberRange(message="Quantity must be at least 1", min=1)])
+  quantity = IntegerField('Quantity',
+                          validators=[
+                              DataRequired(message="please enter an integer"),
+                              NumberRange(
+                                  message="Quantity must be at least 1", min=1)
+                          ])
   submit = SubmitField('Proceed')
 
+
 class CheckoutForm(FlaskForm):
-  current_market_price = StringField('current_market_price', render_kw={'readonly': True})
+  current_market_price = StringField('current_market_price',
+                                     render_kw={'readonly': True})
   total_price = StringField('total_price', render_kw={'readonly': True})
   submit = SubmitField('Checkout')
+  cancel = SubmitField('Cancel')
