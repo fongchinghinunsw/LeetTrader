@@ -2,12 +2,12 @@
 {% block content %}
 <div class="form-container container">
     <div class="row">
-        <div id="Description" class="col-md-12">
+        <div class="col-md-12">
             <p>Order description: {{action + " " + stock_obj.name + " (" + stock_obj.code + ")"}}</p>
         </div>
     </div>
     <div class="row">
-        <div id="Stock name" class="col-md-12">
+        <div class="col-md-12">
             <p> Stock name: {{ stock_obj.name }}</p>
         </div>
     </div>
@@ -17,12 +17,12 @@
         </div>
     </div>
     <div class="row">
-        <div id="Quantity" class="col-md-12">
+        <div class="col-md-12">
             <p> Quantity: {{ quantity }}</p>
         </div>
     </div>
     <div class="row">
-        <div id="Total" class="col-md-12">
+        <div class="col-md-12">
             <p> Total: {{ checkout_form.total_price(class="form-control form-control-lg") }}</p>
         </div>
     </div>

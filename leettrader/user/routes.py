@@ -117,7 +117,7 @@ def checkout(stock, action, quantity):
           db.session.delete(ownStock)
 
     db.session.commit()
-    return render_template('home.html')
+    return redirect(url_for('user.home'))
     
   # checkout_form.data is a dict containing all fields value, e.g. {'current_market_price': None, 'total_price': None, 'submit': False, 'csrf_token': None}
   #checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']
