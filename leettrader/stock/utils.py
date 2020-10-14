@@ -6,7 +6,6 @@ from random import choice
 import requests
 from bs4 import BeautifulSoup
 
-
 headers_list = [
     # Firefox 77 Mac
     {
@@ -88,7 +87,6 @@ def get_search_result(stock_code):
     change = soup.find(
         'span',
         class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px) C($negativeColor)")
-
 
   change = change.text
   change = change.split()

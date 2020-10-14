@@ -11,7 +11,6 @@ import enum
 from flask_login import UserMixin
 from leettrader import db, login_manager
 
-
 watchlist_items = db.Table(
     'watchlist_items',
     db.Column('watchlist_id',
@@ -22,16 +21,15 @@ watchlist_items = db.Table(
               db.Integer,
               db.ForeignKey('stock.id'),
               primary_key=True))
-
-
 '''
   Relaod user by u_id stored in:
   https://flask-login.readthedocs.io/en/latest/
 '''
+
+
 @login_manager.user_loader
 def load_user(user_id):
   return User.query.get(int(user_id))
-
 
 
 class User(db.Model, UserMixin):
@@ -85,7 +83,6 @@ class Stock(db.Model):
   watchlist = db.relationship('Watchlist',
                               secondary=watchlist_items,
                               lazy=True)
-
 
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"

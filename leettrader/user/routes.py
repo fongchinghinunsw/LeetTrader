@@ -1,3 +1,6 @@
+"""
+  Routing of Account Mangement, Simul-Buy and Sell
+"""
 from flask import render_template, url_for, flash, redirect, Blueprint
 from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm
 from leettrader.stock.utils import get_search_result
@@ -10,28 +13,39 @@ user = Blueprint('user', __name__)
 
 @user.route("/home")
 def home():
+  ''' Home Page '''
   return render_template('home.html')
 
 
 @user.route("/register", methods=['GET', 'POST'])
 def register():
+  ''' Register Page '''
+  # Set up register form
   rform = RegisterForm()
+
+  # Create account when click on submit button
   if rform.validate_on_submit():
+    # Hash password & Read User Input
     password_hashed = bcrypt.generate_password_hash(
         rform.password.data).decode('utf-8')
     user = User(username=rform.username.data,
                 email=rform.email.data,
                 password=password_hashed,
                 balance=0)
+    
+    # Push changes to database, go to Login page
     db.session.add(user)
     db.session.commit()
     flash('Account created successfully, please login !', 'success')
     return redirect(url_for('user.login'))
+
+  # Fail to register, remain in register page
   return render_template('register.html', title='register', form=rform)
 
 
 @user.route("/login", methods=['GET', 'POST'])
 def login():
+  ''' Login Page '''
   login_form = LoginForm()
   if login_form.validate_on_submit():
     user = User.query.filter_by(email=login_form.email.data).first()
@@ -58,69 +72,103 @@ def logout():
   logout_user()
   return redirect(url_for('main.landing'))
 
+
 #Order stocks
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
 def order(stock, action):
+  ''' Order Page '''
   order_form = OrderForm()
   if order_form.validate_on_submit():
     quantity = order_form.quantity.data
 
-    
     stock_id = Stock.query.filter_by(code=stock).first().id
     print(stock_id)
-    
+
     if action == "buy":
       print("You are buying a stock")
-      return redirect(url_for('user.checkout', action=action, stock=stock, quantity=quantity))
+      return redirect(
+          url_for('user.checkout',
+                  action=action,
+                  stock=stock,
+                  quantity=quantity))
 
     elif action == "sell":
-      ownStock = OwnStock.query.filter_by(user_id = current_user.get_id(), stock_id=stock_id).first()
+      ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
+                                          stock_id=stock_id).first()
       print("You don't own any this stock")
       if ownStock is not None and ownStock.unit >= quantity:
         print("Currently, you own", ownStock.unit, "units of stock")
-        return redirect(url_for('user.checkout', action=action, stock=stock, quantity=quantity))
+        return redirect(
+            url_for('user.checkout',
+                    action=action,
+                    stock=stock,
+                    quantity=quantity))
       else:
         flash('You do not have enough amount of this stock to sell', "danger")
-        
 
-  
-  return render_template('order.html', title='order', stock=stock, action=action, order_form=order_form)
+  return render_template('order.html',
+                         title='order',
+                         stock=stock,
+                         action=action,
+                         order_form=order_form)
 
-@user.route("/checkout/<string:action>/<string:stock>/<quantity>", methods=['GET', 'POST'])
+
+@user.route("/checkout/<string:action>/<string:stock>/<quantity>",
+            methods=['GET', 'POST'])
 @login_required
 def checkout(stock, action, quantity):
   stock_obj = Stock.query.filter_by(code=stock).first()
-  stock_id = stock_obj.id;
+  stock_id = stock_obj.id
 
   current_market_price = get_search_result(stock_obj.code)['price']
 
-  checkout_form = CheckoutForm(current_market_price=current_market_price, total_price=str(float(current_market_price) * int(quantity)))
+  checkout_form = CheckoutForm(
+      current_market_price=current_market_price,
+      total_price=str(float(current_market_price) * int(quantity)))
   if checkout_form.validate_on_submit():
-    ownStock = OwnStock.query.filter_by(user_id = current_user.get_id(), stock_id=stock_id).first()
+    ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
+                                        stock_id=stock_id).first()
     if ownStock is None:
       # only true if the action is buy.
-      ownStock = OwnStock(user_id=current_user.get_id(), stock_id=stock_id, unit=int(quantity), total_purchase_price=int(quantity) * float(checkout_form.data['current_market_price']))
+      ownStock = OwnStock(user_id=current_user.get_id(),
+                          stock_id=stock_id,
+                          unit=int(quantity),
+                          total_purchase_price=int(quantity) *
+                          float(checkout_form.data['current_market_price']))
       # "success" is bootstrap green alert formatting - checkout bootstrap alert
-      flash(f"Brought a new stock " + stock + "! You have" + str(ownStock.unit) + " units of this stock remain", "success")
+      flash(
+          f"Brought a new stock " + stock + "! You have" + str(ownStock.unit) +
+          " units of this stock remain", "success")
       db.session.add(ownStock)
     else:
       if action == "buy":
         ownStock.unit += int(quantity)
-        ownStock.total_purchase_price += int(quantity) * float(checkout_form.data['current_market_price'])
-        flash(f"Brought " + stock + "! You have " + str(ownStock.unit) + " units of this stock remain", "success")
+        ownStock.total_purchase_price += int(quantity) * float(
+            checkout_form.data['current_market_price'])
+        flash(
+            f"Brought " + stock + "! You have " + str(ownStock.unit) +
+            " units of this stock remain", "success")
       else:
         ownStock.unit -= int(quantity)
-        ownStock.total_purchase_price -= int(quantity) * float(checkout_form.data['current_market_price'])
-        flash("Sold " + stock + "! You have " + str(ownStock.unit) + " units of this stock remain", "success")
+        ownStock.total_purchase_price -= int(quantity) * float(
+            checkout_form.data['current_market_price'])
+        flash(
+            "Sold " + stock + "! You have " + str(ownStock.unit) +
+            " units of this stock remain", "success")
         if ownStock.unit == 0:
           db.session.delete(ownStock)
 
     db.session.commit()
     return redirect(url_for('user.home'))
-    
+
   # checkout_form.data is a dict containing all fields value, e.g. {'current_market_price': None, 'total_price': None, 'submit': False, 'csrf_token': None}
   #checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']
   print(checkout_form.data)
-  
-  return render_template('checkout.html', title='checkout', stock_obj=stock_obj, action=action, quantity=quantity, checkout_form=checkout_form)
+
+  return render_template('checkout.html',
+                         title='checkout',
+                         stock_obj=stock_obj,
+                         action=action,
+                         quantity=quantity,
+                         checkout_form=checkout_form)

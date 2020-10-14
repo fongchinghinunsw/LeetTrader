@@ -1,3 +1,11 @@
+"""
+  WTFroms of:
+    1. Register 
+    2. Login
+    3. Order
+    4. Checkout
+"""
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired, NumberRange
@@ -6,6 +14,7 @@ from leettrader.models import User
 
 # forms for login and regsiter account
 class RegisterForm(FlaskForm):
+  ''' Register Form '''
   username = StringField(
       'Username',
       validators=[
@@ -41,16 +50,27 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+  ''' Login Form '''
   email = StringField('Email', validators=[DataRequired(), Email()])
   password = PasswordField('Password', validators=[DataRequired()])
   remember = BooleanField('Remember Me')
   submit = SubmitField('Log in')
 
+
 class OrderForm(FlaskForm):
-  quantity = IntegerField('Quantity', validators=[DataRequired(message="please enter an integer"), NumberRange(message="Quantity must be at least 1", min=1)])
+  ''' Stock Order Form '''
+  quantity = IntegerField('Quantity',
+                          validators=[
+                              DataRequired(message="please enter an integer"),
+                              NumberRange(
+                                  message="Quantity must be at least 1", min=1)
+                          ])
   submit = SubmitField('Proceed')
 
+
 class CheckoutForm(FlaskForm):
-  current_market_price = StringField('current_market_price', render_kw={'readonly': True})
+  ''' Stock Order Checkout Form '''
+  current_market_price = StringField('current_market_price',
+                                     render_kw={'readonly': True})
   total_price = StringField('total_price', render_kw={'readonly': True})
   submit = SubmitField('Checkout')

@@ -3,10 +3,11 @@
 """
 
 from flask import render_template, request, redirect, url_for, Blueprint
+from flask_login import current_user, login_required
 from leettrader.models import Stock, Watchlist
 from leettrader.stock.forms import SearchStockForm
 from leettrader.stock.utils import get_search_result
-from flask_login import current_user, login_required
+
 
 stock = Blueprint('stock', __name__)
 
@@ -51,12 +52,11 @@ def search_page(code):
   else:
     listed = True
 
-
   # Export "search_result.html" from template, passing in:
-    # 1. Stock code & name
-    # 2. Stock price, price changes
-    # 3. Colour of label of price information
-    # 4. Whether stock is already in stocklist
+  # 1. Stock code & name
+  # 2. Stock price, price changes
+  # 3. Colour of label of price information
+  # 4. Whether stock is already in stocklist
   return render_template('search_result.html',
                          code=code,
                          stock=stock,
