@@ -2,7 +2,7 @@
   Routing of Search Page
 """
 
-from flask import render_template, request, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, flash
 from flask_login import current_user, login_required
 from leettrader.models import Stock, Watchlist
 from leettrader.stock.forms import SearchStockForm
