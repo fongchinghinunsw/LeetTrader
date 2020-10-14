@@ -45,8 +45,10 @@ class User(db.Model, UserMixin):
 
 
   def __repr__(self):
-    userInfo = "'{self.username}', '{self.email}', '{self.password}', '{self.balance}'"
-    return f"User(" + userInfo + ")"
+    user = "User("
+    user += "'{self.username}', '{self.email}', "
+    user += "'{self.password}', '{self.balance}')"
+    return user
 
   def getUserName(self):
     return self.username
