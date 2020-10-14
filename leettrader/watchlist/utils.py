@@ -3,7 +3,7 @@
 """
 from datetime import datetime
 from leettrader import db
-from leettrader.models import User, Watchlist, Stock
+from leettrader.models import Watchlist, Stock
 
 
 # Add stock to watchlist in db
