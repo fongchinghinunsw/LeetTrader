@@ -47,38 +47,47 @@ def register():
 def login():
   ''' Login Page '''
   login_form = LoginForm()
+
+  # When click login, read user inputs 
   if login_form.validate_on_submit():
     user = User.query.filter_by(email=login_form.email.data).first()
+
+    # If both Email & Password are correct, go to Home Page
     if user and bcrypt.check_password_hash(user.password,
                                            login_form.password.data):
       login_user(user, remember=login_form.remember.data)
       return redirect(url_for('user.home', userID=user.id))
+
+    # Show Error message otherwise
     elif not user:
       flash('This email has not been registered yet', 'danger')
     else:
       flash('Wrong password, please try again', 'danger')
 
+  # Fail to login, stay in login page
   return render_template('login.html', title='login', form=login_form)
 
 
 @user.route("/settings")
 @login_required
 def settings():
+  ''' TO_DO '''
   pass
 
 
 @user.route("/logout", methods=['GET', 'POST'])
 def logout():
+  
   logout_user()
   return redirect(url_for('main.landing'))
 
 
-#Order stocks
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
 def order(stock, action):
   ''' Order Page '''
   order_form = OrderForm()
+  
   if order_form.validate_on_submit():
     quantity = order_form.quantity.data
 
