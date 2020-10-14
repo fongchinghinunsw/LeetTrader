@@ -24,14 +24,12 @@ def search_stock():
 @stock.route('/search/<string:code>')
 @login_required
 def search_page(code):
-  # Get stock informations
-  stock = Stock.query.filter_by(code=code).first()
-  code = stock.code
-  print(stock.code)
-  result = get_search_result(stock.code)
-  stock = f"{ stock.name } ({ stock.code })"
-
-  # Determine colour of price information labels
+  stock_obj = Stock.query.filter_by(code=code).first()
+  print(stock_obj.code)
+  code = stock_obj.code
+  result = get_search_result(code)
+  stock = f"{ stock_obj.name } ({ stock_obj.code })"
+  
   if float(result['price_change']) == 0:
     color = "black"
   elif float(result['price_change']) > 0:
