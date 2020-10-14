@@ -58,10 +58,7 @@ class LoginForm(FlaskForm):
 
 
 class OrderForm(FlaskForm):
-<<<<<<< HEAD
-=======
   ''' Stock Order Form '''
->>>>>>> f10
   quantity = IntegerField('Quantity',
                           validators=[
                               DataRequired(message="please enter an integer"),
