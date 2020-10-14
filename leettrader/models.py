@@ -1,10 +1,16 @@
 '''
-  Implementaiton of Class Diagram.
+    Implementaiton of Class Diagram, with the following classes:
+    1. User
+    2. Watchlist
+    3. Stock
+    4. Transcation Record
+    5. OwnStock
+    6. ActionType
 '''
-
 import enum
-from leettrader import db, login_manager
 from flask_login import UserMixin
+from leettrader import db, login_manager
+
 
 watchlist_items = db.Table(
     'watchlist_items',
@@ -18,20 +24,25 @@ watchlist_items = db.Table(
               primary_key=True))
 
 
-# reloading the user from Userid from stored in the session
-# from https://flask-login.readthedocs.io/en/latest/
+'''
+  Relaod user by u_id stored in:
+  https://flask-login.readthedocs.io/en/latest/
+'''
 @login_manager.user_loader
 def load_user(user_id):
   return User.query.get(int(user_id))
 
 
+
 class User(db.Model, UserMixin):
-  """User class"""
+  ''' User class '''
+  # Attributes
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
   balance = db.Column(db.Float, nullable=False)
+
   # backref is a way to declare a new property on the TransactionRecord class
   # You can then use transaction.person to get to the person at that address
   transactions = db.relationship('TransactionRecord',
@@ -43,7 +54,7 @@ class User(db.Model, UserMixin):
                               lazy=True,
                               uselist=False)
 
-
+  # Methods
   def __repr__(self):
     user = "User("
     user += "'{self.username}', '{self.email}', "
@@ -74,6 +85,7 @@ class Stock(db.Model):
   watchlist = db.relationship('Watchlist',
                               secondary=watchlist_items,
                               lazy=True)
+
 
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"

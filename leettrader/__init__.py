@@ -1,3 +1,6 @@
+"""
+  Main() to initialize databse and run flask app.
+"""
 from flask import Flask, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -10,6 +13,7 @@ bcrypt = Bcrypt()
 
 
 def create_app(config_class=Config):
+  ''' Create a flask webapp with an initialized database '''
   app = Flask(__name__)
   app.config.from_object(Config)
 
@@ -17,7 +21,7 @@ def create_app(config_class=Config):
   login_manager.init_app(app)
   bcrypt.init_app(app)
 
-  # run this to reinitialize the database
+  # Re-initialize database
   with app.app_context():
     db.create_all()
 
