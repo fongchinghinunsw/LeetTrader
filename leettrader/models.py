@@ -1,3 +1,7 @@
+'''
+  Implementaiton of Class Diagram.
+'''
+
 import enum
 from leettrader import db, login_manager
 from flask_login import UserMixin
@@ -39,8 +43,10 @@ class User(db.Model, UserMixin):
                               lazy=True,
                               uselist=False)
 
+
   def __repr__(self):
-    return f"User('{self.username}', '{self.email}', '{self.password}', '{self.balance}')"
+    userInfo = "'{self.username}', '{self.email}', '{self.password}', '{self.balance}'"
+    return f"User(" + userInfo + ")"
 
   def getUserName(self):
     return self.username
