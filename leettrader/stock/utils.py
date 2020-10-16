@@ -5,6 +5,7 @@
 from random import choice
 import requests
 from bs4 import BeautifulSoup
+from leettrader.models import Stock
 
 headers_list = [
     # Firefox 77 Mac
@@ -67,6 +68,11 @@ headers_list = [
 ]
 
 
+def get_currency_by_stock_code(stock_code):
+  market = Stock.query.filter_by(code=stock_code).first().market_type
+  return {'NZ': 'NZD', 'AX': 'AUD'}[market.name]
+
+
 def get_search_result(stock_code):
   ''' Get stock information from Stock Code '''
 
@@ -94,6 +100,7 @@ def get_search_result(stock_code):
   percent_change = change[1].strip("()")
 
   return {
+      'currency': get_currency_by_stock_code(stock_code),
       'price': price,
       'price_change': price_change,
       'percent_change': percent_change

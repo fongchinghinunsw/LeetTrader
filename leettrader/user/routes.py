@@ -32,8 +32,7 @@ def register():
     user = User(user_type = "NORMAL",
                 username=rform.username.data,
                 email=rform.email.data,
-                password=password_hashed,
-                balance=0)
+                password=password_hashed)
     
     # Push changes to database, go to Login page
     db.session.add(user)
