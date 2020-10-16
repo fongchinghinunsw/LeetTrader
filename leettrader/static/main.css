@@ -21,6 +21,7 @@
   height: 60px;
   width: 100%;
   position: fixed;
+  z-index:0;
 }
 
 #top-navbar-notfixed {
@@ -62,6 +63,7 @@
   background-image: url("stock_img_1.jpg");
   position: fixed;
   top: 60px;
+  z-index: -1;
 }
 
 #landing-subsection-0 {

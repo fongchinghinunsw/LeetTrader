@@ -32,10 +32,17 @@ def load_user(user_id):
   return User.query.get(int(user_id))
 
 
+class UserType(enum.Enum):
+  """ActionType class"""
+  ADMIN = 0
+  NORMAL = 1
+
+
 class User(db.Model, UserMixin):
   ''' User class '''
   # Attributes
   id = db.Column(db.Integer, primary_key=True)
+  user_type = db.Column(db.Enum(UserType), nullable=False)
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)

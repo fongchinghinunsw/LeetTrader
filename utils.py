@@ -30,7 +30,8 @@ def add_stocks():
       db.session.add(Stock(name=stock['description'], code=stock['symbol']))
 
     password_hashed = bcrypt.generate_password_hash("passw0rd").decode('utf-8')
-    admin = User(username="Donald Trump",
+    admin = User(user_type = "ADMIN",
+                 username="Donald Trump",
                  email="trump@leettrader.com",
                  password=password_hashed,
                  balance=0)
