@@ -47,7 +47,7 @@ def add_stocks():
 
     db.session.commit()
 
-
-drop_db()
-create_db()
-add_stocks()
+def init_db():
+  drop_db()
+  create_db()
+  add_stocks()
