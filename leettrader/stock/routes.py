@@ -37,6 +37,7 @@ def search_page(code):
   code = stock_obj.code
   result = get_search_result(code)
   stock = f"{ stock_obj.name } ({ stock_obj.code })"
+  currency = result['currency']
 
   if float(result['price_change']) == 0:
     color = "black"
@@ -59,6 +60,7 @@ def search_page(code):
   # 3. Colour of label of price information
   # 4. Whether stock is already in stocklist
   return render_template('search_result.html',
+                         currency=currency,
                          code=code,
                          stock=stock,
                          price=result['price'],

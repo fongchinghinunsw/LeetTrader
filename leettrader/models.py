@@ -8,6 +8,8 @@
     6. ActionType
 '''
 import enum
+from sqlalchemy.ext.mutable import MutableDict
+from sqlalchemy import PickleType
 from flask_login import UserMixin
 from leettrader import db, login_manager
 
@@ -32,14 +34,22 @@ def load_user(user_id):
   return User.query.get(int(user_id))
 
 
+class UserType(enum.Enum):
+  """ UserType class """
+  ADMIN = 0
+  NORMAL = 1
+
+
 class User(db.Model, UserMixin):
-  ''' User class '''
+  """ User class """
   # Attributes
   id = db.Column(db.Integer, primary_key=True)
+  user_type = db.Column(db.Enum(UserType), nullable=False)
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
-  balance = db.Column(db.Float, nullable=False)
+  balance = db.Column(MutableDict.as_mutable(PickleType),
+                  default=dict())
 
   # backref is a way to declare a new property on the TransactionRecord class
   # You can then use transaction.person to get to the person at that address
@@ -74,9 +84,16 @@ class Watchlist(db.Model):
   stocks = db.relationship('Stock', secondary=watchlist_items, lazy=True)
 
 
+class MarketType(enum.Enum):
+  """ MarketType class"""
+  NZ = 0
+  AX = 1
+
+
 class Stock(db.Model):
   """Stock class"""
   id = db.Column(db.Integer, primary_key=True)
+  market_type = db.Column(db.Enum(MarketType), nullable=False)
   name = db.Column(db.String(50), nullable=False)
   code = db.Column(db.String(20), nullable=False)
   ownstock_id = db.Column(db.Integer, db.ForeignKey('own_stock.id'))
@@ -92,13 +109,13 @@ class Stock(db.Model):
 
 
 class ActionType(enum.Enum):
-  """ActionType class"""
+  """ ActionType class"""
   BUY = 0
   SELL = 1
 
 
 class TransactionRecord(db.Model):
-  """TransactionRecord class"""
+  """ TransactionRecord class """
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   time = db.Column(db.DateTime, nullable=False)
@@ -109,7 +126,7 @@ class TransactionRecord(db.Model):
 
 
 class OwnStock(db.Model):
-  """OwnStock class"""
+  """ OwnStock class """
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   stock_id = db.Column(db.Integer, nullable=False)

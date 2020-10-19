@@ -29,10 +29,10 @@ def register():
     # Hash password & Read User Input
     password_hashed = bcrypt.generate_password_hash(
         rform.password.data).decode('utf-8')
-    user = User(username=rform.username.data,
+    user = User(user_type = "NORMAL",
+                username=rform.username.data,
                 email=rform.email.data,
-                password=password_hashed,
-                balance=0)
+                password=password_hashed)
     
     # Push changes to database, go to Login page
     db.session.add(user)

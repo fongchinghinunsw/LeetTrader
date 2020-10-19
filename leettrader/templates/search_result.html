@@ -7,7 +7,7 @@
       <div id="search-left" class="col-md-5">
         <!-- Stock information card -->
         <h5>{{ stock }}</h5>
-        <p>Current Price: {{ price }}</p>
+        <p>Current Price: {{ price }} {{ currency }}</p>
           {% if color == "green" %}
           <p>price change: <span class="green">{{ price_change }}</span></p>
           <p>% Changes: <span class="green">{{ percent_change }}</span></p>
