@@ -27,7 +27,7 @@ def get_stocks_by_country(market):
   ).json()
 
 
-def add_stocks():
+def add_data():
   """ Add all the NZ stocks to the database. """
   markets = ['NZ', 'AX']
   with app.app_context():
@@ -50,4 +50,4 @@ def add_stocks():
 def init_db():
   drop_db()
   create_db()
-  add_stocks()
+  add_data()
