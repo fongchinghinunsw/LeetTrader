@@ -15,8 +15,8 @@
          "context": 0
         },
         {"tag": "Reset password",
-         "patterns": ["I'm trying to reset password", "I forgot my password", "I want to change my password"],
-         "responses": ["Happy to help!", "Any time!", "My pleasure ٩(˘◡˘)۶"],
+         "patterns": ["I'm trying to reset password", "I forgot my password", "I want to change my password", "How do I reset my password?"],
+         "responses": ["On the login page, there is a forgot password button. You can click on this where you will be taken to a page where you can enter your email. After you have entered your email, click on send confirmation. You cannot send another confirmation email for some amount of time. Look into your email (don't forget to check the spam folder) for the email. It will contain a link. Click on the link to be directed to the reset password page. This link will last expire after 30 minutes. Note that you cannot use the old password as the new password. You need to enter your new password twice to ensure you have made no typos."],
          "context": 1
         },
         {"tag": "Buy Stock",
@@ -141,22 +141,22 @@
         },
         {"tag": "Volume",
          "patterns": ["What is volume?", "What does volume mean?", "Tell me about volume", "Can you tell me about volume?", "Can you tell me what volume is?", "Can you teach me what is volume?"],
-         "responses": [""],
+         "responses": ["Volume is the number of shares of a security traded during a given period of time. Sometimes, this period of time is between the daily open and close of a market. Volume can be an indicator of liquidity of a stock. Securities with a higher volume are more liquid because they are more active (they are traded more). Another use of volume is to indicate significance of a price move. A higher volume during a price move is more significant since more people are acting on it. On the other hand, a lower volume during a price move is less significant since not many people are acting on it."],
          "context": 2
         },
         {"tag": "Average Volume",
          "patterns": ["What is average volume?", "What does average volume mean?", "Tell me about average volume", "Can you tell me about average volume?", "Can you tell me what average volume is?", "Can you teach me what is average volume?", "What is avg volume?", "What does avg volume mean?", "Tell me about avg volume", "Can you tell me about avg volume?", "Can you tell me what avg volume is?", "Can you teach me what is avg volume?"],
-         "responses": ["Average volume, or avg volume for short, is"],
+         "responses": ["Average volume, or avg volume for short, is the total volume for a specified period divided by the length of that period. You can use this as a comparison to the current volume to see if the volume is higher or lower than the average volume."],
          "context": 2
         },
         {"tag": "Market Cap",
          "patterns": ["What is market cap?", "What does market cap mean?", "Tell me about market cap", "Can you tell me about market cap?", "Can you tell me what market cap is?", "Can you teach me what is market cap?"],
-         "responses": [""],
+         "responses": ["Market cap is short for market capitalisation. It refers to the total dollar market value of a company's outstanding shares of stock. It is calculated by multiplying the total number of a company's outstanding shares by the current market price of one share. For example, a company with 1000 shares selling for $5 each would have a market cap of $5000 since 1000 shares multiplied by the price of $5 is $5000. The market cap represents how much the company is worth determined by the stock market. They are also used in acquisitions since you can takeover a company if you can afford its market cap."],
          "context": 2
         },
         {"tag": "Beta",
          "patterns": ["What is beta?", "What does beta mean?", "Tell me about beta", "Can you tell me about beta?", "Can you tell me what beta is?", "Can you teach me what is beta?"],
-         "responses": [""],
+         "responses": ["A stock's beta represents the volatility of the stock. Since volatility is associated with risk, more volatility means more risk. However, with more risk comes more reward. A beta is a measure of a stock's volatility in relation to the overall market. Market's have a beta of 1.0. Individual stocks are ranked according to how much they deviate from the market. A beta above 1.0 means the stock is more volatile (it swings more than the market over time). A beta below 1.0 means the stock is less volatile (moves less than the market). High beta stocks are riskier but provide higher potential returns. High risk, high reward. Low beta stocks are less riskier but offer lower returns. Low risk, low reward."],
          "context": 2
         },
         {"tag": "Earnings Date",
