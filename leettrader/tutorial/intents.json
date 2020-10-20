@@ -183,6 +183,6 @@
          "patterns": ["What is fair value?", "What does fair value mean?", "Tell me about fair value", "Can you tell me about fair value?", "Can you tell me what fair value is?", "Can you teach me what is fair value?"],
          "responses": [""],
          "context": 2
-        },
+        }
    ]
 }
