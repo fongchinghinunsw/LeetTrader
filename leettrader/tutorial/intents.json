@@ -1,0 +1,188 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day", "Hello"],
+         "responses": ["Hello, you have come across Leettrader's personal assistant Alice :D", "Good to see you. I'm Alice :D", "Hi there, how can Alice help?"],
+         "context": 0
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye ٩(˘◡˘)۶", "See you later", "Goodbye ٩(˘◡˘)۶", "Nice chatting to you, bye ᕙ(^▿^-ᕙ)", "Till next time ᕙ(^▿^-ᕙ)", "Bye", "Goodbye", "See you", "cya"],
+         "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+         "context": 0
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure ٩(˘◡˘)۶"],
+         "context": 0
+        },
+        {"tag": "Reset password",
+         "patterns": ["I'm trying to reset password", "I forgot my password", "I want to change my password"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure ٩(˘◡˘)۶"],
+         "context": 1
+        },
+        {"tag": "Buy Stock",
+         "patterns": ["How do I buy stock?", "Where can I buy stock?", "Buy stock"],
+         "responses": ["First, search for a stock using the search bar on the top right. Click search. If the stock looks appealing to you, click on buy on the bottom. Input the amount you want to buy and click proceed. Finally, confirm your order by clicking the button. Congratulations, you have bought the stock. Note that the stock is simul-owned. This means that you do not actually own the stock and that it is for practice only."],
+         "context": 1
+        },
+        {"tag": "Sell stock",
+         "patterns": ["How do I buy stock?", "Where can I buy stock?", "Buy stock"],
+         "responses": ["You can either search the stock like you have done when buying a stock, except now click on the sell button. Another way is to click on the stock you want to see on your watchlist and it will take you to the stock page. Click on the sell button. Input how many stocks you want to sell. Note you cannot sell more than you own. Click proceed and confirm your order. Click confirm order. Congratulations, hopefully you have made some simulated profits. Note that stocks sold are simulated so they are not real."],
+         "context": 1
+        },
+        {"tag": "Add to watchlist",
+         "patterns": ["How do I add to my watchlist?", "How do I add a stock to my watchlist?"],
+         "responses": ["First, search for a stock using the search bar on the top right. Click search. This will lead you to the stock page. Click on Add to watchlist to add that stock to your watchlist. If the button says remove instead, this means the stock is already on your watchlist."],
+         "context": 1
+        },
+        {"tag": "Remove from watchlist",
+         "patterns": ["How do I remove a stock from my watchlist?", "How do I remove from my watchlist?"],
+         "responses": ["From your watchlist, click on the stock you want to remove. This should take you to the stock page. Click on the remove from watchlist button on the bottom. A pop up will appear asking for confirmation. Click confirm and, this will remove that stock from your watchlist."],
+         "context": 1
+        },
+        {"tag":"Use watchlist",
+         "patterns": ["How do I use the watchlist?"],
+         "responses": ["Click on any stock on the watchlist to view that stock's page where you can view information. Quick and easy access!"],
+         "context": 1
+        },
+        {"tag": "Search for stock",
+         "patterns": ["How do I search for stocks?", "How do I look for stocks?", "How do I find stocks?"],
+         "responses": ["Use the search bar on the top right. It has an autocompletion so you can use the parts of the stock name to search. You can use the stock code as well as stock name. Once you have the stock entered in the search bar, click on the search button next to the search bar and this will take you to the stock page."],
+         "context": 1
+        },
+        {"tag": "Add reminder",
+         "patterns": ["How do I add a reminder?", "How do I set a reminder?", "How do I use the reminder?"],
+         "responses": ["Go to the stock's page. You can do this by either searching for the stock using the search bar on the top right, or you can click on a stock on your watchlist if you have added that stock to your watchlist. Click on the add reminder"],
+         "context": 1
+        },
+        {"tag":"Delete reminder",
+         "patterns": ["How do I delete a reminder?", "How do I stop reminders?"],
+         "responses": ["On the drop down menu on the top bar, click on view reminders. This should show you all the reminders you have set. On the right side of each item in the reminders list, there will be a remove button. Click on that button to remove the reminder from the list and you will not longer be notified on that stock."],
+         "context": 1
+        },
+        {"tag":"View reminders",
+         "patterns": ["How can I see my reminders?", "How can I view my reminders?", "Where can I see my reminders?", "Show me my reminders."],
+         "responses": ["You can view your reminders by using the drop down menu on the top bar. Click on View reminders. This will take you to a page listing all the reminders you have set."],
+         "context": 1
+        },
+        {"tag":"Historical data",
+         "patterns": ["How do I see historical data?", "Where can I see historical data?", "How do I see a stock's historical data?", "How do i see historical data for a stock?", "Where can I see a stock's historical data?", "Where can I see historical data for a stock?"],
+         "responses": ["You can see historical data for a stock by clicking on that stock on your watchlist. If a stock is not on your watchlist, you can search the stock with the search bar. Either way, this will lead you to the stock's page where you can see the historical price in graph form."],
+         "context":1
+        },
+        {"tag":"Profit",
+         "patterns": ["What is profit?", "What does profit mean?", "Tell me about profit.", "Can you tell me about profit?", "Can you tell what profit is?", "Profit"],
+         "responses": ["In trading terms, profit is the difference between your earnings and your expenses. You take the price at which you sold your stocks and minus it with the cost of buying those shares. That result is your profit. For example, if you bought a share for $100 and then sold it for $150, your earnings is $200 since you gain that amount and the cost of that share is $150 since you spent that amount. $200 minus $150 is $50 so $50 is your profit. Note that a negative profit means a loss since you have lost money in the trade."],
+         "context": 2
+        },
+        {"tag":"Loss",
+         "patterns": ["What is loss?", "What does loss mean?", "Tell me about loss.", "Can you tell me about loss?", "Can you tell what loss is?", "Can you teach me what is loss?", "Loss"],
+         "responses": ["Loss is the opposite of profit. Where profit is the different between earnings and expenses, loss is the difference between expenses and losses. For example, if you bought a stock for $100 and sold it for $50, your expense is $100 since you spent that money and $50 is your earnings since you gain that. $100 minus $50 is $50 so your loss is $50. Note that a negative loss means a profit."],
+         "context": 2
+        },
+        {"tag": "Arbitrage",
+         "patterns": ["What is arbitrage?", "What does arbitrage mean?", "Tell me about arbitrage.", "Can you tell me about arbitrage?", "Can you tell me what arbitrage is?", "Can you teach me what is arbitrage?", "Arbitrage"],
+         "responses": ["Arbitrage is the dealing of stocks in different markets. Sometimes stocks will have different prices on different markets. For example, if Stock A is $1 in Market 1 and Stock A is $2 in Market 2, you could buy Stock A from Market 1 at $1 per stock and sell it on Market 2 for $2 per stock. Making an easy profit based on the different market prices of the stock in each market. This is arbitrage."],
+         "context": 2
+        },
+        {"tag": "PE Ratio",
+         "patterns": ["What is PE Ratio?", "What does PE ratio mean?", "Tell me about PE ratio", "Can you tell me about PE ratio?", "Can you tell me what PE ratio is?", "Can you teach me what is PE Ratio?", "PE ratio"],
+         "responses": ["PE ratio is the price-to-earnings ratio. They indicate the value of a company that measures its current share price relative to its per-share earnings. PE ratios are used to determine the relative value of a company's shares. They can also be compared with the company's historical PE ratios. A high PE ratio suggests a company's stock is overvalued, or it is expected to have high growth rates in the future. Note that companies that have no earnings or are losing money have no PE ratio because the denomiator is 0."],
+         "context": 2
+        },
+        {"tag": "EPS",
+         "patterns": ["What is EPS?", "What does EPS mean?", "Tell me about EPS", "Can you tell me about EPS?", "Can you tell me what EPS is?", "Can you teach me what is EPS?"],
+         "responses": ["EPS is earnings per share. It is calculated by taking the company's profits and dividing it by the number of company shares outstanding. The resulting number indicates a company's profitability. The higher the EPS, the more profitable the company. EPS indicates how much money a company makes for each share of its stock. It is widely used to estimate corporate value."],
+         "context": 2
+        },
+        {"tag": "Stock market",
+         "patterns": ["What is the stock market?", "What does stock market mean?", "Tell me about the stock market", "Can you tell me about the stock market?", "Can you tell me what stock market is?", "Can you teach me what is stock market?", "Stock market"],
+         "responses": ["The stock market is any exchange that allows people to buy and sell stocks. It is also where companies issue stocks. If you are interested in trading, many transactions will take place in the stock market."],
+         "context": 2
+        },
+        {"tag": "Stock",
+         "patterns": ["What is a stock?", "What does stock mean?", "Tell me about the stock market", "Can you tell me about stocks?", "Can you tell me what stock is?", "Can you teach me what is stock?"],
+         "responses": ["A stock represents the company's equity and are pieces of a company."],
+         "context": 2
+        },
+        {"tag": "Percent change",
+         "patterns": ["What is a percent change?", "What does percent change mean?", "Tell me about percent change", "Can you tell me about percent change?", "Can you tell me what percent change is?", "Can you teach me what is percent change?"],
+         "responses": ["Percent change compares the current price of a stock to the previous day's stock price. This is expressed as a percentage. For example, if a stock's price is $101 today and was $100 yesterday, then the percent change is 1% since the price rose by 1%"],
+         "context": 2
+        },
+        {"tag": "Previous Close",
+         "patterns": ["What is previous close?", "What does previous close mean?", "Tell me about previous close", "Can you tell me about previous close?", "Can you tell me what previous close is?", "Can you teach me what is previous close?"],
+         "responses": ["Previous close is the closing price of a stock on the preceding period. It is the price at the point in time the market closed. Usually, the previous close refers to the previous day's stock price when the market closed for the day. You may want to know this because you can compare current prices to the previous close which can help you in making an investment decision."],
+         "context": 2
+        },
+        {"tag": "Open",
+         "patterns": ["What is open?", "What does open mean?", "Tell me about open", "Can you tell me about open?", "Can you tell me what open is?", "Can you teach me what is open?"],
+         "responses": ["Open is the starting price of a stock for the current day in a market. It is the price of a stock at the moment the market opens for the day. Note that the open price can be different to the previous close. That is to say, the open price for a day can be different to the previous close in the market."],
+         "context": 2
+        },
+        {"tag": "Bid",
+         "patterns": ["What is bid?", "What does bid mean?", "Tell me about bid", "Can you tell me about bid?", "Can you tell me what bid is?", "Can you teach me what is bid?"],
+         "responses": ["The bid is the highest price someone is willing to pay for a share. Together with the ask, they represent the supply and demand for a stock."],
+         "context": 2
+        },
+        {"tag": "Ask",
+         "patterns": ["What is ask?", "What does ask mean?", "Tell me about ask", "Can you tell me about ask?", "Can you tell me what ask is?", "Can you teach me what is ask?"],
+         "responses": ["The ask is the lowest price someone is willing to sell a share. Together with the bid, they represent the supply and demand for a stock."],
+         "context": 2
+        },
+        {"tag": "Day's Range",
+         "patterns": ["What is day's range?", "What does day's range mean?", "Tell me about day's range", "Can you tell me about day's range?", "Can you tell me what day's range is?", "Can you teach me what is day's range?"],
+         "responses": ["The day's range displays the lowest price of a share and the highest price of a share between the beginning of the day, when the market opens, till the end of the day, where the market closes. If the day has not yet ended, it will display the prices up to the current time. The first value is the lowest price of the day. The second, and last value, is the highest price of the day. One use of day's range is to determine how volatile a stock is for the day, in other words, how stable the stock price is. Volatility is often associated with risk."],
+         "context": 2
+        },
+        {"tag": "52 Week Range",
+         "patterns": ["What is 52 week range?", "What does 52 week range mean?", "Tell me about 52 week range", "Can you tell me about 52 week range?", "Can you tell me what 52 week range is?", "Can you teach me what is 52 week range?"],
+         "responses": ["Similar to the day's range, the 52 week range displays the lowest price of a share and the highest price of the share during a 52 week period. The duration starts from the beginning of the 52 week period to the end of the 52 week period (which is 52 weeks after the beginning), or until the current time if the period has not yet ended. The first value is the lowest price to occur during the 52 week period. The seocnd, and last, value is the highest price to occur during the 52 week period. One use of the 52 week range is to determine how volatile the stock is for the 52 week period, in other words, how stable the stock price is. Volatility is often associated with risk."],
+         "context": 2
+        },
+        {"tag": "Volume",
+         "patterns": ["What is volume?", "What does volume mean?", "Tell me about volume", "Can you tell me about volume?", "Can you tell me what volume is?", "Can you teach me what is volume?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "Average Volume",
+         "patterns": ["What is average volume?", "What does average volume mean?", "Tell me about average volume", "Can you tell me about average volume?", "Can you tell me what average volume is?", "Can you teach me what is average volume?", "What is avg volume?", "What does avg volume mean?", "Tell me about avg volume", "Can you tell me about avg volume?", "Can you tell me what avg volume is?", "Can you teach me what is avg volume?"],
+         "responses": ["Average volume, or avg volume for short, is"],
+         "context": 2
+        },
+        {"tag": "Market Cap",
+         "patterns": ["What is market cap?", "What does market cap mean?", "Tell me about market cap", "Can you tell me about market cap?", "Can you tell me what market cap is?", "Can you teach me what is market cap?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "Beta",
+         "patterns": ["What is beta?", "What does beta mean?", "Tell me about beta", "Can you tell me about beta?", "Can you tell me what beta is?", "Can you teach me what is beta?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "Earnings Date",
+         "patterns": ["What is earnings date?", "What does earnings date mean?", "Tell me about earnings date", "Can you tell me about earnings date?", "Can you tell me what earnings date is?", "Can you teach me what is earnings date?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "Forward Dividend and Yield",
+         "patterns": ["What is forward dividend and yield?", "What does forward dividend and yield mean?", "Tell me about forward dividend and yield", "Can you tell me about forward dividend and yield?", "Can you tell me what forward dividend and yield is?", "Can you teach me what is forward dividend and yield?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "Ex-Dividend Date",
+         "patterns": ["What is ex-dividend date?", "What does ex-dividend date mean?", "Tell me about ex-dividend date", "Can you tell me about ex-dividend date?", "Can you tell me what ex-dividend date is?", "Can you teach me what is ex-dividend date?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "1y Target Est",
+         "patterns": ["What is 1y target est?", "What does 1y target est mean?", "Tell me about 1y target est", "Can you tell me about 1y target est?", "Can you tell me what 1y target est is?", "Can you teach me what is 1y target est?"],
+         "responses": [""],
+         "context": 2
+        },
+        {"tag": "Fair Value",
+         "patterns": ["What is fair value?", "What does fair value mean?", "Tell me about fair value", "Can you tell me about fair value?", "Can you tell me what fair value is?", "Can you teach me what is fair value?"],
+         "responses": [""],
+         "context": 2
+        },
+   ]
+}
