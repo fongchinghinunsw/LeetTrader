@@ -24,21 +24,39 @@ const inputElm = document.querySelector('#chat-input');
 
 // chat button toggler
 chatBtn.addEventListener('click', () => {
-    popup.classList.toggle('show');
+  popup.classList.toggle('show');
 })
 
 // send msg
 submitBtn.addEventListener("click", () => {
-    let userInput = inputElm.value;
-    console.log(userInput)
-    // ${} is String interpolation, it transforms the value of that variable into a string.
-    let temp = `<div class="out-msg">
-    <span class="my-msg">${userInput}</span>
-    <img src="../static/user.png" class="avatar">
+  let userInput = inputElm.value;
+  console.log(userInput)
+  // ${} is String interpolation, it transforms the value of that variable into a string.
+  let temp = `<div class="out-msg">
+  <span class="my-msg">${userInput}</span>
+  <img src="../static/user.png" class="avatar">
+  </div>`
+
+  // Insert a new element before the end of the element chatArea.
+  chatArea.insertAdjacentHTML("beforeend", temp);
+  inputElm.value = "";
+
+  $.ajax({
+    type:'POST',
+    url: '/askQuestion/' + userInput,
+    dataType: 'json',
+    encode: true
+  }).done(function(data) {
+    let response = data.response;
+
+    let format_response = `
+    <div class="income-msg">
+      <img src="../static/assistant.png" class="avatar" alt="">
+      <span class="msg">${response}</span>
     </div>`
 
-    // Insert a new element before the end of the element chatArea.
-    chatArea.insertAdjacentHTML("beforeend", temp);
-    inputElm.value = "";
+    chatArea.insertAdjacentHTML("beforeend", format_response);
+    
+  });
 })
 </script>
