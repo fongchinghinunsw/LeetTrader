@@ -1,0 +1,44 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<button class="chat-btn">
+    <i class="material-icons">comment</i>
+</button>
+<div class="chat-popup">
+  <div class="chat-area">
+    <div class="income-msg">
+      <img src="../static/assistant.png" class="avatar" alt="">
+      <span class="msg"> Hi, How can I help you?</span>
+    </div>
+  </div>
+  <div class="input-area">
+    <input id="chat-input" type="text">
+    <button class="submit"><i class="material-icons">send</i></button>
+  </div>
+</div>
+
+<script>
+const popup = document.querySelector('.chat-popup');
+const chatBtn = document.querySelector('.chat-btn');
+const submitBtn = document.querySelector('.submit');
+const chatArea = document.querySelector('.chat-area');
+const inputElm = document.querySelector('#chat-input');
+
+// chat button toggler
+chatBtn.addEventListener('click', () => {
+    popup.classList.toggle('show');
+})
+
+// send msg
+submitBtn.addEventListener("click", () => {
+    let userInput = inputElm.value;
+    console.log(userInput)
+    // ${} is String interpolation, it transforms the value of that variable into a string.
+    let temp = `<div class="out-msg">
+    <span class="my-msg">${userInput}</span>
+    <img src="../static/user.png" class="avatar">
+    </div>`
+
+    // Insert a new element before the end of the element chatArea.
+    chatArea.insertAdjacentHTML("beforeend", temp);
+    inputElm.value = "";
+})
+</script>
