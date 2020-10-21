@@ -34,7 +34,7 @@
 	  {{ form.password(class="form-control form-control-lg") }}
         {% endif %}
         
-        <!-- wrong match password found, using flash -->
+
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             <ul class=flashes style="padding-top: 10px;">

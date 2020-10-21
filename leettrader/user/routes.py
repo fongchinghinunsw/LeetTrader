@@ -14,6 +14,10 @@ from flask_mail import Message
 
 user = Blueprint('user', __name__)
 
+# ugly global variable for now
+new_username = None
+new_email = None
+new_password = None
 
 @user.route("/home")
 @login_required
@@ -21,6 +25,21 @@ def home():
   ''' Home Page '''
   return render_template('home.html')
 
+
+# Use flask-mail to send the email
+def send_confirmation_email(new_user):
+  # get a new token and start timer !
+  token = new_user.get_reset_password_token()
+  msg = Message('Confirmation for new account', sender='leettrader2020@gmail.com', recipients=[new_user.email])
+  msg.body = f'''Mr {new_user.username}, to confirm your email and activate your new account, please click the link below:
+{url_for('user.confirm', token=token, _external=True)}
+
+If you did not create a new account, please just ignore this email.
+
+Cheers,
+LeetTrader Team
+  '''
+  mail.send(msg)
 
 @user.route("/register", methods=['GET', 'POST'])
 def register():
@@ -33,24 +52,47 @@ def register():
     # Hash password & Read User Input
     password_hashed = bcrypt.generate_password_hash(
         rform.password.data).decode('utf-8')
-    user = User(user_type = "NORMAL",
+    new_user = User(user_type = "NORMAL",
                 username=rform.username.data,
                 email=rform.email.data,
                 password=password_hashed)
-    
+
+    global new_username
+    new_username = new_user.username
+    global new_email
+    new_email = new_user.email
+    global new_password
+    new_password = new_user.password
+
+    # send the confirmation email
+    send_confirmation_email(new_user)
+    flash('Confirmation email has been sent, please check your emails', 'info')
+    return redirect(url_for('user.login'))
+  return render_template('register.html', title='register', form=rform)
+
+@user.route("/confirm/<token>", methods=['GET', 'POST'])
+def confirm(token):
+  # check if the token is valid
+  res = User.verify_confirmation_token(token)
+  print('=============',res, '=============')
+  if res is False:
+    flash('The token has expired !', 'warning')
+    return redirect(url_for('user.register'))
+  else:
     # Push changes to database, go to Login page
-    db.session.add(user)
+    new_user = User(user_type = "NORMAL",
+                username=new_username,
+                email=new_email,
+                password=new_password)
+    db.session.add(new_user)
     db.session.commit()
     flash('Account created successfully, please login !', 'success')
     return redirect(url_for('user.login'))
 
-  # Fail to register, remain in register page
-  return render_template('register.html', title='register', form=rform)
-
 
 @user.route("/login", methods=['GET', 'POST'])
 def login():
-  ''' Login Page '''
+
   login_form = LoginForm()
 
   # When click login, read user inputs 
@@ -87,11 +129,11 @@ def logout():
   return redirect(url_for('main.landing'))
 
 # Use flask-mail to send the email
-def send_reset_email(user):
+def send_reset_password_email(user):
   # get a new token and start timer !
   token = user.get_reset_password_token()
   msg = Message('Password reset request', sender='chengyuanGuo@gmail.com', recipients=[user.email])
-  msg.body = f'''To reset your password, please click the link below:
+  msg.body = f'''Mr {user.username}, to reset your password, please click the link below:
 {url_for('user.reset_password_token', token=token, _external=True)}
 
 If you did not make the request, please just ignore this email.
@@ -99,7 +141,6 @@ If you did not make the request, please just ignore this email.
 Cheers,
 LeetTrader Team
   '''
-
   mail.send(msg)
 
 @user.route("/resetPassword", methods=['GET', 'POST'])
@@ -110,7 +151,7 @@ def reset_request():
   if form.validate_on_submit():
     user = User.query.filter_by(email=form.email.data).first()
     # print('sending')
-    send_reset_email(user)
+    send_reset_password_email(user)
     flash('An email has been sent to reset your password', 'info')
     return redirect(url_for('user.login'))
   return render_template('reset_request.html', title='reset password', form=form)

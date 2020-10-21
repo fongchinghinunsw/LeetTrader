@@ -97,6 +97,17 @@ class User(db.Model, UserMixin):
     # return the user with user_id
     return User.query.get(user_id)
 
+  @staticmethod
+  def verify_confirmation_token(token):
+    s = Serializer(SECRET_KEY)
+    try:
+      # check if the token is valid, try to load the token
+      user_id = s.loads(token)['user_id']
+    except:
+      return False
+    return True
+
+
 class Watchlist(db.Model):
   """Watchlist class"""
   id = db.Column(db.Integer, primary_key=True)
