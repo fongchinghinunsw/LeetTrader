@@ -4,7 +4,7 @@
 from flask import render_template, url_for, flash, redirect, Blueprint, request
 from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm, ReminderForm
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock
+from leettrader.models import User, Stock, OwnStock, Reminder
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -205,7 +205,11 @@ def add_reminder():
     if reminder_form.cancel.data:
       return redirect(url_for('stock.search_page', code=code))
 
+    # the user must enter the alert price.
     if reminder_form.alert_price.data:
+      stock_obj = Stock.query.filter_by(code=code).first()
+      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.code, orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
+      print(reminder)
       return redirect(url_for('stock.search_page', code=code))
       
     flash("Please enter a price.", "warning")
