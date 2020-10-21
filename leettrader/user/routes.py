@@ -91,12 +91,12 @@ def send_reset_email(user):
   # get a new token and start timer !
   token = user.get_reset_password_token()
   msg = Message('Password reset request', sender='chengyuanGuo@gmail.com', recipients=[user.email])
-  msg.body = f'''To reset your password, please visit the following link:
+  msg.body = f'''To reset your password, please click the link below:
 {url_for('user.reset_token', token=token, _external=True)}
 
-If you did not make the request then just ignore it.
+If you did not make the request, please just ignore this email.
 
-
+Cheers,
 LeetTrader Team
   '''
 
@@ -104,8 +104,8 @@ LeetTrader Team
 
 @user.route("/resetPassword", methods=['GET', 'POST'])
 def reset_request():
-  # if current_user.is_authenticated:
-  #   return redirect(url_for('home'))
+  if current_user.is_authenticated:
+    return redirect(url_for('home'))
   form = resetRequestForm()
   if form.validate_on_submit():
     user = User.query.filter_by(email=form.email.data).first()
@@ -119,8 +119,8 @@ def reset_request():
 @user.route("/resetPassword/<token>", methods=['GET', 'POST'])
 # reset their password when the token is active
 def reset_token(token):
-  # if current_user.is_authenticated:
-  #   return redirect(url_for('home'))
+  if current_user.is_authenticated:
+    return redirect(url_for('home'))
 
   # check if the token is valid
   user = User.verify_reset_password_token(token)

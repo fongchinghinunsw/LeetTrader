@@ -1,3 +1,9 @@
+/* body {
+  background: #efefef;
+  padding: 10px;
+  font-family: 'Varela Round';
+} */
+
 * {
   margin: 0;
   padding: 0;
@@ -153,3 +159,26 @@
 .red {
   color: red;
 }
+
+.logo {
+  padding: 15px 0;
+  font-size: 35px;
+  color: #aaaaaa;
+  font-weight: bold;
+}
+
+/*=== 4. Main Form ===*/
+.login-form-1 {
+  max-width: 300px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.etc-login-form {
+  color: #919191;
+  padding: 10px 20px;
+}
+.etc-login-form p {
+  margin-bottom: 5px;
+}
+
