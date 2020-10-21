@@ -30,13 +30,13 @@
     <!-- Buttons: Add/Remove stocks from watchlist -->
     <div class="row" id="add-remove">
       {% if listed == False %}
-      <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
+      <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right mr-2">Add to watchlist</button>
       {% else %} 
       <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
       {% endif %}
     <!--Buttons to buy and sell stocks-->
-      <a href="{{ url_for('user.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right">Buy Stock</a>
-      <a href="{{ url_for('user.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right">Sell Stock</a>
+      <a href="{{ url_for('user.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right mr-2">Buy Stock</a>
+      <a href="{{ url_for('user.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right mr-2">Sell Stock</a>
     </div>
 
     

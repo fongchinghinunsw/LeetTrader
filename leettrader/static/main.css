@@ -155,6 +155,11 @@
   color: red;
 }
 
+#footer {
+  position: relative;
+  top: 500px;
+}
+
 /*
   start of chatbot section.
 */
