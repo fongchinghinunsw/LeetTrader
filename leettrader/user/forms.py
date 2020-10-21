@@ -7,7 +7,7 @@
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired, NumberRange
 from leettrader.models import User
 
@@ -65,6 +65,8 @@ class OrderForm(FlaskForm):
                               NumberRange(
                                   message="Quantity must be at least 1", min=1)
                           ])
+  actions = ['Current Market Price']
+  action = SelectField('Action', choices=actions)
   submit = SubmitField('Proceed')
 
 

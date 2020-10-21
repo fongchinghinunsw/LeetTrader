@@ -6,7 +6,7 @@
     <form method="POST" action="">
     {{form.hidden_tag() }}
 	
-    <!--Quantity -->
+    <!-- Quantity -->
     <div class="form-group">
       {{order_form.quantity.label(class="form-control-label") }}
       {{ order_form.quantity(class="form-control")}}
@@ -18,6 +18,13 @@
       </div>
       {% endif %}
     </div>
+
+    <!-- Action -->
+    <div class="form-group">
+      {{order_form.action.label(class="form-control-label") }}
+      {{ order_form.action(class="form-control")}}
+    </div>
+
   </div>
 
   <!--Proceed to checkout button-->
