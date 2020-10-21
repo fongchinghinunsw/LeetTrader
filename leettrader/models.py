@@ -7,11 +7,15 @@
     5. OwnStock
     6. ActionType
 '''
+SECRET_KEY = '7b0dff182c1a883a7c12855dcc6f411d'
+
 import enum
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import PickleType
 from flask_login import UserMixin
 from leettrader import db, login_manager
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 watchlist_items = db.Table(
     'watchlist_items',
@@ -75,6 +79,23 @@ class User(db.Model, UserMixin):
   def get_id(self):
     return self.id
 
+  def get_reset_password_token(self, secs=2000):
+    # create a serializer with an expiration time of 2000s
+    s = Serializer(SECRET_KEY, secs)
+    # add the payload and create a token
+    token = s.dumps({'user_id': self.get_id()}).decode('utf-8')
+    return token
+
+  @staticmethod
+  def verify_reset_password_token(token):
+    s = Serializer(SECRET_KEY)
+    try:
+      # check if the token is valid, try to load the token
+      user_id = s.loads(token)['user_id']
+    except:
+      return None
+    # return the user with user_id
+    return User.query.get(user_id)
 
 class Watchlist(db.Model):
   """Watchlist class"""

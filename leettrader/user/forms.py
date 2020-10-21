@@ -57,6 +57,31 @@ class LoginForm(FlaskForm):
   submit = SubmitField('Log in')
 
 
+class resetRequestForm(FlaskForm):
+  email = StringField('Email', validators=[DataRequired(), Email()])
+  submit = SubmitField('Send Request')
+
+  def validate_email(self, email):
+    user = User.query.filter_by(email=email.data).first()
+    if user is None:
+      raise ValidationError('This email has not been registered yet')
+
+class resetPasswordForm(FlaskForm):
+  password = PasswordField(
+      'Password',
+      validators=[
+          DataRequired(),
+          Length(message="Password must be between 6 and 30 characters long",
+                 min=6,
+                 max=30)
+      ])
+  confirm_password = PasswordField(
+      'Confirm Password', validators=[DataRequired(),
+                                      EqualTo('password')])
+
+  submit = SubmitField('Reset Password')
+
+
 class OrderForm(FlaskForm):
   ''' Stock Order Form '''
   quantity = IntegerField('Quantity',

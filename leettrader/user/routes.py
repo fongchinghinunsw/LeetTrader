@@ -2,11 +2,15 @@
   Routing of Account Mangement, Simul-Buy and Sell
 """
 from flask import render_template, url_for, flash, redirect, Blueprint
-from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm
+
+from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
+resetPasswordForm, OrderForm, CheckoutForm)
+
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock
-from leettrader import db, bcrypt
+from leettrader import db, bcrypt, mail
 from flask_login import login_user, logout_user, current_user, login_required
+from flask_mail import Message
 
 user = Blueprint('user', __name__)
 
@@ -82,6 +86,55 @@ def logout():
   logout_user()
   return redirect(url_for('main.landing'))
 
+# Use flask-mail to send the email
+def send_reset_email(user):
+  # get a new token and start timer !
+  token = user.get_reset_password_token()
+  msg = Message('Password reset request', sender='chengyuanGuo@gmail.com', recipients=[user.email])
+  msg.body = f'''To reset your password, please visit the following link:
+{url_for('user.reset_token', token=token, _external=True)}
+
+If you did not make the request then just ignore it.
+  '''
+
+  mail.send(msg)
+
+@user.route("/resetPassword", methods=['GET', 'POST'])
+def reset_request():
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('home'))
+  form = resetRequestForm()
+  if form.validate_on_submit():
+    user = User.query.filter_by(email=form.email.data).first()
+    # print('sending')
+    send_reset_email(user)
+    flash('An email has been sent to reset your password', 'info')
+    return redirect(url_for('user.login'))
+  return render_template('reset_request.html', title='reset password', form=form)
+
+
+@user.route("/resetPassword/<token>", methods=['GET', 'POST'])
+# reset their password when the token is active
+def reset_token(token):
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('home'))
+
+  # check if the token is valid
+  user = User.verify_reset_password_token(token)
+  if user is None:
+    flash('The token has expired !', 'warning')
+    return redirect(url_for('user.reset_request'))
+  else:
+    form = resetPasswordForm()
+    if form.validate_on_submit():
+      # Hash password & Read User Input
+      password_hashed = bcrypt.generate_password_hash(
+          form.password.data).decode('utf-8')
+      user.password = password_hashed
+      db.session.commit()
+      flash('Account has been reset, please login !', 'success')
+      return redirect(url_for('user.login'))
+    return render_template('reset_token.html', title='reset password', form=form)
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
