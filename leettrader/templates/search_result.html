@@ -37,6 +37,7 @@
     <!--Buttons to buy and sell stocks-->
       <a href="{{ url_for('user.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right mr-2">Buy Stock</a>
       <a href="{{ url_for('user.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right mr-2">Sell Stock</a>
+      <a href="{{ url_for('user.add_reminder', stock=code) }}" class="btn btn-outline-primary float-right mr-2">Add reminder</a>
     </div>
 
     

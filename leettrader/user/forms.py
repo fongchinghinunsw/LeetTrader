@@ -77,3 +77,9 @@ class CheckoutForm(FlaskForm):
   total_price = StringField('total_price', render_kw={'readonly': True})
   submit = SubmitField('Checkout')
   cancel = SubmitField('Cancel')
+
+class ReminderForm(FlaskForm):
+  ''' Reminder Form '''
+  alert_price = StringField('Alert Price')
+  submit = SubmitField('Confirm')
+  cancel = SubmitField('Cancel')

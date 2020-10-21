@@ -2,7 +2,7 @@
   Routing of Account Mangement, Simul-Buy and Sell
 """
 from flask import render_template, url_for, flash, redirect, Blueprint, request
-from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm
+from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm, ReminderForm
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock
 from leettrader import db, bcrypt
@@ -194,3 +194,21 @@ def checkout(stock, action):
                          action=action,
                          quantity=quantity,
                          checkout_form=checkout_form)
+
+@user.route("/add_reminder", methods=['GET', 'POST'])
+@login_required
+def add_reminder():
+  code = request.args.get('stock')
+  reminder_form = ReminderForm()
+
+  if reminder_form.validate_on_submit():
+    if reminder_form.cancel.data:
+      return redirect(url_for('stock.search_page', code=code))
+
+    if reminder_form.alert_price.data:
+      return redirect(url_for('stock.search_page', code=code))
+      
+    flash("Please enter a price.", "warning")
+
+
+  return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
