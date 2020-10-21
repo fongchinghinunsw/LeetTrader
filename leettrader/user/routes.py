@@ -95,6 +95,9 @@ def send_reset_email(user):
 {url_for('user.reset_token', token=token, _external=True)}
 
 If you did not make the request then just ignore it.
+
+
+LeetTrader Team
   '''
 
   mail.send(msg)
