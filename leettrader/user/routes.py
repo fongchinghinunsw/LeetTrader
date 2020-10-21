@@ -121,7 +121,6 @@ def reset_request():
 def reset_token(token):
   if current_user.is_authenticated:
     return redirect(url_for('home'))
-
   # check if the token is valid
   user = User.verify_reset_password_token(token)
   if user is None:
