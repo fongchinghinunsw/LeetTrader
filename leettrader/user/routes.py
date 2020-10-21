@@ -92,7 +92,7 @@ def send_reset_email(user):
   token = user.get_reset_password_token()
   msg = Message('Password reset request', sender='chengyuanGuo@gmail.com', recipients=[user.email])
   msg.body = f'''To reset your password, please click the link below:
-{url_for('user.reset_token', token=token, _external=True)}
+{url_for('user.reset_password_token', token=token, _external=True)}
 
 If you did not make the request, please just ignore this email.
 
@@ -118,7 +118,7 @@ def reset_request():
 
 @user.route("/resetPassword/<token>", methods=['GET', 'POST'])
 # reset their password when the token is active
-def reset_token(token):
+def reset_password_token(token):
   if current_user.is_authenticated:
     return redirect(url_for('home'))
   # check if the token is valid
@@ -136,7 +136,7 @@ def reset_token(token):
       db.session.commit()
       flash('Account has been reset, please login !', 'success')
       return redirect(url_for('user.login'))
-    return render_template('reset_token.html', title='reset password', form=form)
+    return render_template('reset_password_token.html', title='reset password', form=form)
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
