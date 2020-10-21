@@ -1,7 +1,7 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
-from flask import render_template, url_for, flash, redirect, Blueprint
+from flask import render_template, url_for, flash, redirect, Blueprint, request
 from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock
@@ -91,7 +91,7 @@ def order(stock, action):
   
   if order_form.validate_on_submit():
     quantity = order_form.quantity.data
-
+    transaction_type = order_form.transaction_type.data
     stock_id = Stock.query.filter_by(code=stock).first().id
     print(stock_id)
 
@@ -101,7 +101,8 @@ def order(stock, action):
           url_for('user.checkout',
                   action=action,
                   stock=stock,
-                  quantity=quantity))
+                  quantity=quantity,
+                  transaction_type=transaction_type))
 
     elif action == "sell":
       ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
@@ -113,7 +114,8 @@ def order(stock, action):
             url_for('user.checkout',
                     action=action,
                     stock=stock,
-                    quantity=quantity))
+                    quantity=quantity,
+                    transaction_type=transaction_type))
       else:
         flash('You do not have enough amount of this stock to sell', "danger")
 
@@ -124,10 +126,13 @@ def order(stock, action):
                          order_form=order_form)
 
 
-@user.route("/checkout/<string:action>/<string:stock>/<quantity>",
+@user.route("/checkout/<string:action>/<string:stock>",
             methods=['GET', 'POST'])
 @login_required
-def checkout(stock, action, quantity):
+def checkout(stock, action):
+  quantity = request.args.get('quantity')
+  transaction_type = request.args.get('transaction_type')
+
   stock_obj = Stock.query.filter_by(code=stock).first()
   stock_id = stock_obj.id
 
@@ -136,6 +141,7 @@ def checkout(stock, action, quantity):
   checkout_form = CheckoutForm(
       current_market_price=current_market_price,
       total_price=str(float(current_market_price) * int(quantity)))
+
   if checkout_form.validate_on_submit():
     # the submit button is clicked.
     if checkout_form.submit.data:

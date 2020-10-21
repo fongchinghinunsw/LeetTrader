@@ -65,8 +65,8 @@ class OrderForm(FlaskForm):
                               NumberRange(
                                   message="Quantity must be at least 1", min=1)
                           ])
-  actions = ['Current Market Price']
-  action = SelectField('Action', choices=actions)
+  transaction_types = ['Current Market Price']
+  transaction_type = SelectField('Transaction Type', choices=transaction_types)
   submit = SubmitField('Proceed')
 
 
