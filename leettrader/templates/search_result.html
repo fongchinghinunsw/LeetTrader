@@ -35,8 +35,8 @@
       <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
       {% endif %}
     <!--Buttons to buy and sell stocks-->
-      <a href="{{ url_for('user.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right">Buy Stock</a>
-      <a href="{{ url_for('user.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right">Sell Stock</a>
+      <a href="{{ url_for('users.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right">Buy Stock</a>
+      <a href="{{ url_for('users.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right">Sell Stock</a>
     </div>
 
     

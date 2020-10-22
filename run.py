@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
   run.py: create and start the flask server and inject Flask global template
   variables

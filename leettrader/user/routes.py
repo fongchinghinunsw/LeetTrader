@@ -8,7 +8,7 @@ from leettrader.models import User, Stock, OwnStock
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 
-user = Blueprint('user', __name__)
+user = Blueprint('users', __name__)
 
 
 @user.route("/home")
@@ -38,7 +38,7 @@ def register():
     db.session.add(user)
     db.session.commit()
     flash('Account created successfully, please login !', 'success')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('users.login'))
 
   # Fail to register, remain in register page
   return render_template('register.html', title='register', form=rform)
@@ -57,7 +57,7 @@ def login():
     if user and bcrypt.check_password_hash(user.password,
                                            login_form.password.data):
       login_user(user, remember=login_form.remember.data)
-      return redirect(url_for('user.home', userID=user.id))
+      return redirect(url_for('users.home', userID=user.id))
 
     # Show Error message otherwise
     elif not user:
@@ -98,7 +98,7 @@ def order(stock, action):
     if action == "buy":
       print("You are buying a stock")
       return redirect(
-          url_for('user.checkout',
+          url_for('users.checkout',
                   action=action,
                   stock=stock,
                   quantity=quantity))
@@ -110,7 +110,7 @@ def order(stock, action):
       if ownStock is not None and ownStock.unit >= quantity:
         print("Currently, you own", ownStock.unit, "units of stock")
         return redirect(
-            url_for('user.checkout',
+            url_for('users.checkout',
                     action=action,
                     stock=stock,
                     quantity=quantity))
@@ -172,11 +172,11 @@ def checkout(stock, action, quantity):
             db.session.delete(ownStock)
 
       db.session.commit()
-      return redirect(url_for('user.home'))
+      return redirect(url_for('users.home'))
 
     # the cancel button is clicked.
     elif checkout_form.cancel.data:
-      return redirect(url_for('stock.search_page', code=stock_obj.code))
+      return redirect(url_for('stocks.search_page', code=stock_obj.code))
 
   # checkout_form.data is a dict containing all fields value, e.g. {'current_market_price': None, 'total_price': None, 'submit': False, 'csrf_token': None}
   #checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']

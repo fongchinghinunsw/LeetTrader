@@ -7,7 +7,7 @@ from leettrader.stock.utils import get_search_result
 from leettrader.watchlist.utils import add_stocks, remove_stocks, get_list
 from flask_login import current_user, login_required
 
-watchlist = Blueprint('watchlist', __name__)
+watchlist = Blueprint('watchlists', __name__)
 
 
 @watchlist.route('/add/<string:code>', methods=['POST'])
