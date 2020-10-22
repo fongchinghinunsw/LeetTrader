@@ -79,8 +79,8 @@ class User(db.Model, UserMixin):
   def get_id(self):
     return self.id
 
-  def get_reset_password_token(self, secs=2000):
-    # create a serializer with an expiration time of 2000s
+  def get_new_token(self, secs=1800):
+    # create a serializer with an expiration time of 1800s
     s = Serializer(SECRET_KEY, secs)
     # add the payload and create a token
     token = s.dumps({'user_id': self.get_id()}).decode('utf-8')

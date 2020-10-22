@@ -29,7 +29,7 @@ def home():
 # Use flask-mail to send the email
 def send_confirmation_email(new_user):
   # get a new token and start timer !
-  token = new_user.get_reset_password_token()
+  token = new_user.get_new_token()
   msg = Message('Confirmation for new account', sender='leettrader2020@gmail.com', recipients=[new_user.email])
   msg.body = f'''Mr {new_user.username}, to confirm your email and activate your new account, please click the link below:
 {url_for('user.confirm', token=token, _external=True)}
@@ -74,7 +74,6 @@ def register():
 def confirm(token):
   # check if the token is valid
   res = User.verify_confirmation_token(token)
-  print('=============',res, '=============')
   if res is False:
     flash('The token has expired !', 'warning')
     return redirect(url_for('user.register'))
@@ -131,7 +130,7 @@ def logout():
 # Use flask-mail to send the email
 def send_reset_password_email(user):
   # get a new token and start timer !
-  token = user.get_reset_password_token()
+  token = user.get_new_token()
   msg = Message('Password reset request', sender='chengyuanGuo@gmail.com', recipients=[user.email])
   msg.body = f'''Mr {user.username}, to reset your password, please click the link below:
 {url_for('user.reset_password_token', token=token, _external=True)}
