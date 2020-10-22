@@ -131,7 +131,7 @@ def logout():
 def send_reset_password_email(user):
   # get a new token and start timer !
   token = user.get_new_token()
-  msg = Message('Password reset request', sender='chengyuanGuo@gmail.com', recipients=[user.email])
+  msg = Message('Password reset request', sender='leettrader2020@gmail.com', recipients=[user.email])
   msg.body = f'''Mr {user.username}, to reset your password, please click the link below:
 {url_for('user.reset_password_token', token=token, _external=True)}
 
