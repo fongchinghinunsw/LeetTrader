@@ -160,6 +160,7 @@
   color: red;
 }
 
+/* ======== request reset form ======== */
 .logo {
   padding: 15px 0;
   font-size: 35px;
@@ -167,7 +168,6 @@
   font-weight: bold;
 }
 
-/*=== 4. Main Form ===*/
 .login-form-1 {
   max-width: 300px;
   border-radius: 5px;
