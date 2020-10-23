@@ -71,6 +71,7 @@ def register():
   return render_template('register.html', title='register', form=rform)
 
 @user.route("/confirm/<token>", methods=['GET', 'POST'])
+@login_required
 def confirm(token):
   # check if the token is valid
   res = User.verify_confirmation_token(token)
