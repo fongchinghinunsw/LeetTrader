@@ -143,6 +143,7 @@ LeetTrader Team
   mail.send(msg)
 
 @user.route("/resetPassword", methods=['GET', 'POST'])
+@login_required
 def reset_request():
   if current_user.is_authenticated:
     return redirect(url_for('home'))
@@ -157,6 +158,7 @@ def reset_request():
 
 
 @user.route("/resetPassword/<token>", methods=['GET', 'POST'])
+@login_required
 # reset their password when the token is active
 def reset_password_token(token):
   if current_user.is_authenticated:
