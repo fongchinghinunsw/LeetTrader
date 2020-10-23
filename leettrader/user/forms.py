@@ -81,6 +81,12 @@ class resetPasswordForm(FlaskForm):
 
   submit = SubmitField('Reset Password')
 
+class deleteRequestForm(FlaskForm):
+  ''' delete account request Form '''
+  email = StringField('Email', validators=[DataRequired(), Email()])
+  password = PasswordField('Password', validators=[DataRequired()])
+  submit = SubmitField('Confirm and Send Request')
+
 
 class OrderForm(FlaskForm):
   ''' Stock Order Form '''

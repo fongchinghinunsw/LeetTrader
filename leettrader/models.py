@@ -107,6 +107,16 @@ class User(db.Model, UserMixin):
       return False
     return True
 
+  @staticmethod
+  def verify_delete_account_token(token):
+    s = Serializer(SECRET_KEY)
+    try:
+      # check if the token is valid, try to load the token
+      user_id = s.loads(token)['user_id']
+    except:
+      return None
+    # return the user with user_id
+    return User.query.get(user_id)
 
 class Watchlist(db.Model):
   """Watchlist class"""

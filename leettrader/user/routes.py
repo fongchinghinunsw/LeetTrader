@@ -4,7 +4,7 @@
 from flask import render_template, url_for, flash, redirect, Blueprint
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
-resetPasswordForm, OrderForm, CheckoutForm)
+resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm)
 
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock
@@ -31,7 +31,7 @@ def send_confirmation_email(new_user):
   # get a new token and start timer !
   token = new_user.get_new_token()
   msg = Message('Confirmation for new account', sender='leettrader2020@gmail.com', recipients=[new_user.email])
-  msg.body = f'''Mr {new_user.username}, to confirm your email and activate your new account, please click the link below:
+  msg.body = f'''Dear {new_user.username}, to confirm your email and activate your new account, please click the link below:
 {url_for('user.confirm', token=token, _external=True)}
 
 If you did not create a new account, please just ignore this email.
@@ -133,8 +133,24 @@ def send_reset_password_email(user):
   # get a new token and start timer !
   token = user.get_new_token()
   msg = Message('Password reset request', sender='leettrader2020@gmail.com', recipients=[user.email])
-  msg.body = f'''Mr {user.username}, to reset your password, please click the link below:
-{url_for('user.reset_password_token', token=token, _external=True)}
+  msg.body = f'''Dear {user.username}, to reset your password, please click the link below:
+{url_for('user.', token=token, _external=True)}
+
+If you did not make the request, please just ignore this email.
+
+Cheers,
+LeetTrader Team
+  '''
+  mail.send(msg)
+
+# Use flask-mail to send the email
+def send_delete_account_email(user):
+  # get a new token and start timer !
+  token = user.get_new_token()
+  msg = Message('Delete the account', sender='leettrader2020@gmail.com', recipients=[user.email])
+  msg.body = f'''Dear {user.username}, to cancel your account, please click the link below:
+{url_for('user.delete_account_token', token=token, _external=True)}
+Please be aware that all your account info and data will be deleted and cannot be retrieved.
 
 If you did not make the request, please just ignore this email.
 
@@ -144,10 +160,9 @@ LeetTrader Team
   mail.send(msg)
 
 @user.route("/resetPassword", methods=['GET', 'POST'])
-@login_required
 def reset_request():
-  if current_user.is_authenticated:
-    return redirect(url_for('home'))
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('user.home'))
   form = resetRequestForm()
   if form.validate_on_submit():
     user = User.query.filter_by(email=form.email.data).first()
@@ -159,11 +174,10 @@ def reset_request():
 
 
 @user.route("/resetPassword/<token>", methods=['GET', 'POST'])
-@login_required
 # reset their password when the token is active
 def reset_password_token(token):
-  if current_user.is_authenticated:
-    return redirect(url_for('home'))
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('user.home'))
   # check if the token is valid
   user = User.verify_reset_password_token(token)
   if user is None:
@@ -180,6 +194,50 @@ def reset_password_token(token):
       flash('Account has been reset, please login !', 'success')
       return redirect(url_for('user.login'))
     return render_template('reset_password_token.html', title='reset password', form=form)
+
+# delete account 
+@user.route("/deleteRequest", methods=['GET', 'POST'])
+@login_required
+def deleteRequest():
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('user.home'))
+  form = deleteRequestForm()
+
+  if form.validate_on_submit():
+    if form.email.data != current_user.email:
+      flash('This is not the email for your account, please try again', 'danger')
+      return render_template('delete_request.html', title='Delete your account', delete_form=form)
+      
+    # user = User.query.filter_by(email=form.email.data).first()
+    # # print(user)
+
+    if bcrypt.check_password_hash(current_user.password, form.password.data):
+      curr_user = User.query.filter_by(email=form.email.data).first()
+      send_delete_account_email(curr_user)
+      flash('An email has been sent to cancel your account', 'info')
+      logout_user()
+      return redirect(url_for('user.login'))
+    else:
+      flash('Wrong password, please try again', 'danger')
+
+  return render_template('delete_request.html', title='Delete your account', delete_form=form)
+
+
+@user.route("/deleteRequest/<token>", methods=['GET', 'POST'])
+# reset their password when the token is active
+def delete_account_token(token):
+  # check if the token is valid
+  user = User.verify_delete_account_token(token)
+  if user is None:
+    flash('The token has expired !', 'warning')
+    return redirect(url_for('user.deleteRequest'))
+  else:
+    # do the deletion if the token is valid
+    db.session.delete(user)
+    db.session.commit()
+    flash('Your account has been deleted successfully', 'success')
+    return redirect(url_for('main.landing'))
+
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
