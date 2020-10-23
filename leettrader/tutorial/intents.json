@@ -161,27 +161,27 @@
         },
         {"tag": "Earnings Date",
          "patterns": ["What is earnings date?", "What does earnings date mean?", "Tell me about earnings date", "Can you tell me about earnings date?", "Can you tell me what earnings date is?", "Can you teach me what is earnings date?"],
-         "responses": [""],
+         "responses": ["Earnings date is the date of the next release of a company's financial report. The financial report includes a balance sheet, income statement, statement of changes in equity and cash flow statement. An investor will use these financial reports to determine the performance of a company which will influence the investment decisions they make. If you can read these financial reports, you can make an informed decision in your investments."],
          "context": 2
         },
         {"tag": "Forward Dividend and Yield",
          "patterns": ["What is forward dividend and yield?", "What does forward dividend and yield mean?", "Tell me about forward dividend and yield", "Can you tell me about forward dividend and yield?", "Can you tell me what forward dividend and yield is?", "Can you teach me what is forward dividend and yield?"],
-         "responses": [""],
+         "responses": ["The forward dividend and yield is an estimation of a year's dividend expressed as a percentage of current stock price. The year's projected dividend is measured by taking a stock's most recent actual divivdend payment and annualising (converting it to an annual rate) it. The forward dividend and yield is calculated by dividing a year's worth of future dividend payments by a stock's current share price. The higher, the better."],
          "context": 2
         },
         {"tag": "Ex-Dividend Date",
          "patterns": ["What is ex-dividend date?", "What does ex-dividend date mean?", "Tell me about ex-dividend date", "Can you tell me about ex-dividend date?", "Can you tell me what ex-dividend date is?", "Can you teach me what is ex-dividend date?"],
-         "responses": [""],
+         "responses": ["The ex-dividend date, also known as the ex-date, is the day the stock starts trading without the value of its next dividend payment. Usually, the ex-dividend date for a stock is one business day before the record date. This means that an investor who buys the stock on its ex-dividend date or later, will not be eligible to receive the declared dividend. In fact, the dividend payment is made to whoever owned the stock the day before the ex-dividend date."],
          "context": 2
         },
         {"tag": "1y Target Est",
          "patterns": ["What is 1y target est?", "What does 1y target est mean?", "Tell me about 1y target est", "Can you tell me about 1y target est?", "Can you tell me what 1y target est is?", "Can you teach me what is 1y target est?"],
-         "responses": [""],
+         "responses": ["This is the 1 year target estimate. It is the price that analysts have predicted the stock will be one year from now. This is a prediction and an estimate. It is not by any means guaranteed so you should take the 1 year estimate with a grain of salt. The stock can easily beat the estimate just as it can fail the estimate. This estimate is done by an analyst so it is as good as the one doing the analysis. You shouldn't be using this by itself but rather as a check. If you believe the stock is looking good, and the 1 year target estimate is also looking good, then it can reinforce your decision. Otherwise, you may need to consider more favorable options."],
          "context": 2
         },
         {"tag": "Fair Value",
          "patterns": ["What is fair value?", "What does fair value mean?", "Tell me about fair value", "Can you tell me about fair value?", "Can you tell me what fair value is?", "Can you teach me what is fair value?"],
-         "responses": [""],
+         "responses": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parent company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued considering the: current index value, dividends paid on stock in the index, days to expiration of the futures contract, and current interest rates."],
          "context": 2
         }
    ]
