@@ -4,7 +4,7 @@
 from flask import render_template, url_for, flash, redirect, Blueprint
 from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock
+from leettrader.models import User, UserType, Stock, OwnStock
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -16,7 +16,11 @@ user = Blueprint('users', __name__)
 def home():
   ''' Home Page '''
   return render_template('home.html')
-
+  
+@user.route("/admin")
+@login_required
+def admin():
+  pass
 
 @user.route("/register", methods=['GET', 'POST'])
 def register():
@@ -55,9 +59,12 @@ def login():
 
     # If both Email & Password are correct, go to Home Page
     if user and bcrypt.check_password_hash(user.password,
-                                           login_form.password.data):
+                                           login_form.password.data):                                     
       login_user(user, remember=login_form.remember.data)
-      return redirect(url_for('users.home', userID=user.id))
+      if user.is_admin() == UserType.NORMAL:
+        return redirect(url_for('users.home', userID=user.id))
+      else: 
+        return redirect(url_for('users.admin', userID=user.id))
 
     # Show Error message otherwise
     elif not user:

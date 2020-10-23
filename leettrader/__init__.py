@@ -20,13 +20,10 @@ def create_app(config_class=Config):
   app.config.from_object(Config)
 
   # Admin page config
-  app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
-  admin = Admin(app, name='Admin', template_mode='bootstrap3')
-  from leettrader.models import User, Stock, Watchlist, TransactionRecord
+  app.config['FLASK_ADMIN_SWATCH'] = 'journal'
+  admin = Admin(app, name='Admin',base_template='admin/base.html', template_mode='bootstrap3')
+  from leettrader.models import User
   admin.add_view(ModelView(User, db.session))
-  admin.add_view(ModelView(Stock, db.session))
-  admin.add_view(ModelView(Watchlist, db.session))
-  admin.add_view(ModelView(TransactionRecord, db.session))
   
   db.init_app(app)
   login_manager.init_app(app)
