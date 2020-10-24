@@ -19,12 +19,6 @@ new_username = None
 new_email = None
 new_password = None
 
-@user.route("/home")
-@login_required
-def home():
-  ''' Home Page '''
-  return render_template('home.html')
-
 
 # Use flask-mail to send the email
 def send_confirmation_email(new_user):
@@ -40,6 +34,46 @@ Cheers,
 LeetTrader Team
   '''
   mail.send(msg)
+
+
+# Use flask-mail to send the email
+def send_reset_password_email(user):
+  # get a new token and start timer !
+  token = user.get_new_token()
+  msg = Message('Password reset request', sender='leettrader2020@gmail.com', recipients=[user.email])
+  msg.body = f'''Dear {user.username}, to reset your password, please click the link below:
+{url_for('user.', token=token, _external=True)}
+
+If you did not make the request, please just ignore this email.
+
+Cheers,
+LeetTrader Team
+  '''
+  mail.send(msg)
+
+# Use flask-mail to send the email
+def send_delete_account_email(user):
+  # get a new token and start timer !
+  token = user.get_new_token()
+  msg = Message('Delete the account', sender='leettrader2020@gmail.com', recipients=[user.email])
+  msg.body = f'''Dear {user.username}, to cancel your account, please click the link below:
+{url_for('user.delete_account_token', token=token, _external=True)}
+Please be aware that all your account information and data will be deleted and cannot be retrieved.
+
+If you did not make the request, please just ignore this email.
+
+Cheers,
+LeetTrader Team
+  '''
+  mail.send(msg)
+
+
+@user.route("/home")
+@login_required
+def home():
+  ''' Home Page '''
+  return render_template('home.html')
+
 
 @user.route("/register", methods=['GET', 'POST'])
 def register():
@@ -128,36 +162,7 @@ def logout():
   logout_user()
   return redirect(url_for('main.landing'))
 
-# Use flask-mail to send the email
-def send_reset_password_email(user):
-  # get a new token and start timer !
-  token = user.get_new_token()
-  msg = Message('Password reset request', sender='leettrader2020@gmail.com', recipients=[user.email])
-  msg.body = f'''Dear {user.username}, to reset your password, please click the link below:
-{url_for('user.', token=token, _external=True)}
 
-If you did not make the request, please just ignore this email.
-
-Cheers,
-LeetTrader Team
-  '''
-  mail.send(msg)
-
-# Use flask-mail to send the email
-def send_delete_account_email(user):
-  # get a new token and start timer !
-  token = user.get_new_token()
-  msg = Message('Delete the account', sender='leettrader2020@gmail.com', recipients=[user.email])
-  msg.body = f'''Dear {user.username}, to cancel your account, please click the link below:
-{url_for('user.delete_account_token', token=token, _external=True)}
-Please be aware that all your account info and data will be deleted and cannot be retrieved.
-
-If you did not make the request, please just ignore this email.
-
-Cheers,
-LeetTrader Team
-  '''
-  mail.send(msg)
 
 @user.route("/resetPassword", methods=['GET', 'POST'])
 def reset_request():
