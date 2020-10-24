@@ -25,6 +25,18 @@
                   {{ form.email(class="form-control form-control-lg", placeholder="Enter your email") }}
                 {% endif %}
 
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  <ul class=flashes style="padding-top: 10px;">
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                {% endwith %}
+
               </div>
             </div>
           </div>
