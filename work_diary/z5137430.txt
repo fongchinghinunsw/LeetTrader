@@ -10,9 +10,20 @@ During the meeting, I created a progression check table to ensure that our team 
 At the end of the week 2 I drafted the process flow chart. 
 
 Week 3
-I finished the 
+I finished the proposal together with groups. Following is my works:
+  - Rewrite and improve background section
+  - Transfer US and epics from google doc to proposal
+  - Project Objective
+  - System Architecture
+  - Improve visual of System Diagrams
 
 Week 4
-
+I completed user stories about the watchlist with the help of Jeffrey and Stephon.
 
 Week 5
+I helped to refactor all files of the project by adding comments and using pylints. I finished reflection 1 together with my team. Following is my reflection:
+  - Construct a time schedule of all members so that we can decide the date and time of next meeting easier and earlier.
+  - Suggest members to add comments to their codes to improve readibility
+
+Week 6 & 7
+I completed the user stories about showing information of owned stock.
