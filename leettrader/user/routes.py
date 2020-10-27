@@ -3,6 +3,7 @@
 """
 from flask import render_template, url_for, flash, redirect, Blueprint, request
 from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm, ReminderForm
+from leettrader.user.utils import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock, Reminder
 from leettrader import db, bcrypt
@@ -210,9 +211,11 @@ def add_reminder():
       stock_obj = Stock.query.filter_by(code=code).first()
       reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.code, orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
       print(reminder)
+      add_and_start_reminder(reminder)
       return redirect(url_for('stock.search_page', code=code))
       
     flash("Please enter a price.", "warning")
 
 
   return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
+
