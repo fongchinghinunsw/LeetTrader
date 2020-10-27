@@ -13,48 +13,13 @@
       url: "/get_ownedList",      
       dataType: "json",
       success: function(data) { 
-        tot_PL = 0;
-
-        // Data is a list of list: [[StockName, Qty, Market, Purchase, P/L]]
-        for (i = 0; i < data.ownedList.length; i++){
-          
-          // Read information for each owned stock
-          stockName = data.ownedList[i][0]
-          qty = data.ownedList[i][1]
-          mPrice = data.ownedList[i][2]
-          pPrice = data.ownedList[i][3]
-          pl = data.ownedList[i][4] 
-
-          // Decide the color of P/L text
-          color = data.ownedList[i][5]
-          colorSpan = '<span style="color: ' + color + '"> +'
-
-          // Format stock information
-          ownStock = '<b>' + stockName + '</b></br>'
-          ownStock += " Qty: " + qty
-          ownStock += " | Market: " + mPrice
-          ownStock += " | Purchased: " + pPrice
-          ownStock += " | P/L: " + colorSpan + pl + '</span>' + '</br></br>'
-          
-          // Append formatted stock information to StockList
-          olItem = "<div>" + ownStock + "</div>";
-          $("#ownedStockList").append(olItem);
-
-          // Update total P/L
-          tot_PL += pl 
+        // ownedList[0] is a list of <div> of stock info
+        for (i = 0; i < data.ownedList[0].length; i++){
+          $("#ownedStockList").append(data.ownedList[0][i]);
         }
 
-
-        // Determine color of total P/L
-        if (tot_PL >= 0){
-          totColorSpan = '<span style="color: green"> +'
-        }else{
-          totColorSpan = '<span style="color: red">'
-        }
-        tot_PL = totColorSpan + tot_PL + '</span>'
-
-        // Format total P/L and append to HTML
-        tot = "</br><div> Total P/L: " + tot_PL + "</div>"
+        // ownedList[0] is a list of <span> of total P/L
+        tot = "</br><div> Total P/L: " + data.ownedList[1] + "</div>"
         $("#totalPL").append(tot)
       }
     }))
