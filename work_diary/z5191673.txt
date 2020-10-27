@@ -24,3 +24,13 @@ The main obstacle was fetching current stock price from online websites, the rea
 I have spent some times on trying IP rotation and Agent rotation, however, since those IP I used are from public free proxies, they get blocked easily.
 To get around this, I realise yahoo finance's robots.txt mentioned that scrapers are allowed to scrap their information, therefore now I use my own IP address to scrape data from yahoo finance.
 I have also completed the autocompletion of stock search, user can now type stock names/codes in the search bar and the system will provide recommendations to the user.
+
+Week 5
+I have helped The Trans with the buy/sell stock functionalities, the US is basically completed.
+I have a meeting before the progessive demo with Jeffrey and Luna, we realise 3-4 acceptance citeria are not completed, therefore, we assign each of us  some acceptance citeria and finished them in a few hours.
+Finally, I have done a final check on the completed work to make sure all the acceptance citeria are completed, then I push the work on master to a new branch called release. This branch will be used to present our work.
+
+Week 6
+We had a meeting on Monday, assigned User stories for this iteration.
+I have completed the Chatbot for the app, although it looks great on other groupmates browser, it is a bit troublesome to handle the environment setup on vlab.
+We had a further meeting on Wednesday, decided that each of us will do more user stories on week 7.
