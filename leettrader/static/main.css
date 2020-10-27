@@ -1,6 +1,11 @@
 * {
   margin: 0;
   padding: 0;
+  /* for debugging css
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+  */
 }
 
 .clear {
@@ -15,6 +20,7 @@
 #home-button {
   position: relative;
   top: 2px;
+  font-size: 16px;
 }
 
 #top-navbar-fixed {

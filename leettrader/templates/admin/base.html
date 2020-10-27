@@ -12,6 +12,7 @@
         <meta name="author" content="">
     {% endblock %}
     {% block head_css %}
+	<link href='https://fonts.googleapis.com/css?family=Amita' rel='stylesheet'>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <link href="{{ admin_static.url(filename='bootstrap/bootstrap3/swatch/{swatch}/bootstrap.min.css'.format(swatch=config.get('FLASK_ADMIN_SWATCH', 'default')), v='3.3.5') }}" rel="stylesheet">
@@ -25,53 +26,37 @@
             <link href="{{ css_url }}" rel="stylesheet">
           {% endfor %}
         {% endif %}
-        <style>
-        body {
-            padding-top: 4px;
-        }
-        </style>
     {% endblock %}
     {% block head %}
     {% endblock %}
     {% block head_tail %}
     {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
   </head>
   <body>
     {% block page_body %}
-    <nav id='top-navbar-fixed' class="navbar  navbar-expand-md navbar-dark bg-dark">
+    <nav id='top-navbar-notfixed' class="navbar navbar-expand-md navbar-dark bg-dark">
       <!-- Home Button "LeetTrader" -->
-      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" style="position:relative;right:25px;">
         <ul class="navbar-nav mr-auto">
           <a id="app-name" class="navbar-brand" href="/">LeetTrader</a>
         {% if current_user.is_authenticated %}
-          <li class="nav-item ml-2">
-      <a id="home-button" class="nav-link" href="{{ url_for('users.home') }}">Home</a>
+          <li class="nav-item ml-1">
+      <a class="nav-link" href="{{ url_for('users.home') }}" style="font-size:17px;">Home</a>
           </li>
           {% if current_user.is_admin()%}
-          <li class="nav-item ml-2">
-            <a id="home-button" class="nav-link" href="/admin">admin</a>
+          <li class="nav-item ml-4">
+            <a class="nav-link" style="font-size:17px;" href="/admin">admin</a>
           </li>
           {% endif %}
         {% endif %}
         </ul>
       </div>
     
-      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 float-right">
+      <div class="navbar-collapse collapse w-300 order-3 dual-collapse2 float-right">
         <ul class="navbar-nav ml-auto">
           <!-- Logout Button & Searchbar-->
           {% if current_user.is_authenticated %}
-
-          <li class="nav-item mr-3">
-            <form method="POST" class="form-inline" action="{{ url_for('stocks.search_stock', stock=form.stock.data) }}">
-              {{form.hidden_tag() }}
-              <div class="input-group">
-                {{ form.stock(id="search-bar", class="form-control mr-sm-2") }}
-              </div>
-              <div class="input-group">
-                {{ form.submit(class="btn btn-outline-success my-2 my-sm-0") }}
-              </div>
-            </form>
-          </li>
           <li class="nav-item dropdown mr-1">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </a>
