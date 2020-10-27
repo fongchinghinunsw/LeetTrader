@@ -40,10 +40,15 @@ def get_ownedlist_from_db():
 
     # Compute information of list
     name = stockInfo[0]
-    market = int(stockInfo[1] * int(item.unit))
-    purchase = int(item.total_purchase_price)
+    market = stockInfo[1] * int(item.unit)
+    purchase = float(item.total_purchase_price)
     tot_PL = market - purchase
     color = colorOfPL(tot_PL)
+
+    # Round all numbers to 2 d.p
+    market = round(market, 2)
+    purchase = round(purchase, 2)
+    tot_PL = round(tot_PL, 2)
     
     # Append list to ans_list
     ans_list.append([name, item.unit, market, purchase, tot_PL, color])
@@ -52,13 +57,14 @@ def get_ownedlist_from_db():
 
 
 def getStockInfo(stockID):
-  ''' Return stock code of a stock '''
+  ''' Return stock information of a stock '''
   target = db.session.query(Stock).filter(
       Stock.id == int(stockID)).first()
   
-  marketPrice = get_search_result(target.code)['price']
-
-  return [target.name, float(marketPrice)]
+  info = get_search_result(target.code)
+  marketPrice = float(info['price'])
+  
+  return [target.name, marketPrice]
 
 
 def colorOfPL(PL):

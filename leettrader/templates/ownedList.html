@@ -27,11 +27,11 @@
 
           // Decide the color of P/L text
           color = data.ownedList[i][5]
-          colorSpan = '<span style="color: ' + color + '">'
+          colorSpan = '<span style="color: ' + color + '"> +'
 
           // Format stock information
           ownStock = '<b>' + stockName + '</b></br>'
-          ownStock += "   Qty: " + qty
+          ownStock += " Qty: " + qty
           ownStock += " | Market: " + mPrice
           ownStock += " | Purchased: " + pPrice
           ownStock += " | P/L: " + colorSpan + pl + '</span>' + '</br></br>'
@@ -47,7 +47,7 @@
 
         // Determine color of total P/L
         if (tot_PL >= 0){
-          totColorSpan = '<span style="color: green">'
+          totColorSpan = '<span style="color: green"> +'
         }else{
           totColorSpan = '<span style="color: red">'
         }
