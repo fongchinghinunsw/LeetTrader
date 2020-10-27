@@ -38,8 +38,8 @@
     {% block page_body %}
     <div class="container{%if config.get('FLASK_ADMIN_FLUID_LAYOUT', False) %}-fluid{% endif %}">
       
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
+      <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #343A40;">
+        <div class="container-fluid ">
           {% block brand %}
           <a id="app-name" class="navbar-brand" href="/">LeetTrader</a>
           {% endblock %}
@@ -49,11 +49,11 @@
           {% block menu_links %}
           <ul class="nav navbar-nav">
             <!-- {{ layout.menu() }} -->
-            <li>
-              <a class="navbar-brand" href="/home">Home</a>
+            <li class="nav-item ml-2">
+              <a class="nav-link" href="/home">Home</a>
             </li>
-            <li>
-              <a class="navbar-brand" href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
+            <li class="nav-item ml-2">
+              <a class="nav-link" href="{{ admin_view.admin.url }}">{{ admin_view.admin.name }}</a>
             </li>
           </ul>
           <div class="nav-item navbar-nav navbar-right dropdown mr-1">
@@ -72,8 +72,6 @@
         </div>
       </nav>
 
-      <br>
-      <br>
       <br>
       <br>
       <br>
