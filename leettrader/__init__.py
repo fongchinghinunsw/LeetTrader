@@ -20,7 +20,7 @@ def create_app(config_class=Config):
   app.config.from_object(Config)
 
   # Admin page config
-  app.config['FLASK_ADMIN_SWATCH'] = 'lumen'
+  # app.config['FLASK_ADMIN_SWATCH'] = 'lumen'
   admin = Admin(app, name='Admin',base_template='admin/base.html', template_mode='bootstrap3')
   from leettrader.models import User
   admin.add_view(ModelView(User, db.session))

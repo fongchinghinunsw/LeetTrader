@@ -31,7 +31,7 @@ def inject_search_stock_form():
 def check_admin():
   if request.path.startswith('/admin/'):
     if current_user.is_authenticated:
-      if current_user.is_admin() == UserType.NORMAL:
+      if not current_user.is_admin():
         return redirect(url_for('users.home', userID=current_user.id))
     else:
       return redirect(url_for('main.landing'))

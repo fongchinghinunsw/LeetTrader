@@ -76,7 +76,7 @@ class User(db.Model, UserMixin):
     return self.id
 
   def is_admin(self):
-    return self.user_type
+    return self.user_type == UserType.ADMIN
 
 class Watchlist(db.Model):
   """Watchlist class"""

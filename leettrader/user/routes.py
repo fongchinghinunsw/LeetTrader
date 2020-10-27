@@ -61,10 +61,10 @@ def login():
     if user and bcrypt.check_password_hash(user.password,
                                            login_form.password.data):                                     
       login_user(user, remember=login_form.remember.data)
-      if user.is_admin() == UserType.NORMAL:
-        return redirect(url_for('users.home', userID=user.id))
-      else: 
+      if user.is_admin():
         return redirect(url_for('users.admin', userID=user.id))
+      else: 
+        return redirect(url_for('users.home', userID=user.id))
 
     # Show Error message otherwise
     elif not user:

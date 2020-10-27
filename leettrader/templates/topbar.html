@@ -12,6 +12,11 @@
       <li class="nav-item ml-2">
 	<a id="home-button" class="nav-link" href="{{ url_for('users.home') }}">Home</a>
       </li>
+      {% if current_user.is_admin()%}
+      <li class="nav-item ml-2">
+        <a id="home-button" class="nav-link" href="/admin">admin</a>
+      </li>
+      {% endif %}
     {% endif %}
     </ul>
   </div>
