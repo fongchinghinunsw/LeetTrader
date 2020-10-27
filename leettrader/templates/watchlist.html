@@ -5,7 +5,6 @@
 <script>
 
   // createing watchlist after the user logged in
-
   var wl = new Set();
   var priceInfo = [];
   
@@ -16,7 +15,6 @@
       // Data is in json format: data.watchlist = [code, stock name, code, stock name ...]
       dataType: "json",
       success: function(data) { 
-        let i = 0
         /* 
           Loop through watchlist to create watchList items in HTML Format:
             1. <a> tag for navigation

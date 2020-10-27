@@ -24,7 +24,7 @@ watchlist_items = db.Table(
               db.ForeignKey('stock.id'),
               primary_key=True))
 '''
-  Relaod user by u_id stored in:
+  Reload user by u_id stored in:
   https://flask-login.readthedocs.io/en/latest/
 '''
 
