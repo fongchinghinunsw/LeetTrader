@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class='form-container container'>
+  <div class="text-center" style="padding:50px 15px">
+    <div class="logo"> Want to Cancel Your Account ?</div>
+    <div class="login-form-1">
+      <form method="POST" action="">
+        <div class="etc-login-form" style="padding-bottom:30px">
+          <p>"When you fill in your registered email address, you will be sent instructions on how to delete your account."</p>
+        </div>
+        <!-- protect our form from certain attacks -->
+        {{ delete_form.hidden_tag() }}
+        <div class="login-form-main-message">
+          <div class="main-login-form">
+            <div class="login-group">
+
+              <div class="form-group">
+                {% if delete_form.email.errors %}
+                  {{ delete_form.email(class="form-control form-control-lg is-invalid", placeholder="Enter your email") }}
+                  <div class="alert alert-danger" role="alert">
+                    {% for error in delete_form.email.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ delete_form.email(class="form-control form-control-lg", placeholder="Enter your email") }}
+                {% endif %}
+
+              </div>
+
+              <div class="form-group">
+                {% if delete_form.password.errors %}
+                  {{ delete_form.password(class="form-control form-control-lg is-invalid", placeholder="Confirm your password") }}
+                  <div class="alert alert-danger" role="alert">
+                    {% for error in delete_form.password.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ delete_form.password(class="form-control form-control-lg", placeholder="Confirm your password") }}
+                {% endif %}
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  <ul class=flashes style="padding-top: 10px;">
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                {% endwith %}
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="form-group">
+          {{ delete_form.submit(class="btn btn-outline-danger") }}
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
