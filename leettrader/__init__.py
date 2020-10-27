@@ -29,12 +29,14 @@ def create_app(config_class=Config):
   from leettrader.user.routes import user
   from leettrader.stock.routes import stock
   from leettrader.watchlist.routes import watchlist
+  from leettrader.ownedList.routes import ownedList
   from leettrader.tutorial.chatbot import tutorial
 
   app.register_blueprint(main)
   app.register_blueprint(user)
   app.register_blueprint(stock)
   app.register_blueprint(watchlist)
+  app.register_blueprint(ownedList)
   app.register_blueprint(tutorial)
 
   return app
