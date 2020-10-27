@@ -3,9 +3,12 @@
 """
 
 from random import choice
+from datetime import datetime 
 import requests
 from bs4 import BeautifulSoup
 from leettrader.models import Stock
+from urllib import request
+import csv 
 
 headers_list = [
     # Firefox 77 Mac
@@ -105,3 +108,19 @@ def get_search_result(stock_code):
       'price_change': price_change,
       'percent_change': percent_change
   }
+
+def get_historical_data(stock_code):
+    # eg stock_code = ANZ.AX
+    curr_time = datetime.today()
+    curr_time = int(curr_time.timestamp())
+    prev_year = curr_time - 31622400
+    request_url = "https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&includeAdjustedClose=true".format(stock_code, prev_year, curr_time)
+    response = request.urlopen(request_url)
+    csv = response.read()
+    csv = str(csv).strip("b'")
+    lines = csv.split("\\n")
+    f = open("leettrader/stock/tmp/" + stock_code + ".csv", 'w')
+    for line in lines:
+        f.write(line +"\n")
+    f.close()
+    print(csv)
