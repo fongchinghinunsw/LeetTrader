@@ -7,7 +7,7 @@
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired, NumberRange
 from leettrader.models import User
 
@@ -65,6 +65,8 @@ class OrderForm(FlaskForm):
                               NumberRange(
                                   message="Quantity must be at least 1", min=1)
                           ])
+  transaction_types = ['Current Market Price']
+  transaction_type = SelectField('Transaction Type', choices=transaction_types)
   submit = SubmitField('Proceed')
 
 
@@ -74,4 +76,10 @@ class CheckoutForm(FlaskForm):
                                      render_kw={'readonly': True})
   total_price = StringField('total_price', render_kw={'readonly': True})
   submit = SubmitField('Checkout')
+  cancel = SubmitField('Cancel')
+
+class ReminderForm(FlaskForm):
+  ''' Reminder Form '''
+  alert_price = StringField('Alert Price')
+  submit = SubmitField('Confirm')
   cancel = SubmitField('Cancel')

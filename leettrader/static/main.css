@@ -1,6 +1,11 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .clear {
@@ -152,4 +157,137 @@
 
 .red {
   color: red;
+}
+
+#footer {
+  position: relative;
+  top: 500px;
+}
+
+/*
+  start of chatbot section.
+*/
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.chat-btn {
+    z-index: 2;
+    position: fixed;
+    right: 50px;
+    bottom: 150px;
+    background: dodgerblue;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    opacity: 0.6;
+    transition: opacity 0.5s;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.4);
+}
+
+.chat-btn:hover, .submit:hover {
+    opacity: 1;
+}
+
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 220px;
+    right: 50px;
+    height: 400px;
+    width: 300px;
+    background-color: white;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.75rem;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
+    border-radius: 10px;
+
+}
+
+.show {
+    display: flex;
+}
+
+.chat-area {
+    height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.income-msg {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.income-msg .msg {
+    background-color: dodgerblue;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.input-area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#chat-input[type="text"] {
+    width: 90%;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    border-radius: 5px;
+    height: 2.2rem;
+}
+
+.submit {
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+    background-color: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    opacity: 0.7;
+}
+
+.out-msg {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.my-msg {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.75rem;
+    padding: 0.5rem;
+    background-color: #ddd;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    word-break: break-all;
+}
+
+/*
+  End of chatbot section.
+*/
+
+.left-content {
+  margin-left: 20px;
+  margin-right: 20px;
 }

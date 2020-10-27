@@ -65,8 +65,8 @@ class User(db.Model, UserMixin):
   # Methods
   def __repr__(self):
     user = "User("
-    user += "'{self.username}', '{self.email}', "
-    user += "'{self.password}', '{self.balance}')"
+    user += f"'{self.username}', '{self.email}', "
+    user += f"'{self.password}', '{self.balance}')"
     return user
 
   def getUserName(self):
@@ -133,3 +133,18 @@ class OwnStock(db.Model):
   unit = db.Column(db.Integer, nullable=False)
   total_purchase_price = db.Column(db.Float, nullable=False)
   stock = db.relationship('Stock', lazy=True, uselist=False)
+
+
+class Reminder(db.Model):
+  """ Reminder class """
+  id = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'))
+  orig_price = db.Column(db.Float, nullable=False)
+  target_price = db.Column(db.Float, nullable=False)
+
+  def __repr__(self):
+    reminder = "Reminder("
+    reminder += f"'{self.user_id}', '{self.stock_id}', "
+    reminder += f"'{self.orig_price}', '{self.target_price}')"
+    return reminder

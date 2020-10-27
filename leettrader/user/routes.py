@@ -1,10 +1,10 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
-from flask import render_template, url_for, flash, redirect, Blueprint
-from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm
+from flask import render_template, url_for, flash, redirect, Blueprint, request
+from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm, ReminderForm
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock
+from leettrader.models import User, Stock, OwnStock, Reminder
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -91,7 +91,7 @@ def order(stock, action):
   
   if order_form.validate_on_submit():
     quantity = order_form.quantity.data
-
+    transaction_type = order_form.transaction_type.data
     stock_id = Stock.query.filter_by(code=stock).first().id
     print(stock_id)
 
@@ -101,7 +101,8 @@ def order(stock, action):
           url_for('user.checkout',
                   action=action,
                   stock=stock,
-                  quantity=quantity))
+                  quantity=quantity,
+                  transaction_type=transaction_type))
 
     elif action == "sell":
       ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
@@ -113,7 +114,8 @@ def order(stock, action):
             url_for('user.checkout',
                     action=action,
                     stock=stock,
-                    quantity=quantity))
+                    quantity=quantity,
+                    transaction_type=transaction_type))
       else:
         flash('You do not have enough amount of this stock to sell', "danger")
 
@@ -124,10 +126,13 @@ def order(stock, action):
                          order_form=order_form)
 
 
-@user.route("/checkout/<string:action>/<string:stock>/<quantity>",
+@user.route("/checkout/<string:action>/<string:stock>",
             methods=['GET', 'POST'])
 @login_required
-def checkout(stock, action, quantity):
+def checkout(stock, action):
+  quantity = request.args.get('quantity')
+  transaction_type = request.args.get('transaction_type')
+
   stock_obj = Stock.query.filter_by(code=stock).first()
   stock_id = stock_obj.id
 
@@ -136,6 +141,7 @@ def checkout(stock, action, quantity):
   checkout_form = CheckoutForm(
       current_market_price=current_market_price,
       total_price=str(float(current_market_price) * int(quantity)))
+
   if checkout_form.validate_on_submit():
     # the submit button is clicked.
     if checkout_form.submit.data:
@@ -188,3 +194,25 @@ def checkout(stock, action, quantity):
                          action=action,
                          quantity=quantity,
                          checkout_form=checkout_form)
+
+@user.route("/add_reminder", methods=['GET', 'POST'])
+@login_required
+def add_reminder():
+  code = request.args.get('stock')
+  reminder_form = ReminderForm()
+
+  if reminder_form.validate_on_submit():
+    if reminder_form.cancel.data:
+      return redirect(url_for('stock.search_page', code=code))
+
+    # the user must enter the alert price.
+    if reminder_form.alert_price.data:
+      stock_obj = Stock.query.filter_by(code=code).first()
+      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.code, orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
+      print(reminder)
+      return redirect(url_for('stock.search_page', code=code))
+      
+    flash("Please enter a price.", "warning")
+
+
+  return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
