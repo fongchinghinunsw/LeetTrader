@@ -100,7 +100,7 @@ def login():
       flash('Wrong password, please try again', 'danger')
 
   # Fail to login, stay in login page
-  return render_template('login.html', title='login', form=login_form)
+  return render_template('login.html', title='login', loginForm=login_form)
 
 
 @user.route("/settings")
@@ -181,7 +181,7 @@ def deleteRequest():
   return render_template('delete_request.html', title='Delete your account', delete_form=form)
 
 
-@user.route("/deleteRequest/<token>", methods=['GET', 'POST'])
+@user.route("/deleteAcount/<token>", methods=['GET', 'POST'])
 # reset their password when the token is active
 def delete_account_token(token):
   # check if the token is valid
@@ -194,7 +194,7 @@ def delete_account_token(token):
     db.session.delete(user)
     db.session.commit()
     flash('Your account has been deleted successfully', 'success')
-    return redirect(url_for('main.landing'))
+    return redirect(url_for('user.login'))
 
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
