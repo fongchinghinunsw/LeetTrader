@@ -103,6 +103,16 @@ def login():
   return render_template('login.html', title='login', form=login_form)
 
 
+@user.route("/account", methods=['GET', 'POST'])
+@login_required
+def account_profile():
+  # image_file = url_for('../static', filename='profile_pic')
+  return render_template('account_profile.html', title='User Account')
+  
+
+
+
+
 @user.route("/settings")
 @login_required
 def settings():

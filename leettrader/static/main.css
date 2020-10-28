@@ -182,3 +182,15 @@
   margin-bottom: 5px;
 }
 
+/* account profile page  */
+
+.account-text {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 40px;
+}
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
