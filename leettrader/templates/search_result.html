@@ -21,8 +21,7 @@
       </div>
       
       <!-- Graph of historical data -->
-      <div class="col-md-7">
-        <p>This area is reserved for the graph</p>
+      <div id="stock_graph" class="col-md-7">
       </div>
     </div>
 
@@ -122,11 +121,73 @@
     // Jquery code, e.g. the first line means when the element with id add-to-watchlist is clicked, run the add()
     $( "#add-to-watchlist" ).on( "click", add);    
     $( "#remove-from-watchlist" ).on( "click", del);     
-  </script>
-  
-  
-  <script>
     
-  
+      
+    // js code for the stock graph
+    var req_code = stockCode.replace("_", ".");
+    var curr_time = Math.round(new Date().getTime() / 1000);
+    var prev_year = curr_time - 31622400
+    
+    
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+        
+    // append the svg object to the body of the page
+    var svg = d3.select("#stock_graph")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    var data = []
+    //  proves d3 is working here
+    //parse the csv file to extract the date and the closing price
+    d3.csv("https://query1.finance.yahoo.com/v7/finance/download/"+ req_code + "?period1="+ prev_year +"&period2="+ curr_time +"&interval=1d&events=history&includeAdjustedClose=true", function(d){
+      if (d.Close != null && d.Close != "null") {
+        // data.push({ Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close });
+        return { Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close };
+      }
+    }).then((data)=>{    
+      console.log(data)
+      
+      // Add X axis --> it is a date format
+      var x = d3.scaleTime()
+        .domain(d3.extent(data, function(d) { return d.Date; }))
+        .range([ 0, width - 50]);
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+        
+      var close_min = d3.min(data, function(d) { return d.Close; }) 
+      var close_max = d3.max(data, function(d) { return d.Close; }) 
+      
+      var starting_point = Math.max(0, (close_min - (close_max - close_min) / 3))
+      
+      // Add Y axis
+      var y = d3.scaleLinear()
+        .domain([starting_point , d3.max(data, function(d) { return d.Close; })])
+        .range([ height, 0 ]);
+      svg.append("g")
+        .call(d3.axisLeft(y));
+    
+      // Add the line
+      svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+          .x(function(d) { return x(d.Date) })
+          .y(function(d) { return y(d.Close) })
+          )
+    
+    });
+
   </script>
+  
+  
 {% endblock left_content %}
