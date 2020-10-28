@@ -2,11 +2,11 @@
   Routing of Search Page
 """
 
-from flask import render_template, request, redirect, url_for, Blueprint, flash
+from flask import render_template, request, redirect, url_for, Blueprint, flash, send_file
 from flask_login import current_user, login_required
 from leettrader.models import Stock, Watchlist
 from leettrader.stock.forms import SearchStockForm
-from leettrader.stock.utils import get_search_result
+from leettrader.stock.utils import get_search_result, get_historical_data
 
 
 stock = Blueprint('stocks', __name__)
@@ -68,3 +68,9 @@ def search_page(code):
                          percent_change=result['percent_change'],
                          color=color,
                          listed=listed)
+
+@stock.route('/get_csv/<string:code>', methods=['GET'])
+@login_required
+def get_csv(code):
+  get_historical_data(code)
+  return send_file("stock/tmp/"+ code + ".csv")

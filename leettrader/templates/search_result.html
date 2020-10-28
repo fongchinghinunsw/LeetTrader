@@ -22,6 +22,7 @@
       
       <!-- Graph of historical data -->
       <div id="stock_graph" class="col-md-7">
+
       </div>
     </div>
 
@@ -126,7 +127,10 @@
     // js code for the stock graph
     var req_code = stockCode.replace("_", ".");
     var curr_time = Math.round(new Date().getTime() / 1000);
-    var prev_year = curr_time - 31622400
+    var prev_year = curr_time - 31622400 
+    var six_months = curr_time - 15778800
+    var one_month = curr_time - 2629800
+    var one_week = curr_time - 604800
     
     
     // set the dimensions and margins of the graph
@@ -143,16 +147,17 @@
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-    var data = []
+    var all_data = []
     //  proves d3 is working here
     //parse the csv file to extract the date and the closing price
-    d3.csv("https://query1.finance.yahoo.com/v7/finance/download/"+ req_code + "?period1="+ prev_year +"&period2="+ curr_time +"&interval=1d&events=history&includeAdjustedClose=true", function(d){
+    //https://query1.finance.yahoo.com/v7/finance/download/"+ req_code + "?period1="+ prev_year +"&period2="+ curr_time +"&interval=1d&events=history&includeAdjustedClose=true
+    d3.csv("/get_csv/" + req_code, function(d){
       if (d.Close != null && d.Close != "null") {
-        // data.push({ Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close });
+        all_data.push({ Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close });
         return { Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close };
       }
     }).then((data)=>{    
-      console.log(data)
+      //console.log(data)
       
       // Add X axis --> it is a date format
       var x = d3.scaleTime()
@@ -186,6 +191,13 @@
           )
     
     });
+    
+    // console.log(all_data)
+    
+    // append buttons for user to view different time periods
+    // d3.select("#stock_graph")
+    //   .append("button")
+
 
   </script>
   

@@ -123,4 +123,3 @@ def get_historical_data(stock_code):
     for line in lines:
         f.write(line +"\n")
     f.close()
-    print(csv)

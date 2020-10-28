@@ -10,9 +10,12 @@ from leettrader.stock.forms import SearchStockForm
 from leettrader.models import User, UserType
 from flask_login import current_user
 from flask import render_template, request, redirect, url_for
+from flask_cors import CORS, cross_origin
 
 app = create_app()
-
+cors = CORS(app, resources={r"/search/<string:code>": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['Access-Control-Allow-Origin'] = '*'
 
 @app.context_processor
 def inject_list_of_stocks():
