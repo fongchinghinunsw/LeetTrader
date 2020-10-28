@@ -16,28 +16,28 @@
 
               <div class="form-group">
                 {% if delete_form.email.errors %}
-                  {{ delete_form.email(class="form-control form-control-lg is-invalid", placeholder="Enter your email") }}
+                  {{ delete_form.email(class="border-0 shadow p-3 mb-5 bg-white rounded is-invalid", placeholder="Enter your email",  style="width: 300px;") }}
                   <div class="alert alert-danger" role="alert">
                     {% for error in delete_form.email.errors %}
                       <span>{{ error }}</span>
                     {% endfor %}
                   </div>
                 {% else %}
-                  {{ delete_form.email(class="form-control form-control-lg", placeholder="Enter your email") }}
+                  {{ delete_form.email(class="border-0 shadow p-3 mb-5 bg-white rounded", placeholder="Enter your email", style="width: 300px;") }}
                 {% endif %}
 
               </div>
 
               <div class="form-group">
                 {% if delete_form.password.errors %}
-                  {{ delete_form.password(class="form-control form-control-lg is-invalid", placeholder="Confirm your password") }}
+                  {{ delete_form.password(class="border-0 shadow p-3 mb-5 bg-white rounded is-invalid", placeholder="Confirm your password",  style="width: 300px;") }}
                   <div class="alert alert-danger" role="alert">
                     {% for error in delete_form.password.errors %}
                       <span>{{ error }}</span>
                     {% endfor %}
                   </div>
                 {% else %}
-                  {{ delete_form.password(class="form-control form-control-lg", placeholder="Confirm your password") }}
+                  {{ delete_form.password(class="border-0 shadow p-3 mb-5 bg-white rounded", placeholder="Confirm your password",  style="width: 300px;") }}
                 {% endif %}
                 
                 {% with messages = get_flashed_messages(with_categories=true) %}
