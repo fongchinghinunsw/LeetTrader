@@ -70,7 +70,8 @@ def confirm(token):
     # redirect to the home page
     user = User.query.filter_by(email=new_email).first()
     if user:
-      return redirect(url_for('main.landing'))
+      flash('The account has already been activated, Please login', 'success')
+      return redirect(url_for('user.login'))
 
     # Push changes to database, go to Login page
     new_user = User(user_type = "NORMAL",
@@ -82,7 +83,7 @@ def confirm(token):
     # the first time when a new user clicked
     db.session.add(new_user)
     db.session.commit()
-    flash('Account created successfully, please login !', 'success')
+    flash('Account created successfully, please login', 'success')
     return redirect(url_for('user.login'))
 
 
