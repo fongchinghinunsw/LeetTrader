@@ -49,11 +49,11 @@ LeetTrader Team
   '''
   mail.send(msg)
 
-def send_stock_reminder(user):
+def send_stock_reminder(user, stock, reminder, current_price):
   msg = Message('Stock Reminder', sender='leettrader2020@gmail.com', recipients=[user.email])
   msg.body = f'''Dear {user.username}, 
 
-If you did not make the request, please just ignore this email.
+The current price of {stock.get_name()}({stock.get_code()}) is ${current_price}. You set a reminder at ${reminder.target_price}.
 
 Cheers,
 LeetTrader Team

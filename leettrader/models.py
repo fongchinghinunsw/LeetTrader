@@ -146,6 +146,9 @@ class Stock(db.Model):
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"
 
+  def get_name(self):
+    return self.name
+
   def get_code(self):
     return self.code
 
