@@ -37,8 +37,8 @@ def reminder_handler(reminder, username):
           print("Hit the price, thread stopped")
           send_stock_reminder(user, stock, reminder, current_price)
           break
-        sleep(5)
-        print("sleep for 5 seconds...")
+        sleep(10)
+        print("sleep for 10 seconds...")
     else:
       while True:
         current_price = float(get_search_result(stock_code)['price'])
@@ -46,8 +46,8 @@ def reminder_handler(reminder, username):
           print("Hit the price, thread stopped")
           send_stock_reminder(user, stock, reminder, current_price)
           break
-        sleep(5)
-        print("sleep for 5 seconds...")
+        sleep(10)
+        print("sleep for 10 seconds...")
 
     db.session.delete(reminder)
     db.session.commit()
