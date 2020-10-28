@@ -59,7 +59,6 @@ def register():
   return render_template('register.html', title='register', form=rform)
 
 @user.route("/confirm/<token>", methods=['GET', 'POST'])
-@login_required
 def confirm(token):
   # check if the token is valid
   res = User.verify_confirmation_token(token)
@@ -100,7 +99,7 @@ def login():
       flash('Wrong password, please try again', 'danger')
 
   # Fail to login, stay in login page
-  return render_template('login.html', title='login', form=login_form)
+  return render_template('login.html', title='login', loginForm=login_form)
 
 
 @user.route("/account", methods=['GET', 'POST'])
@@ -109,9 +108,6 @@ def account_profile():
   # image_file = url_for('../static', filename='profile_pic')
   return render_template('account_profile.html', title='User Account')
   
-
-
-
 
 @user.route("/settings")
 @login_required

@@ -8,30 +8,30 @@
       <legend class="border-bottom mb-4">Log In</legend>
 
       <div class="form-group">
-        {{ form.email.label(class="form-control-label") }}
-        {% if form.email.errors %}
-	  {{ form.email(class="form-control form-control-lg is-invalid") }}
+        {{ loginForm.email.label(class="form-control-label") }}
+        {% if loginForm.email.errors %}
+	  {{ loginForm.email(class="form-control form-control-lg is-invalid") }}
           <div class="alert alert-danger" role="alert">
-            {% for error in form.email.errors %}
+            {% for error in loginForm.email.errors %}
               <span>{{ error }}</span>
             {% endfor %}
           </div>
         {% else %}
-	  {{ form.email(class="form-control form-control-lg") }}
+	  {{ loginForm.email(class="form-control form-control-lg") }}
         {% endif %}
       </div>
 
       <div class="form-group">
-        {{ form.password.label(class="form-control-label") }}
-        {% if form.password.errors %}
-	  {{ form.password(class="form-control form-control-lg is-invalid") }}
+        {{ loginForm.password.label(class="form-control-label") }}
+        {% if loginForm.password.errors %}
+	  {{ loginForm.password(class="form-control form-control-lg is-invalid") }}
           <div class="alert alert-danger" role="alert">
-              {% for error in form.password.errors %}
+              {% for error in loginForm.password.errors %}
                 <span>{{ error }}</span>
               {% endfor %}
           </div>
         {% else %}
-	  {{ form.password(class="form-control form-control-lg") }}
+	  {{ loginForm.password(class="form-control form-control-lg") }}
         {% endif %}
         
 
@@ -50,22 +50,19 @@
       </div>
 
       <div class="form-check form-group">
-        {{ form.remember(class="form-check-input") }}
-        {{ form.remember.label(class="form-check-label") }}
+        {{ loginForm.remember(class="form-check-input") }}
+        {{ loginForm.remember.label(class="form-check-label") }}
       </div>
 
 
       <div class="form-group">
-	{{ form.submit(class="btn btn-outline-info") }}
+	{{ loginForm.submit(class="btn btn-outline-info") }}
       </div>
       <div>
 	<small class="text-muted">
 	  <a href="/resetPassword">Forgot your password?</a>  
 	</small>
         <br>
-        <!-- <small>
-	  <a href="/login">find your password here</a>
-	</small> -->
       </div>
     
     </form>
