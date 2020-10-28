@@ -36,8 +36,9 @@ def get_ownedlist_from_db():
     # Get information of a owned stock
     stock_info = get_stock_info(item.stock_id)
     name = stock_info[0]
-    market = stock_info[1] * int(item.unit)
-    currency = stock_info[2]
+    code = stock_info[1]
+    market = stock_info[2] * int(item.unit)
+    currency = stock_info[3]
     purchase = float(item.total_purchase_price)
 
     # Calculate P/L
@@ -45,7 +46,7 @@ def get_ownedlist_from_db():
     tot_pl += profit
 
     # Format Info into <div>
-    item = format_owned_info(name, item.unit, currency, market, purchase, profit)
+    item = format_owned_info(name, code, item.unit, currency, market, purchase, profit)
     ans_list.append(item)
 
   return [ans_list, color_span(tot_pl)]
@@ -60,4 +61,4 @@ def get_stock_info(stock_id):
   worth = float(info['price'])
   currency = info['currency']
 
-  return [target.name, worth, currency]
+  return [target.name, target.code, worth, currency]

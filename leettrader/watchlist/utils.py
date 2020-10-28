@@ -4,6 +4,8 @@
 from datetime import datetime
 from leettrader import db
 from leettrader.models import Watchlist, Stock
+from leettrader.stock.utils import get_search_result
+from leettrader.formatter import format_watchlist_item
 
 
 def add_stocks(current_user, code):
@@ -36,6 +38,7 @@ def remove_stocks(current_user, code):
     db.session.commit()
 
 
+
 def get_list(current_user):
   ''' Return stock code & name of all stock in watchlist '''
   # Set up ans list and get watchlist of user
@@ -43,8 +46,35 @@ def get_list(current_user):
   watchlist = db.session.query(Watchlist).filter(
       Watchlist.user_id == current_user.get_id()).all()
 
-  # Format of ansList: [code, name, code, name ...]
+  # For each item in watchlist, format it into HTML Tags
   for i in watchlist:
-    ans_list.append(i.stocks[0].code)
-    ans_list.append(i.stocks[0].name)
+    name = i.stocks[0].name
+    code = i.stocks[0].code
+
+    # Search stock & get prices
+    search_result = get_search_result(code)
+    price = float(search_result['price'])
+    change = search_result['price_change']
+    percent = search_result['percent_change']
+
+    # Cast to float (2 d.p.)
+    price = round(float(price), 2)
+    change = str_to_float(change)
+    percent = str_to_float(percent)
+
+    # Format all information to HTML tag string
+    item = format_watchlist_item(name, code, price, change, percent)
+    ans_list.append(item)
+
   return ans_list
+
+
+def str_to_float(num):
+  ''' Convert a string into a 2 d.p. float '''
+  if num[-1] == '%':
+    return str_to_float(num[:-1])
+
+  if num[0] == '-':
+    return str_to_float(num[1:])
+
+  return round(float(num), 2)
