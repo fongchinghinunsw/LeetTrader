@@ -1,7 +1,7 @@
 """
   Routing of Search Page
 """
-
+import os, re, os.path
 from flask import render_template, request, redirect, url_for, Blueprint, flash, send_file
 from flask_login import current_user, login_required
 from leettrader.models import Stock, Watchlist
@@ -72,5 +72,11 @@ def search_page(code):
 @stock.route('/get_csv/<string:code>', methods=['GET'])
 @login_required
 def get_csv(code):
+  tmp_bin = "leettrader/stock/tmp/"
+  for root, dirs, files in os.walk(tmp_bin):
+      for f in files:
+          os.remove(os.path.join(root, f))
   get_historical_data(code)
   return send_file("stock/tmp/"+ code + ".csv")
+
+
