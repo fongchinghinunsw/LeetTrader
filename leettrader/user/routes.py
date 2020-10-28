@@ -66,11 +66,20 @@ def confirm(token):
     flash('The token has expired !', 'warning')
     return redirect(url_for('user.register'))
   else:
+    # if the user has already existed, the user wants to click it twice
+    # redirect to the home page
+    user = User.query.filter_by(email=new_email).first()
+    if user:
+      return redirect(url_for('main.landing'))
+
     # Push changes to database, go to Login page
     new_user = User(user_type = "NORMAL",
                 username=new_username,
                 email=new_email,
                 password=new_password)
+
+    
+    # the first time when a new user clicked
     db.session.add(new_user)
     db.session.commit()
     flash('Account created successfully, please login !', 'success')
@@ -173,7 +182,7 @@ def deleteRequest():
       return render_template('delete_request.html', title='Delete your account', delete_form=form)
       
     # user = User.query.filter_by(email=form.email.data).first()
-    # # print(user)
+    # print(user)
 
     if bcrypt.check_password_hash(current_user.password, form.password.data):
       curr_user = User.query.filter_by(email=form.email.data).first()
