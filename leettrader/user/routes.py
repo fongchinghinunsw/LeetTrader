@@ -4,11 +4,11 @@
 from flask import render_template, url_for, flash, redirect, Blueprint, request
 from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm, ReminderForm
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock, Reminder
+from leettrader.models import User, Stock, OwnStock, Reminder, UserType
 from leettrader import db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 
-user = Blueprint('user', __name__)
+user = Blueprint('users', __name__)
 
 
 @user.route("/home")
@@ -16,7 +16,11 @@ user = Blueprint('user', __name__)
 def home():
   ''' Home Page '''
   return render_template('home.html')
-
+  
+@user.route("/admin")
+@login_required
+def admin():
+  pass
 
 @user.route("/register", methods=['GET', 'POST'])
 def register():
@@ -38,7 +42,7 @@ def register():
     db.session.add(user)
     db.session.commit()
     flash('Account created successfully, please login !', 'success')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('users.login'))
 
   # Fail to register, remain in register page
   return render_template('register.html', title='register', form=rform)
@@ -55,9 +59,12 @@ def login():
 
     # If both Email & Password are correct, go to Home Page
     if user and bcrypt.check_password_hash(user.password,
-                                           login_form.password.data):
+                                           login_form.password.data):                                     
       login_user(user, remember=login_form.remember.data)
-      return redirect(url_for('user.home', userID=user.id))
+      if user.is_admin():
+        return redirect(url_for('users.admin', userID=user.id))
+      else: 
+        return redirect(url_for('users.home', userID=user.id))
 
     # Show Error message otherwise
     elif not user:
@@ -98,7 +105,7 @@ def order(stock, action):
     if action == "buy":
       print("You are buying a stock")
       return redirect(
-          url_for('user.checkout',
+          url_for('users.checkout',
                   action=action,
                   stock=stock,
                   quantity=quantity,
@@ -111,7 +118,7 @@ def order(stock, action):
       if ownStock is not None and ownStock.unit >= quantity:
         print("Currently, you own", ownStock.unit, "units of stock")
         return redirect(
-            url_for('user.checkout',
+            url_for('users.checkout',
                     action=action,
                     stock=stock,
                     quantity=quantity,
@@ -178,11 +185,11 @@ def checkout(stock, action):
             db.session.delete(ownStock)
 
       db.session.commit()
-      return redirect(url_for('user.home'))
+      return redirect(url_for('users.home'))
 
     # the cancel button is clicked.
     elif checkout_form.cancel.data:
-      return redirect(url_for('stock.search_page', code=stock_obj.code))
+      return redirect(url_for('stocks.search_page', code=stock_obj.code))
 
   # checkout_form.data is a dict containing all fields value, e.g. {'current_market_price': None, 'total_price': None, 'submit': False, 'csrf_token': None}
   #checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']

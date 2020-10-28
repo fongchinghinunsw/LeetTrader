@@ -28,3 +28,9 @@ Week 5
 Completed US 10 (2.5 points)
 Completed US 11 (2.5 points)
 Fixed ajax waiting problem
+
+Week 6
+Split the tasks together during the group meeting
+Completed US 35 (1.5 points) Admin user accounts 
+Completed US 38 (1.5 points) Check total users
+Completed US 39 (1.5 points) Admin delete accounts 
