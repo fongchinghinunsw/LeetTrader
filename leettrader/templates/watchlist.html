@@ -3,75 +3,20 @@
 </ul>
 
 <script>
-
-  // createing watchlist after the user logged in
-
+  /*
+    Call Get method of "/get_watchlist" in routes, 
+    append watchlist items into watchlist
+  */
   var wl = new Set();
-  var priceInfo = [];
-  
   $.when($.ajax({
       type: "GET",
       url: "/get_watchlist",
-      
-      // Data is in json format: data.watchlist = [code, stock name, code, stock name ...]
       dataType: "json",
       success: function(data) { 
-        let i = 0
-        /* 
-          Loop through watchlist to create watchList items in HTML Format:
-            1. <a> tag for navigation
-            2. Stock code & name
-            3. Price informations of a stock
-          then append items into HTML page
-        */
-        for (i = 0; i < data.watchlist.length; i+=2){
 
-          // Get StockCode, StockName & SearchLink
-          var stockCode = data.watchlist[i];
-          var stockName = data.watchlist[i+1];
-          var searchLink = '/search/' + stockCode
-          wl.add(stockCode.replace(".", "_"));
-                   
-          // Format StockCode, StockName & SearchLink 
-          wlItem = '<a href=' + searchLink + '>';
-          wlItem += '<li id="' + stockCode.replace(".", "_") + '"class="list-group-item list-group-item-light">'; 
-          wlItem += stockName + '. (' + stockCode + ')';
-          wlItem += '<br>';
-          wlItem += '</li></a>';                   
-          $("#watchlist").append(wlItem);
-
-          // Construct prices with clojure
-          var a = {init : function(stockCode) {$.ajax({
-            type: "GET",
-            url: "/get_price/" + stockCode,
-            dataType: "json",
-            success: function(data){
-
-              priceInfo.push(data.stockPrices)
-              stockCode = stockCode.replace(".", "_");
-              console.log(priceInfo[0])
-              console.log(stockCode)
-
-              // Set colour of price information
-              priceChange_color = 'Price change: ';
-              percentageChange_color = 'Percentage change: ';
-
-              if (data.stockPrices['price_change'].startsWith("+")){
-                priceChange_color += '<span style="color:green">'
-                percentageChange_color += '<span style="color:green">'
-              }else if (data.stockPrices['price_change'].startsWith("-")){
-                priceChange_color += '<span style="color:red">'
-                percentageChange_color += '<span style="color:red">'
-              }
-
-              // Set Price Label & append
-              $('#' + stockCode).append('Price: ' + data.stockPrices['price'] + '<br>');
-              $('#' + stockCode).append(priceChange_color + data.stockPrices['price_change'] + '</span><br>');
-              $('#' + stockCode).append(percentageChange_color + data.stockPrices['percent_change'] + '</span><br>');
-            }
-          })}}
-            
-          a.init(stockCode);
+        for (i = 0; i < data.watchlist.length; i++){
+          // Each item in data.watchlist is a formated string of stock info
+          $("#watchlist").append(data.watchlist[i]);
         }
       }
     }))

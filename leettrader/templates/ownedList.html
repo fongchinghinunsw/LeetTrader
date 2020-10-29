@@ -1,0 +1,26 @@
+<div style="padding-top: 20px;padding-left: 40px;">
+
+  <h4>Owned Stocks</h4>
+  <ul id="ownedStockList" class="list-group"></ul>
+  <h3 id="totalPL"></h3>
+</div>
+
+
+<script>
+  // Create list of user's owned stocks
+  $.when($.ajax({
+      type: "GET",
+      url: "/get_ownedList",      
+      dataType: "json",
+      success: function(data) { 
+        // ownedList[0] is a list of <div> of stock info
+        for (i = 0; i < data.ownedList[0].length; i++){
+          $("#ownedStockList").append(data.ownedList[0][i]);
+        }
+
+        // ownedList[0] is a list of <span> of total P/L
+        tot = "</br><div> Total P/L: " + data.ownedList[1] + "</div>"
+        $("#totalPL").append(tot)
+      }
+    }))
+</script>
