@@ -56,6 +56,7 @@ def get_list(current_user):
     price = float(search_result['price'])
     change = search_result['price_change']
     percent = search_result['percent_change']
+    currency = search_result['currency']
 
     # Cast to float (2 d.p.)
     price = round(float(price), 2)
@@ -63,7 +64,7 @@ def get_list(current_user):
     percent = str_to_float(percent)
 
     # Format all information to HTML tag string
-    item = format_watchlist_item(name, code, price, change, percent)
+    item = format_watchlist_item(name, code, price, currency, change, percent)
     ans_list.append(item)
 
   return ans_list

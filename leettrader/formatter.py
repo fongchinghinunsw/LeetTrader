@@ -19,15 +19,15 @@ def format_owned_info(name, code, qty, currency, market, purchase, pl):
   return div(own_stock)
 
 
-def format_watchlist_item(name, code, price, change, percent):
+def format_watchlist_item(name, code, price, currency, change, percent):
   # Hyperlink & Stock Name
   ans = '<li id="' + code.replace(".", "_") + '"class="list-group-item list-group-item-light">'
   ans += a_href(str(name + ' (' + code + ')'), code)
 
   # Price Tags
-  ans += '</br> Price: ' + str(price)
+  ans += '</br> Price: ' + str(price) + ' ' + currency
   ans += '</br> Price change: ' + color_span(change)
-  ans += '</br> Percentage change: ' + color_span(percent) + '</br>'
+  ans += '</br> Percentage change: ' + color_span(percent) + '%</br>'
   ans += '</li>'
 
   return ans
