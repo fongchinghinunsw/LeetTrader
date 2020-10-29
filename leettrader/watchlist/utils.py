@@ -75,6 +75,6 @@ def str_to_float(num):
     return str_to_float(num[:-1])
 
   if num[0] == '-':
-    return str_to_float(num[1:])
+    return str_to_float(num[1:])*-1
 
   return round(float(num), 2)
