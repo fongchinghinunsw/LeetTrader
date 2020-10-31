@@ -193,3 +193,7 @@ class Reminder(db.Model):
     reminder += f"'{self.user_id}', '{self.stock_id}', "
     reminder += f"'{self.orig_price}', '{self.target_price}')"
     return reminder
+
+  @classmethod
+  def get_reminders_by_user_id(cls, user_id):
+    return cls.query.filter_by(user_id=user_id).all()

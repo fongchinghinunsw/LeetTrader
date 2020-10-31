@@ -328,11 +328,17 @@ def add_reminder():
       
     flash("Please enter a price.", "warning")
 
+  return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
+
 
 @user.route("/view_reminder")
 @login_required
 def view_reminder():
+  print(current_user.id)
+  reminders = Reminder.get_reminders_by_user_id(current_user.id)
+  print(reminders)
+  print(type(reminders))
+  
 
-
-  return render_template('reminder.html')
+  return render_template('reminder.html', reminders=reminders)
 
