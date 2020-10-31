@@ -32,6 +32,9 @@ def home():
 @user.route("/register", methods=['GET', 'POST'])
 def register():
   ''' Register Page '''
+  if current_user.is_authenticated:
+    return redirect(url_for('user.home'))
+
   # Set up register form
   rform = RegisterForm()
 
@@ -90,8 +93,10 @@ def confirm(token):
 @user.route("/login", methods=['GET', 'POST'])
 def login():
 
-  login_form = LoginForm()
+  if current_user.is_authenticated:
+    return redirect(url_for('user.home'))
 
+  login_form = LoginForm()
   # When click login, read user inputs 
   if login_form.validate_on_submit():
     user = User.query.filter_by(email=login_form.email.data).first()
