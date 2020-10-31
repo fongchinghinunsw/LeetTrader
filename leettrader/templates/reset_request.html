@@ -43,8 +43,26 @@
         </div>
 
         <div class="form-group">
-          {{ form.submit(class="btn btn-outline-info") }}
+          {{ form.submit(id="reset-button", class="btn btn-outline-info") }}
         </div>
+        <script>
+          document.getElementById("reset-button").addEventListener("click", 
+          function() {
+            var timeleft = 10;
+            var requestAgainTimer = setInterval(function(){
+              if(timeleft < 0){
+                clearInterval(requestAgainTimer);
+                document.getElementById("reset-button").disabled = false
+                document.getElementById("reset-button").value = "Send Request"
+              } else {
+                document.getElementById("reset-button").disabled = true
+                document.getElementById("reset-button").value = "Wait for " + timeleft + " seconds to send agin";
+              }
+              timeleft -= 1;
+            }, 1000);
+          });
+        </script>
+        
         
       </form>
     </div>
