@@ -322,7 +322,7 @@ def add_reminder():
     # the user must enter the alert price.
     if reminder_form.alert_price.data:
       stock_obj = Stock.query.filter_by(code=code).first()
-      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.code, orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
+      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.get_id(), orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
       add_and_start_reminder(reminder, current_user.username)
       return redirect(url_for('stock.search_page', code=code))
       
@@ -334,11 +334,15 @@ def add_reminder():
 @user.route("/view_reminder")
 @login_required
 def view_reminder():
-  print(current_user.id)
   reminders = Reminder.get_reminders_by_user_id(current_user.id)
+  stocks = []
+  for reminder in reminders:
+    stock_id = reminder.get_stock_id()
+    print(stock_id, "!!!!")
+    stocks.append(Stock.query.filter_by(id=reminder.get_stock_id()).first())
   print(reminders)
   print(type(reminders))
   
 
-  return render_template('reminder.html', reminders=reminders)
+  return render_template('reminder.html', reminders=reminders, reminder_stocks=stocks)
 

@@ -1,8 +1,12 @@
 {% extends "main_layout.html" %}
 {% block left_content %}
 <ul class="list-group reminder-list">
-  {% for reminder in reminders %}
-    <li class="list-group-item reminder-list-item">{{ reminder }}</li>
+  {% for i in range(reminders | length) %}
+    <li class="list-group-item reminder-list-item">
+      <h1>{{reminder_stocks[i].name}} ({{reminder_stocks[i].code}})</h1>
+      <h3>original price: {{ reminders[i].orig_price }}</h3>
+      <h3>target price: {{ reminders[i].target_price }}</h3>
+    </li>
   {% endfor %}
 </ul>
 {% endblock left_content %}
