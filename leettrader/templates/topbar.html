@@ -37,8 +37,8 @@
 	  </a>
 	  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 	    <a class="dropdown-item" href="#">My Stocks</a>
-	    <a class="dropdown-item" href="#">View Reminders</a>
 	    <a class="dropdown-item" href="#">Tutorial</a>
+	    <a class="dropdown-item" href="{{ url_for('user.view_reminder') }}">View Reminders</a>
 	  <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="/logout">Logout</a>
       <a class="dropdown-item" href="/deleteRequest">delete account</a>

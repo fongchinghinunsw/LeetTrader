@@ -329,5 +329,10 @@ def add_reminder():
     flash("Please enter a price.", "warning")
 
 
-  return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
+@user.route("/view_reminder")
+@login_required
+def view_reminder():
+
+
+  return render_template('reminder.html')
 
