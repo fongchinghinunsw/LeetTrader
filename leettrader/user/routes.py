@@ -1,6 +1,7 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
+import operator
 from flask import render_template, url_for, flash, redirect, Blueprint, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
@@ -330,19 +331,29 @@ def add_reminder():
 
   return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
 
+class ReminderListItem:
+  def __init__(self, stock_id, stock, reminder):
+    self.stock_id = stock_id
+    self.stock = stock
+    self.reminder_list = [reminder]
+
 
 @user.route("/view_reminder")
 @login_required
 def view_reminder():
   reminders = Reminder.get_reminders_by_user_id(current_user.id)
-  stocks = []
-  for reminder in reminders:
-    stock_id = reminder.get_stock_id()
-    print(stock_id, "!!!!")
-    stocks.append(Stock.query.filter_by(id=reminder.get_stock_id()).first())
-  print(reminders)
-  print(type(reminders))
-  
 
-  return render_template('reminder.html', reminders=reminders, reminder_stocks=stocks)
+  reminder_items_dict = {}
+  for reminder in reminders:
+    if reminder.get_stock_id() not in reminder_items_dict:
+      stock = Stock.query.filter_by(id=reminder.get_stock_id()).first()
+      reminder_items_dict[reminder.get_stock_id()] = ReminderListItem(stock.id, stock, reminder)
+    else:
+      reminder_items_dict[reminder.get_stock_id()].reminder_list.append(reminder)
+
+  reminder_items_list = list(reminder_items_dict.values())
+  reminder_items_list.sort(key=operator.attrgetter('stock_id'))
+      
+
+  return render_template('reminder.html', reminder_items_list=reminder_items_list)
 

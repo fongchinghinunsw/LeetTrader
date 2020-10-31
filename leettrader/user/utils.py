@@ -14,7 +14,7 @@ def add_and_start_reminder(reminder, username):
   thread.start()
 
 def reminder_handler(reminder, username):
-  stock_code = reminder.stock_id
+  stock_id = reminder.get_stock_id()
   orig_price = float(reminder.orig_price)
   target_price = float(reminder.target_price)
 
@@ -29,10 +29,11 @@ def reminder_handler(reminder, username):
     print(Reminder.query.all())
 
     user = User.query.filter_by(username=username).first()
-    stock = Stock.query.filter_by(code=stock_code).first()
+    stock = Stock.query.filter_by(id=stock_id).first()
+    print(stock.get_code(), "within the handler", flush=True)
     if orig_price < target_price:
       while True:  
-        current_price = float(get_search_result(stock_code)['price'])
+        current_price = float(get_search_result(stock.get_code())['price'])
         if current_price >= target_price:
           print("Hit the price, thread stopped")
           send_stock_reminder(user, stock, reminder, current_price)
@@ -41,7 +42,7 @@ def reminder_handler(reminder, username):
         print("sleep for 10 seconds...")
     else:
       while True:
-        current_price = float(get_search_result(stock_code)['price'])
+        current_price = float(get_search_result(stock.get_code())['price'])
         if current_price <= target_price:
           print("Hit the price, thread stopped")
           send_stock_reminder(user, stock, reminder, current_price)
