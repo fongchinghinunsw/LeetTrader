@@ -148,7 +148,6 @@ def reset_request():
     # print('sending')
     send_reset_password_email(user)
     flash('An email has been sent to reset your password', 'info')
-    return redirect(url_for('user.login'))
   return render_template('reset_request.html', title='reset password', form=form)
 
 
