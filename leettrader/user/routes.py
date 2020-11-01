@@ -37,7 +37,7 @@ def admin():
 def register():
   ''' Register Page '''
   if current_user.is_authenticated:
-    return redirect(url_for('user.home'))
+    return redirect(url_for('users.home'))
 
   # Set up register form
   rform = RegisterForm()
@@ -62,7 +62,7 @@ def register():
     # send the confirmation email
     send_confirmation_email(new_user)
     flash('Confirmation email has been sent, please check your emails', 'info')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('users.login'))
   return render_template('register.html', title='register', form=rform)
 
 @user.route("/confirm/<token>", methods=['GET', 'POST'])
@@ -71,14 +71,14 @@ def confirm(token):
   res = User.verify_confirmation_token(token)
   if res is False:
     flash('The token has expired !', 'warning')
-    return redirect(url_for('user.register'))
+    return redirect(url_for('users.register'))
   else:
     # if the user has already existed, the user wants to click it twice
     # redirect to the home page
     user = User.query.filter_by(email=new_email).first()
     if user:
       flash('The account has already been activated, Please login', 'success')
-      return redirect(url_for('user.login'))
+      return redirect(url_for('users.login'))
 
     # Push changes to database, go to Login page
     new_user = User(user_type = "NORMAL",
@@ -91,13 +91,13 @@ def confirm(token):
     db.session.add(new_user)
     db.session.commit()
     flash('Account created successfully, please login', 'success')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('users.login'))
 
 @user.route("/login", methods=['GET', 'POST'])
 def login():
 
   if current_user.is_authenticated:
-    return redirect(url_for('user.home'))
+    return redirect(url_for('users.home'))
 
   login_form = LoginForm()
   # When click login, read user inputs 
@@ -183,7 +183,7 @@ def reset_password_token(token):
   user = User.verify_reset_password_token(token)
   if user is None:
     flash('The token has expired !', 'warning')
-    return redirect(url_for('user.reset_request'))
+    return redirect(url_for('users.reset_request'))
   else:
     form = resetPasswordForm()
     if form.validate_on_submit():
@@ -193,7 +193,7 @@ def reset_password_token(token):
       user.password = password_hashed
       db.session.commit()
       flash('Account has been reset, please login !', 'success')
-      return redirect(url_for('user.login'))
+      return redirect(url_for('users.login'))
     return render_template('reset_password_token.html', title='reset password', form=form)
 
 # delete account 
@@ -217,7 +217,7 @@ def deleteRequest():
       send_delete_account_email(curr_user)
       flash('An email has been sent to cancel your account', 'info')
       logout_user()
-      return redirect(url_for('user.login'))
+      return redirect(url_for('users.login'))
     else:
       flash('Wrong password, please try again', 'danger')
 
@@ -231,7 +231,7 @@ def delete_account_token(token):
   user = User.verify_delete_account_token(token)
   if user is None:
     flash('The token has expired !', 'warning')
-    return redirect(url_for('user.deleteRequest'))
+    return redirect(url_for('users.deleteRequest'))
   else:
     # do the deletion if the token is valid
     db.session.delete(user)

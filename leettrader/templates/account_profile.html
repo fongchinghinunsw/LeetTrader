@@ -14,7 +14,7 @@
           <p class="text-secondary">{{ current_user.email }}</p>
         </div>
 
-        <form style="padding-top: 10px;" action="{{ url_for('user.deleteRequest') }}">
+        <form style="padding-top: 10px;" action="{{ url_for('users.deleteRequest') }}">
             <button class="btn btn-outline-danger" type="submit">Delete Account</button>
          </form>
 
