@@ -61,6 +61,18 @@
 	  {{ form.confirm_password(class="form-control form-control-lg") }}
         {% endif %}
       </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes style="padding-top: 10px;">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
       
       <div class="form-group">
           {{ form.submit(class="btn btn-outline-info") }}
