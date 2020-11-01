@@ -1,11 +1,13 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
+import operator
 from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
 resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
 
+from leettrader.user.utils import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock, Reminder, UserType
 from leettrader import db, bcrypt, mail
@@ -122,7 +124,6 @@ def login():
   # Fail to login, stay in login page
   return render_template('login.html', title='login', loginForm=login_form)
 
-
 @user.route("/account", methods=['GET', 'POST'])
 @login_required
 def account_profile():
@@ -224,7 +225,7 @@ def deleteRequest():
   return render_template('delete_request.html', title='Delete your account', delete_form=form)
 
 
-@user.route("/deleteRequest/<token>", methods=['GET', 'POST'])
+@user.route("/deleteAcount/<token>", methods=['GET', 'POST'])
 # reset their password when the token is active
 def delete_account_token(token):
   # check if the token is valid
@@ -237,7 +238,7 @@ def delete_account_token(token):
     db.session.delete(user)
     db.session.commit()
     flash('Your account has been deleted successfully', 'success')
-    return redirect(url_for('main.landing'))
+    return redirect(url_for('user.login'))
 
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
@@ -365,11 +366,37 @@ def add_reminder():
     # the user must enter the alert price.
     if reminder_form.alert_price.data:
       stock_obj = Stock.query.filter_by(code=code).first()
-      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.code, orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
-      print(reminder)
+      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.get_id(), orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
+      add_and_start_reminder(reminder, current_user.username)
       return redirect(url_for('stock.search_page', code=code))
       
     flash("Please enter a price.", "warning")
 
-
   return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
+
+class ReminderListItem:
+  def __init__(self, stock_id, stock, reminder):
+    self.stock_id = stock_id
+    self.stock = stock
+    self.reminder_list = [reminder]
+
+
+@user.route("/view_reminder")
+@login_required
+def view_reminder():
+  reminders = Reminder.get_reminders_by_user_id(current_user.id)
+
+  reminder_items_dict = {}
+  for reminder in reminders:
+    if reminder.get_stock_id() not in reminder_items_dict:
+      stock = Stock.query.filter_by(id=reminder.get_stock_id()).first()
+      reminder_items_dict[reminder.get_stock_id()] = ReminderListItem(stock.id, stock, reminder)
+    else:
+      reminder_items_dict[reminder.get_stock_id()].reminder_list.append(reminder)
+
+  reminder_items_list = list(reminder_items_dict.values())
+  reminder_items_list.sort(key=operator.attrgetter('stock_id'))
+      
+
+  return render_template('reminder.html', reminder_items_list=reminder_items_list)
+

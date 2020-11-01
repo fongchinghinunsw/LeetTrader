@@ -148,6 +148,12 @@ class Stock(db.Model):
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"
 
+  def get_id(self):
+    return self.id
+
+  def get_name(self):
+    return self.name
+
   def get_code(self):
     return self.code
 
@@ -192,3 +198,22 @@ class Reminder(db.Model):
     reminder += f"'{self.user_id}', '{self.stock_id}', "
     reminder += f"'{self.orig_price}', '{self.target_price}')"
     return reminder
+
+  @classmethod
+  def get_reminders_by_user_id(cls, user_id):
+    return cls.query.filter_by(user_id=user_id).all()
+
+  def get_id(self):
+    return self.id
+
+  def get_user_id(self):
+    return self.user_id
+
+  def get_stock_id(self):
+    return self.stock_id
+
+  def get_orig_price(self):
+    return self.orig_price
+
+  def get_target_price(self):
+    return self.target_price
