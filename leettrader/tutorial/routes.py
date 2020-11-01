@@ -7,19 +7,27 @@ from flask import render_template, Blueprint
 
 guide = Blueprint('guide', __name__)
 
-@guide.route("/help", methods=['GET'])
-def help():
+@tutorial.route("/tutorial", methods=['GET'])
+def tutorial():
   ''' Complete usage guide '''
-  guides = json.loads(open('leettrader/guide/tutorial.json').read())
+  guides = json.loads(open('leettrader/tutorial/tutorial.json').read())
   usage_guide = ""
+  ''' Title '''
+  usage_guide += "<h1> Learn how to use LeetTrader </h1> <br>"
+  ''' Body '''
   for tag in guides['guides']:
     usage_guide += "<h3>" + tag + "</h3>" + "<br>" + "<p>" + tag['response'] + "</p>" + "<br>"
 
-  return render_template('help.html', usage_guide=usage_guide)
+  return render_template('tutorial.html', usage_guide=usage_guide)
 
-"""
-@main.route("/learntrading")
-def learn_trading(userID):
+
+@tutorial.route("/learntrading")
+def help():
   ''' Learning knowledge about trading stocks '''
-  return render_template('learntrading.html')
-"""
+  guides = json.loads(open('leettrader/tutorial/trading.json').read())
+  trading_help = ""
+  ''' Title '''
+  trading_help += "<h1> Learn trading terminology </h1> <br>"
+  for tag in guides['guides']:
+    trading_help += "<h3>" + tag + "</h3>" + "<br>" + "<p>" + tag['response'] + "</p>" + "<br>"
+  return render_template('help.html', trading_help=trading_help)
