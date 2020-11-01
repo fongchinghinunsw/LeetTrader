@@ -166,7 +166,7 @@
         },
         {"tag": "Forward Dividend and Yield",
          "patterns": ["What is forward dividend and yield?", "What does forward dividend and yield mean?", "Tell me about forward dividend and yield", "Can you tell me about forward dividend and yield?", "Can you tell me what forward dividend and yield is?", "Can you teach me what is forward dividend and yield?"],
-         "responses": ["The forward dividend and yield is an estimation of a year's dividend expressed as a percentage of current stock price. The year's projected dividend is measured by taking a stock's most recent actual divivdend payment and annualising (converting it to an annual rate) it. The forward dividend and yield is calculated by dividing a year's worth of future dividend payments by a stock's current share price. The higher, the better."],
+         "responses": ["The forward dividend and yield is an estimation of a year's dividend expressed as a percentage of the current stock price. The year's projected dividend is measured by taking a stock's most recent actual divivdend payment and annualising (converting it to an annual rate) it. The forward dividend and yield is calculated by dividing a year's worth of future dividend payments by a stock's current share price. The higher, the better."],
          "context": 2
         },
         {"tag": "Ex-Dividend Date",
@@ -181,7 +181,7 @@
         },
         {"tag": "Fair Value",
          "patterns": ["What is fair value?", "What does fair value mean?", "Tell me about fair value", "Can you tell me about fair value?", "Can you tell me what fair value is?", "Can you teach me what is fair value?"],
-         "responses": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parent company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued considering the: current index value, dividends paid on stock in the index, days to expiration of the futures contract, and current interest rates."],
+         "responses": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parent company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued when considering the: current index value, dividends paid on stock in the index, days to expiration of the futures contract, and current interest rates."],
          "context": 2
         }
    ]

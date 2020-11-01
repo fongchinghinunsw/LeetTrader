@@ -30,7 +30,7 @@
          "response": ["The historical data contains previous stock prices. To view this, go to the stock's page. You can do this using the watchlist if you have added the stock to your watchlist. Otherwise, use the search bar to find the stock. Doing either of this will lead you to the stock's page where the historical data will be displayed."]
         },
         {"tag": "Viewing profit or loss for a specific simul-owned stock",
-         "response": [""]
+         "response": ["Viewing the total profit/loss you get from selling all of a particular stock is useful if you want to know much money you gain or lose from selling all of that stock."]
         },
         {"tag": "Viewing profit or loss for all simul-owned stock",
          "response": [""]
