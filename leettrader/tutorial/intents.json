@@ -54,20 +54,35 @@
          "responses": ["Go to the stock's page. You can do this by either searching for the stock using the search bar on the top right, or you can click on a stock on your watchlist if you have added that stock to your watchlist. Click on the add reminder"],
          "context": 1
         },
-        {"tag":"Delete reminder",
+        {"tag": "Delete reminder",
          "patterns": ["How do I delete a reminder?", "How do I stop reminders?"],
          "responses": ["On the drop down menu on the top bar, click on view reminders. This should show you all the reminders you have set. On the right side of each item in the reminders list, there will be a remove button. Click on that button to remove the reminder from the list and you will not longer be notified on that stock."],
          "context": 1
         },
-        {"tag":"View reminders",
+        {"tag": "View reminders",
          "patterns": ["How can I see my reminders?", "How can I view my reminders?", "Where can I see my reminders?", "Show me my reminders."],
          "responses": ["You can view your reminders by using the drop down menu on the top bar. Click on View reminders. This will take you to a page listing all the reminders you have set."],
          "context": 1
         },
-        {"tag":"Historical data",
+        {"tag": "Historical data",
          "patterns": ["How do I see historical data?", "Where can I see historical data?", "How do I see a stock's historical data?", "How do i see historical data for a stock?", "Where can I see a stock's historical data?", "Where can I see historical data for a stock?"],
          "responses": ["You can see historical data for a stock by clicking on that stock on your watchlist. If a stock is not on your watchlist, you can search the stock with the search bar. Either way, this will lead you to the stock's page where you can see the historical price in graph form."],
-         "context":1
+         "context": 1
+        },
+        {"tag": "Deleting your account",
+         "patterns":["delete account", "remove my account", "account", "I want to delete my account"],
+         "responses": ["Expand the drop down menu on the right side of the top bar. Click on Manage account. You will be directed to a page where you can click on the Delete account button. You will be sent an email containing two links: one for confirming the deletion of your account and one to change your password. If it is you who have requested the deletion of your account, click on the link that will delete your account. Otherwise, your account may be compromised and it is recommended you change your password using the given link."],
+         "context": 1
+        },
+        {"tag": "Profit loss for selling all of a specific sim-owned stock",
+         "patterns": ["sell all of a specific stock", "sell all of a particular stock", "profit loss for a specific stock", "profit loss for a particular stock"],
+         "responses": ["Viewing the total profit/loss you get from selling all of a particular stock is useful if you want to know much money you gain or lose from selling all of that stock. You can find the profit/loss for selling all of a particular stock by visiting the home page. To reach this page, simply click on the home button on the left side of the top bar. You will find a list of all the stocks you own with some information. The value next to the P/L is the profit/loss you would have if you all sold of that stock. A red value means you will lose that amount in the trade, whereas a green amount means you would gain a profit. This is a quick a useful way in determining if you would make a profit or a loss if you were to sell that stock. You may also gain insight into the stock's performance."],
+         "context": 1
+        },
+        {"tag": "Profit loss for selling all simul-owned stocks",
+         "patterns": ["Profit loss for selling all stocks", "Profit loss for selling all simul-owned stocks", "profit loss for selling all my stocks"],
+         "responses": ["This is where you can see the profit or loss you would make if you were to sell all your currently simul-owned stocks. Same as viewing the profit or loss for a specific simul-owned stock, you will need to visit the home page. Again, you simply click on the home button on the left side of the search bar. The total profit/loss will be shown below the list of stocks you own, next to the Total P/L. A green number means that you will gain a profit for selling all your simul-owned stock whereas a red number means you will have a loss instead. This gives you an indication of the performance on your set of stocks."],
+         "context": 1
         },
         {"tag":"Profit",
          "patterns": ["What is profit?", "What does profit mean?", "Tell me about profit.", "Can you tell me about profit?", "Can you tell what profit is?", "Profit"],
@@ -182,6 +197,36 @@
         {"tag": "Fair Value",
          "patterns": ["What is fair value?", "What does fair value mean?", "Tell me about fair value", "Can you tell me about fair value?", "Can you tell me what fair value is?", "Can you teach me what is fair value?"],
          "responses": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parent company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued when considering the: current index value, dividends paid on stock in the index, days to expiration of the futures contract, and current interest rates."],
+         "context": 2
+        },
+        {"tag": "Percent Change",
+         "patterns": ["percent change", "percentage change", "What is percent change?", "What is percentage change?"],
+         "responses": ["This is the percentage change in price compared to the previous day's stock price. It compares the previous day's stock price to the current price. It is expressed as a percentage. A positive percentage means the stock price has risen from the previous day while a negative percentage means the price has gone down. For example: If a stock was $100 the previous day, and it is $101 this current day, then it has risen by 1%. Many times you will not have to calculate this since many sites (including LeetTrader) will tell you the percentage change."],
+         "context": 2
+        },
+        {"tag": "Volatility",
+         "patterns": ["volatility", "volatile", "price swing", "What is volatility?"],
+         "responses": ["Volatility is an important term in finance. Volatility represents how large an asset's prices swing around the mean price. In other words, it represnts the degree of price flucuation that may occur with a stock. For example: A stock that only fluctuates between $5 and $10 is less volatile than a stock that fluctuates between $1 and $20. Volatile stocks are considered risky because the prices are harder to predict. However, this risk comes with reward so investing in volatile stocks is risky but come with potentially bigger rewards."],
+         "context": 2
+        },
+        {"tag": "Bull and bear market",
+         "patterns": ["Bull", "Bear", "Bull and bear", "What is a bull market?", "What is a bear market?"],
+         "responses": ["Bull market and bear market are terms the describe the market conditions of a stock market. A bull market is a market that where stock prices are rising. This market condition means that the economy is sound. On the other hand, a bear market is the opposite. A bear market means that stock prices are expected to decline and signifies a receding economy. A bear market can be more dangerous to invest in because prices are more volatile and many stocks lose value. It is also hard to determine when a bear market has reached the lowest point and stock prices stop declining. This adds to the risk. A strategy you may use is to withdraw money from a bear market and sitting on the cash until the trend reverses."],
+         "context": 2
+        },
+        {"tag": "Blue Chip stocks",
+         "patterns": ["Blue chip", "What is blue chip stock?", "safe investment"],
+         "responses": ["A blue chip stock is a huge company with excellent reputation. These companies are typically large, well established and financially sound companies that have operated for many years and that have dependable earnings. Most blue chip stocks pay dividends to investors. They are considered low risk investments and are very popular among investors. Some examples of blue chip stocks: IBM Corp, Coca-cola Co and Boeing Co. They are solid investments since they have operated for a considerable amount of time."],
+         "context": 2
+        },
+        {"tag": "IPO",
+         "patterns": ["IPO", "Initial public offering", "What is initial public offering?"],
+         "responses": ["IPO stands for Initial Public Offering. You may have heard of this term. This refers to the first sale of a company's stocks to the market. This signifies that a private company has gone public. This does not necessarily mean that the company is new since a company can be private for a considerable amount of time before going public. They are, however, are considered risky since these share prices are prone to frequent fluctuation based on economic and non-economic events often. Unless you are skilled and knowledgable in both the company and stock trading, it is recommended to avoid IPOs."],
+         "context": 2
+        },
+        {"tag": "Averaging down",
+         "patterns": ["Averaging down", "Whatis averaging down?", "Teach me about averaging down"],
+         "responses": ["Averaging down is a strategy you can employ. It involves buying more of a stock as its prices decreases. This is done to lower your average purchasing price. You would only use this strategy if you believe that the census about a company is wrong and the stock price will bounce back up. For example, people may feel a company is not performing well but you find this to be not true (because you did research) so you buy the stocks that are declining. If you are correct, then the stock price will bounce back up and you can sell your stocks for profit. This is one of the reason why financial reports and research is important: you can use various strategies based on your research."],
          "context": 2
         }
    ]
