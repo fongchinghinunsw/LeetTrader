@@ -16,12 +16,12 @@
         },
         {"tag": "Reset password",
          "patterns": ["I'm trying to reset password", "I forgot my password", "I want to change my password", "How do I reset my password?"],
-         "responses": ["On the login page, there is a forgot password button. You can click on this where you will be taken to a page where you can enter your email. After you have entered your email, click on send confirmation. You cannot send another confirmation email for some amount of time. Look into your email (don't forget to check the spam folder) for the email. It will contain a link. Click on the link to be directed to the reset password page. This link will expire after 30 minutes. Note that you cannot use the old password as the new password. You need to enter your new password twice to ensure you have made no typos."],
+         "responses": ["On the login page, there is a forgot password button. You can click on this where you will be taken to a page where you can enter your email. After you have entered your email, click on send confirmation. You cannot send another confirmation email until the timer has counted down. Look in your email (don't forget to check the spam folder) for the email. It will contain a link. Click on the link to be directed to the reset password page. This link will expire after 30 minutes. Note that you cannot use the old password as the new password. You need to enter your new password twice to ensure you have typed your password correctly."],
          "context": 1
         },
         {"tag": "Buy Stock",
          "patterns": ["How do I buy stock?", "Where can I buy stock?", "Buy stock"],
-         "responses": ["First, search for a stock using the search bar on the top right. Click search. If the stock looks appealing to you, click on buy on the bottom. Input the amount you want to buy and click proceed. Finally, confirm your order by clicking the button. Congratulations, you have bought the stock. Note that the stock is simul-owned. This means that you do not actually own the stock and that it is for practice only."],
+         "responses": ["First, search for a stock using the search bar on the top right. Click search. Alternatively, if you have the stock in your watchlist, click on it for faster access. This will lead you to the stock page. If the stock looks appealing to you, click on Buy stock on the bottom. Input the amount you want to buy and click proceed. Finally, confirm your order by clicking the button. Congratulations, you have bought the stock. Note that the stock is simul-owned. This means that you do not actually own the stock and that it is for practice only."],
          "context": 1
         },
         {"tag": "Sell stock",
@@ -31,15 +31,15 @@
         },
         {"tag": "Add to watchlist",
          "patterns": ["How do I add to my watchlist?", "How do I add a stock to my watchlist?"],
-         "responses": ["First, search for a stock using the search bar on the top right. Click search. This will lead you to the stock page. Click on Add to watchlist to add that stock to your watchlist. If the button says remove instead, this means the stock is already on your watchlist."],
+         "responses": ["First, search for a stock using the search bar on the top right. Click search. This will lead you to the stock page. Click on Add to watchlist to add that stock to your watchlist. If the button says remove instead, this means the stock is already on your watchlist. The watchlist is useful since it shows information about a stock and is highly visible. Clicking on a stock in the watchlist takes you to the stock's page where you can quickly buy or sell that stock."],
          "context": 1
         },
         {"tag": "Remove from watchlist",
          "patterns": ["How do I remove a stock from my watchlist?", "How do I remove from my watchlist?"],
-         "responses": ["From your watchlist, click on the stock you want to remove. This should take you to the stock page. Click on the remove from watchlist button on the bottom. A pop up will appear asking for confirmation. Click confirm and, this will remove that stock from your watchlist."],
+         "responses": ["From your watchlist, click on the stock you want to remove. This should take you to the stock page. Click on the remove from watchlist button on the bottom. A pop up will appear asking for confirmation. Click confirm and, this will remove that stock from your watchlist immediately."],
          "context": 1
         },
-        {"tag":"Use watchlist",
+        {"tag":"Using the watchlist",
          "patterns": ["How do I use the watchlist?"],
          "responses": ["Click on any stock on the watchlist to view that stock's page where you can view information. Quick and easy access!"],
          "context": 1
@@ -51,12 +51,12 @@
         },
         {"tag": "Add reminder",
          "patterns": ["How do I add a reminder?", "How do I set a reminder?", "How do I use the reminder?"],
-         "responses": ["Go to the stock's page. You can do this by either searching for the stock using the search bar on the top right, or you can click on a stock on your watchlist if you have added that stock to your watchlist. Click on the add reminder"],
+         "responses": ["Go to the stock's page. You can do this by either searching for the stock using the search bar on the top right, or you can click on a stock on your watchlist if you have added that stock to your watchlist. This will take you to the stock's page. Click on the Add reminder below the stock's information. You will be taken to a page where you can set up your reminder. You can set the price at which you will be notified when the stock reaches that price or beyond. Here's an example: If the stock's current price is $5 and you set the price for $8, then when the stock reaches $8 or above, you will receive an email notification. If you take the same stock at $5 and set the price for $2, then you will receive an email notifification if the price reaches $2 or below. When you are done with your set up, click Add to activate the reminder. You will then be redirected back to the search page. Otherwise, click cancel to go back to the search page."],
          "context": 1
         },
         {"tag": "Delete reminder",
          "patterns": ["How do I delete a reminder?", "How do I stop reminders?"],
-         "responses": ["On the drop down menu on the top bar, click on view reminders. This should show you all the reminders you have set. On the right side of each item in the reminders list, there will be a remove button. Click on that button to remove the reminder from the list and you will not longer be notified on that stock."],
+         "responses": ["On the drop down menu on the top bar, click on view reminders. This should show you all the reminders you have set. On the right side of each item in the reminders list, there will be a remove button. Click on that button to remove the reminder from the list and you will not longer be get email notifications for that reminder and it will be removed."],
          "context": 1
         },
         {"tag": "View reminders",
