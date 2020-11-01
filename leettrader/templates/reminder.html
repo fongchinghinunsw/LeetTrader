@@ -1,5 +1,8 @@
 {% extends "main_layout.html" %}
 {% block left_content %}
+{% if reminder_items_list|length == 0 %}
+<div id='no-reminder-alert' class="alert alert-danger">no reminder exists</div>
+{% else %}
 <ul class="list-group reminder-list">
   {% for reminder_item in reminder_items_list %}
     <li class="list-group-item reminder-list-item">
@@ -15,4 +18,5 @@
     </li>
   {% endfor %}
 </ul>
+{% endif %}
 {% endblock left_content %}
