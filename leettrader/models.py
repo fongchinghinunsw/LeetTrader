@@ -28,7 +28,7 @@ watchlist_items = db.Table(
               db.ForeignKey('stock.id'),
               primary_key=True))
 '''
-  Relaod user by u_id stored in:
+  Reload user by u_id stored in:
   https://flask-login.readthedocs.io/en/latest/
 '''
 
@@ -79,6 +79,7 @@ class User(db.Model, UserMixin):
   def get_id(self):
     return self.id
 
+<<<<<<< HEAD
   def get_new_token(self, secs=1800):
     # create a serializer with an expiration time of 1800s
     s = Serializer(SECRET_KEY, secs)
@@ -117,6 +118,10 @@ class User(db.Model, UserMixin):
       return None
     # return the user with user_id
     return User.query.get(user_id)
+=======
+  def is_admin(self):
+    return self.user_type == UserType.ADMIN
+>>>>>>> 0339bcd4ad0c62465049b2d8cd4418b623755068
 
 class Watchlist(db.Model):
   """Watchlist class"""

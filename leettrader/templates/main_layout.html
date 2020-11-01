@@ -4,15 +4,18 @@
   <div class="col-md-8">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-	{% for category, message in messages %}
-	  <div class="alert alert-{{ category }}">
-	    {{ message }}
-	  </div>
-	{% endfor %}
+        {% for category, message in messages %}
+	        <div class="alert alert-{{ category }}">
+	          {{ message }}
+	        </div>
+	      {% endfor %}
       {% endif %}
     {% endwith %}
+    
     {% block left_content %}{% endblock %}
   </div>
+
+
   <div id="right-content" class="col-md-4">
     {% include "watchlist.html" %}
   </div>

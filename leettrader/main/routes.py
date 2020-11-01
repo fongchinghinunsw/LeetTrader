@@ -17,4 +17,6 @@ def landing():
 @login_required
 def home(userID):
   ''' Home Page after Login '''
-  return render_template('home.html')
+  testMsg = "TestMessage"
+  
+  return render_template('home.html', msg=testMsg)

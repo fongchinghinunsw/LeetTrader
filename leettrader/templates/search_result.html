@@ -35,9 +35,9 @@
       <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
       {% endif %}
     <!--Buttons to buy and sell stocks-->
-      <a href="{{ url_for('user.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right mr-2">Buy Stock</a>
-      <a href="{{ url_for('user.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right mr-2">Sell Stock</a>
-      <a href="{{ url_for('user.add_reminder', stock=code) }}" class="btn btn-outline-primary float-right mr-2">Add reminder</a>
+      <a href="{{ url_for('users.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right mr-2">Buy Stock</a>
+      <a href="{{ url_for('users.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right mr-2">Sell Stock</a>
+      <a href="{{ url_for('users.add_reminder', stock=code) }}" class="btn btn-outline-primary float-right mr-2">Add reminder</a>
     </div>
 
     
@@ -123,5 +123,11 @@
     // Jquery code, e.g. the first line means when the element with id add-to-watchlist is clicked, run the add()
     $( "#add-to-watchlist" ).on( "click", add);    
     $( "#remove-from-watchlist" ).on( "click", del);     
+  </script>
+  
+  
+  <script>
+    
+  
   </script>
 {% endblock left_content %}

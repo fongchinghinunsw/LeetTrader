@@ -9,7 +9,7 @@ from leettrader.stock.forms import SearchStockForm
 from leettrader.stock.utils import get_search_result
 
 
-stock = Blueprint('stock', __name__)
+stock = Blueprint('stocks', __name__)
 
 
 @stock.route('/search', methods=['GET', 'POST'])
@@ -22,7 +22,7 @@ def search_stock():
 
   # Go to search page if stock code is valid, home page otherwise
   if Stock.query.filter_by(code=code).first():
-    return redirect(url_for('stock.search_page', code=code))
+    return redirect(url_for('stocks.search_page', code=code))
 
   flash("Please enter a valid stock name/code", "warning")
   return render_template('home.html')

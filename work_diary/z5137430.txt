@@ -26,4 +26,6 @@ I helped to refactor all files of the project by adding comments and using pylin
   - Suggest members to add comments to their codes to improve readibility
 
 Week 6 & 7
-I completed the user stories about showing information of owned stock.
+I completed the user stories about showing information of owned stock. 
+I refractored my old codes about watchlist, and make a new file called formatter.py.
+This file takes in different inputs and export a string of HTML tags. 

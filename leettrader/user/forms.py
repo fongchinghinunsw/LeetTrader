@@ -109,6 +109,7 @@ class CheckoutForm(FlaskForm):
   submit = SubmitField('Checkout')
   cancel = SubmitField('Cancel')
 
+
 class ReminderForm(FlaskForm):
   ''' Reminder Form '''
   alert_price = StringField('Alert Price')
