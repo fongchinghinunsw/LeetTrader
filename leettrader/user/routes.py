@@ -1,7 +1,7 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
-from flask import render_template, url_for, flash, redirect, Blueprint
+from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
 resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm)
@@ -143,12 +143,24 @@ def reset_request():
   # if current_user.is_authenticated:
   #   return redirect(url_for('user.home'))
   form = resetRequestForm()
-  if form.validate_on_submit():
-    user = User.query.filter_by(email=form.email.data).first()
-    # print('sending')
-    send_reset_password_email(user)
-    flash('An email has been sent to reset your password', 'info')
+  # if form.validate_on_submit():
+    # user = User.query.filter_by(email=form.email.data).first()
+    # send_reset_password_email(user)
+    # flash('An email has been sent to reset your password', 'info')
+  #   return jsonify({'user-email': user.email})
   return render_template('reset_request.html', title='reset password', form=form)
+
+@user.route("/process", methods=['POST'])
+# process the json data
+def process():
+  userEmail = request.form['email']
+  user = User.query.filter_by(email=userEmail).first()
+  send_reset_password_email(user)
+  flash('An email has been sent to reset your password', 'info')
+  # if name is filled in
+  if userEmail:
+    print("Ajax processing... ", userEmail)
+    return jsonify({'userEmail': userEmail})
 
 
 @user.route("/resetPassword/<token>", methods=['GET', 'POST'])
@@ -322,3 +334,5 @@ def checkout(stock, action, quantity):
                          action=action,
                          quantity=quantity,
                          checkout_form=checkout_form)
+
+
