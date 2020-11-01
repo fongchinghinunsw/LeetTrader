@@ -7,7 +7,7 @@ from flask import render_template, Blueprint
 
 tutorial = Blueprint('tutorial', __name__)
 
-@tutorial.route("/tutorial", methods=['GET'])
+@tutorial.route("/usage_guide", methods=['GET'])
 def usage_guide():
   ''' Complete usage guide '''
   guides = json.loads(open('leettrader/tutorial/tutorial.json').read())
@@ -21,7 +21,7 @@ def usage_guide():
   return render_template('tutorial.html', usage_guide_str=usage_guide_str)
 
 
-@tutorial.route("/learntrading")
+@tutorial.route("/help", methods=['GET'])
 def help():
   ''' Learning knowledge about trading stocks '''
   trading = json.loads(open('leettrader/tutorial/trading.json').read())
