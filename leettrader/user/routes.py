@@ -154,13 +154,18 @@ def reset_request():
 # process the json data
 def process():
   userEmail = request.form['email']
+  if not userEmail:
+    return jsonify({'error': 'Please enter your email'})
+
   user = User.query.filter_by(email=userEmail).first()
+   # if the user entered invalid email
+  if not user:
+    return jsonify({'error': 'Invalid email, please try again'})
+  
+  # if the user entered valid email
   send_reset_password_email(user)
-  flash('An email has been sent to reset your password', 'info')
-  # if name is filled in
-  if userEmail:
-    print("Ajax processing... ", userEmail)
-    return jsonify({'userEmail': userEmail})
+  print("Ajax processing... ", userEmail)
+  return jsonify({'userEmail': userEmail})
 
 
 @user.route("/resetPassword/<token>", methods=['GET', 'POST'])
