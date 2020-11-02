@@ -10,11 +10,14 @@
       <ul class="list-group reminder-list">
       {% for reminder in reminder_item.reminder_list %}
         <div class="row">
-	  <div class="col-md-8">
+	  <div class="col-md-5">
 	    <li class="list-group-item reminder-list-item-item">
+              <div class="float-left">
 	      <p>original price: {{ reminder.orig_price }}</p>
 	      <p>target price: {{ reminder.target_price }}</p>
-              <a href="{{ url_for('users.delete_reminder', reminder_id=reminder.get_id()) }}" class="btn btn-outline-danger float-right mr-2">Remove</a>
+              </div>
+              <a href="{{ url_for('users.delete_reminder', reminder_id=reminder.get_id()) }}" class="btn btn-outline-danger float-left ml-5 mt-4">Remove</a>
+              <div class="clear"></div>
 	    </li>
 	  </div>
         </div>
