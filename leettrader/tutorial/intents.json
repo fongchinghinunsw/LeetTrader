@@ -39,7 +39,7 @@
          "responses": ["From your watchlist, click on the stock you want to remove. This should take you to the stock page. Click on the remove from watchlist button on the bottom. A pop up will appear asking for confirmation. Click confirm and, this will remove that stock from your watchlist immediately."],
          "context": 1
         },
-        {"tag":"Using the watchlist",
+        {"tag": "Using the watchlist",
          "patterns": ["How do I use the watchlist?"],
          "responses": ["Click on any stock on the watchlist to view that stock's page where you can view information. This page also has buttons where you can remove from watchlist, buying or selling shares and adding a reminder. Quick and easy access!"],
          "context": 1
