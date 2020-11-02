@@ -21,3 +21,26 @@ Week 4
 1. finish background and competitor analysis parts for proposal
 2. implement create account / login / logout functionalites 
 3. adjust some UI stuff
+
+
+Week 5
+
+1. Finish the email confirmation US
+2. Refine the UI of the webpage
+
+Week 6
+
+1. Finish the delete User account US
+2. Finish the password reset functionality US
+3. Attend the group meeting
+2. Refine the UI of the webpage
+
+
+Week 7
+
+1. Refine the password reset functionality, using Ajax
+2. Refine the UI of all pages 
+2. Merge all my done US into master 
+
+
+Week 8
