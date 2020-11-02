@@ -35,6 +35,67 @@ body {
   width: 100%;
 }
 
+#title {
+  font-size: 500%;
+  color: #FFFFFF;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+
+#text {
+  position: relative;
+  top: 150px;
+  width: 16em;
+  margin: 0 auto;
+  border-right: 2px solid rgba(255, 255, 255, 0.75);
+  font-size: 200%;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);
+}
+
+.anim-typewriter {
+    /* animation-name binds the animation to an element
+       animation-duration defines how long time an animation should take to complete
+       animation-timing-function specifies the speed curve of the animation
+                                 steps(n) displays an animation iteration along n stops along the transition
+       animation-delay specifies a delay for the start of an animation
+       animation-iteration-count specifies the number of times an animation should run.
+       animation-direction specifies whether an animation should be played forwards (normal), backwards or in alternate cycles
+       animation-fill-mode specifies a style for the target element when the animation is not playing (before it starts, after it ends, or both).
+    */
+    animation: typewriter 7s steps(40) 1s 1 normal both,
+    blinkTextCursor 500ms steps(40) infinite normal;
+    animation-iteration-count: infinite;
+
+}
+
+/* specify CSS styles inside the @keyframes rule, the animation will
+   gradually change from the current style to the new style at certain times. */
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 22em;
+    }
+}
+
+@keyframes blinkTextCursor {
+    /* create blinking effect by changing transparency */
+    from {
+        border-right-color: rgba(255, 255, 255, 0.75);
+    }
+    to {
+        border-right-color:transparent;
+    }
+}
+
 .ui-autocomplete {
   max-height: 200px;
   max-width: 330px;
