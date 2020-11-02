@@ -6,6 +6,7 @@
 
 body {
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .clear {
@@ -27,7 +28,6 @@ body {
   height: 60px;
   width: 100%;
   position: fixed;
-  z-index:0;
 }
 
 #top-navbar-notfixed {
@@ -85,28 +85,18 @@ body {
   height: 500px;
   background: #FFFFFF;
   position: relative;
-  top: 470px;
+  top: 560px;
 }
 
 #ceo_image {
-  margin: 0 auto;
-  float: left;
   height: 400px;
   width: 450px;
   border-radius: 5%;
-  position: relative;
-  left: 200px;
-  top: 50px;
 }
 
 #ceo_intro {
-  margin: 0 auto;
-  float: right;
-  position: relative;
   height: 400px;
   width: 450px;
-  right: 200px;
-  top: 100px;
 }
 
 #footer {
@@ -163,6 +153,10 @@ body {
 #footer {
   position: relative;
   top: 500px;
+}
+
+#watchlist {
+  margin-bottom: 30px;
 }
 
 /*

@@ -1,30 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div id='landing-container'>
-    <div id='landing-img'></div>
+  <div id='landing-container container-fluid'>
 
-    <div class="clear"></div>
+    <div id='landing-img' class='position-fixed'></div>
 
-    <div id='landing-subsection-0'>
-      <div class="jumbotron" style="padding-left:200px;padding-right:200px">
-	<h1 class="display-4">Have you tried virtual trading?</h1>
-	<p class="lead">More and more people dive into the stock market with the mindset of being rich. However, Stock trading can be nerve-wracking for amateurs at first, because we are scared of getting it wrong and losing money. Only a few can call the shots in the stock market, and the vast majority with little experience may lose their hard-earned fortune. So is there a way to gain experience while not having to worry about devastating loss? Yes, welcome to the world of virtual trading!
+    <div id="landing-subsection-0" class="row ml-0">
+      <div class="jumbotron">
+	<h1>Have you tried virtual trading?</h1>
+	<p>More and more people dive into the stock market with the mindset of being rich. However, Stock trading can be nerve-wracking for amateurs at first, because we are scared of getting it wrong and losing money. Only a few can call the shots in the stock market, and the vast majority with little experience may lose their hard-earned fortune. So is there a way to gain experience while not having to worry about devastating loss? Yes, welcome to the world of virtual trading!
 </p>
-	<hr class="my-4">
+	<hr>
 	<p>LeetTrader is one of the world's leading investment simulator</p>
       </div>
     </div>
 
-    <div class="clear"></div>
-
-    <div id='landing-subsection-1'>
-      <div>
+    <div id="landing-subsection-1" class='row ml-0'>
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
 	<img id="ceo_image" src="../static/ceo.jpg">
       </div>
-      <div id="ceo_intro" style="padding-left: 50px;" >
+      <div id="ceo_intro" class="col-md-4">
 	<h1>Our CEO</h1>
         <p>I don't believe in Science, and I can perform a magic such that the COV-19 will just be gone.</p>
       </div>
+      <div class="col-md-2"></div>
     </div>
   </div>
 
