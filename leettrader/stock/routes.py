@@ -48,10 +48,12 @@ def search_page(code):
   print(result)
 
   # Check if stock is already in watchlist
-  if Watchlist.query.filter_by(user_id=current_user.get_id()).filter(
-      Watchlist.stocks.any(code=code)).first() is None:
+  in_watchlist = Watchlist.query.filter_by(user_id=current_user.get_id()).filter(
+      Watchlist.stocks.any(code=code)).first()
+  if in_watchlist is None:
     listed = False
   else:
+    date_added = in_watchlist.date_added
     listed = True
 
   # Export "search_result.html" from template, passing in:
@@ -67,7 +69,8 @@ def search_page(code):
                          price_change=result['price_change'],
                          percent_change=result['percent_change'],
                          color=color,
-                         listed=listed)
+                         listed=listed,
+                         date=date_added)
 
 @stock.route('/get_csv/<string:code>', methods=['GET'])
 @login_required

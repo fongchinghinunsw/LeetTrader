@@ -168,6 +168,8 @@
       if (active_btn !== "") {
         d3.select(active_btn).classed("active", false);
         d3.select(id).classed("active", true);  
+      } else if (id !== "#one_mo") {
+        d3.select("#one_mo").classed("active", false);
       }
 
       active_btn = id;    
@@ -224,8 +226,14 @@
         all_data.push({ Date : d3.timeParse("%Y-%m-%d")(d.Date), OGDate: d.Date, Close : +d.Close });
         return { Date : d3.timeParse("%Y-%m-%d")(d.Date), OGDate: d.Date, Close : +d.Close };
       }
-    }).then((data)=>{            
-      plot_graph(one_month, data, "#one_mo") 
+    }).then((data)=>{
+      var listed = "{{listed}}"
+      if (listed == "True") {
+        var date = "{{date}}"
+        date = new Date(date).getTime() / 1000
+        if (date < one_month) plot_graph(date, data, "#one_mo") 
+        else plot_graph(one_month, data, "#one_mo")
+      }
       d3.select("#one_year").on("click", ()=>{plot_graph(one_year, data, "#one_year")});
       d3.select("#six_mo").on("click", ()=>{plot_graph(six_months, data, "#six_mo")});
       d3.select("#one_mo").on("click", ()=>{plot_graph(one_month, data, "#one_mo")});
@@ -233,6 +241,7 @@
 
     });
     
+
 
   </script>
 {% endblock left_content %}
