@@ -21,7 +21,15 @@
       </div>
       
       <!-- Graph of historical data -->
-      <div id="stock_graph" class="col-md-7">
+      <div class="col-md-7">
+        <div  id="stock_graph" >
+        </div>
+        <div id="btn_dock" class="d-flex justify-content-around">
+          <button id="one_year" type="button" class="btn btn-outline-primary">1 Year</button>
+          <button id="six_mo" type="button" class="btn btn-outline-primary">6 Months</button>
+          <button id="one_mo" type="button" class="btn btn-outline-primary active">1 Month</button>
+          <button id="one_week" type="button" class="btn btn-outline-primary">1 Week</button>
+        </div>
 
       </div>
     </div>
@@ -124,18 +132,23 @@
     $( "#remove-from-watchlist" ).on( "click", del);     
     
       
+  </script>
+  
+  <script>
     // js code for the stock graph
     var req_code = stockCode.replace("_", ".");
     var curr_time = Math.round(new Date().getTime() / 1000);
-    var prev_year = curr_time - 31622400 
+    var one_year = curr_time - 31622400 
     var six_months = curr_time - 15778800
     var one_month = curr_time - 2629800
     var one_week = curr_time - 604800
     
+    var active_btn = ""
+    
     
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60},
-        width = 460 - margin.left - margin.right,
+        width = 600 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
         
     // append the svg object to the body of the page
@@ -146,60 +159,80 @@
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
-
+      
+      
     var all_data = []
-    //  proves d3 is working here
-    //parse the csv file to extract the date and the closing price
-    //https://query1.finance.yahoo.com/v7/finance/download/"+ req_code + "?period1="+ prev_year +"&period2="+ curr_time +"&interval=1d&events=history&includeAdjustedClose=true
-    d3.csv("/get_csv/" + req_code, function(d){
-      if (d.Close != null && d.Close != "null") {
-        all_data.push({ Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close });
-        return { Date : d3.timeParse("%Y-%m-%d")(d.Date), Close : +d.Close };
+    // the function for plotting graph
+    const plot_graph = function(duration, data, id) {
+      if (active_btn === id) return;
+      if (active_btn !== "") {
+        d3.select(active_btn).classed("active", false);
+        d3.select(id).classed("active", true);  
       }
-    }).then((data)=>{    
-      //console.log(data)
+
+      active_btn = id;    
+    
+      // when update, remove previous graph
+      svg.remove("path")
+      
+      svg = d3.select("svg")
+          .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
       
       // Add X axis --> it is a date format
       var x = d3.scaleTime()
-        .domain(d3.extent(data, function(d) { return d.Date; }))
+        .domain(d3.extent(data, function(d) {if ((new Date(d.OGDate).getTime() / 1000) > duration)return d.Date; }))//if ((new Date(d.OGDate).getTime() / 1000) > one_month)
         .range([ 0, width - 50]);
-      svg.append("g")
+      svg.append("g")        
+        .style("font", "6px times")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
         
+      // setting the price range for y axis
       var close_min = d3.min(data, function(d) { return d.Close; }) 
-      var close_max = d3.max(data, function(d) { return d.Close; }) 
-      
+      var close_max = d3.max(data, function(d) {return d.Close; }) 
       var starting_point = Math.max(0, (close_min - (close_max - close_min) / 3))
-      
+            
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain([starting_point , d3.max(data, function(d) { return d.Close; })])
+        .domain([starting_point , d3.max(data, function(d) {return d.Close; })])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
     
+      var plot_data = data.filter((d) => {
+        return (new Date(d.OGDate).getTime() / 1000) > duration
+      });
+      
       // Add the line
       svg.append("path")
-        .datum(data)
+        .datum(plot_data)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
-          .x(function(d) { return x(d.Date) })
-          .y(function(d) { return y(d.Close) })
+          .x(function(d) {return x(d.Date) })
+          .y(function(d) {return y(d.Close)})
           )
+    }
     
+    
+    //parse the csv file to extract the date and the closing price
+    d3.csv("/get_csv/" + req_code, function(d){
+      if (d.Close != null && d.Close != "null") {
+        all_data.push({ Date : d3.timeParse("%Y-%m-%d")(d.Date), OGDate: d.Date, Close : +d.Close });
+        return { Date : d3.timeParse("%Y-%m-%d")(d.Date), OGDate: d.Date, Close : +d.Close };
+      }
+    }).then((data)=>{            
+      plot_graph(one_month, data, "#one_mo") 
+      d3.select("#one_year").on("click", ()=>{plot_graph(one_year, data, "#one_year")});
+      d3.select("#six_mo").on("click", ()=>{plot_graph(six_months, data, "#six_mo")});
+      d3.select("#one_mo").on("click", ()=>{plot_graph(one_month, data, "#one_mo")});
+      d3.select("#one_week").on("click", ()=>{plot_graph(one_week, data, "#one_week")});
+
     });
     
-    // console.log(all_data)
-    
-    // append buttons for user to view different time periods
-    // d3.select("#stock_graph")
-    //   .append("button")
-
 
   </script>
-  
-  
 {% endblock left_content %}
