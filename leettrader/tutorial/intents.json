@@ -1,7 +1,7 @@
 {"intents": [
         {"tag": "greeting",
          "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day", "Hello"],
-         "responses": ["Hello, you have come across Leettrader's personal assistant Alice :D", "Good to see you. I'm Alice :D", "Hi there, how can Alice help?"],
+         "responses": ["Hello, you have come across Leettrader's personal assistant Kurisu :D", "Good to see you. I'm Kurisu :D", "Hi there, how can Kurisu help?"],
          "context": 0
         },
         {"tag": "goodbye",
