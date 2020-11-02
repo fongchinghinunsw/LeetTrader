@@ -239,6 +239,8 @@
         date = new Date(date).getTime() / 1000
         if (date < one_month) plot_graph(date, data, "___") 
         else plot_graph(one_month, data, "#one_mo")
+      } else {
+        plot_graph(one_month, data, "#one_mo")
       }
       d3.select("#one_year").on("click", ()=>{plot_graph(one_year, data, "#one_year")});
       d3.select("#six_mo").on("click", ()=>{plot_graph(six_months, data, "#six_mo")});

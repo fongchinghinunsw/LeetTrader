@@ -51,6 +51,7 @@ def search_page(code):
   in_watchlist = Watchlist.query.filter_by(user_id=current_user.get_id()).filter(
       Watchlist.stocks.any(code=code)).first()
   if in_watchlist is None:
+    date_added = 0
     listed = False
   else:
     date_added = in_watchlist.date_added
