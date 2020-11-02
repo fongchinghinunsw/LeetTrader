@@ -167,12 +167,18 @@
       if (active_btn === id) return;
       if (active_btn !== "") {
         d3.select(active_btn).classed("active", false);
-        d3.select(id).classed("active", true);  
-      } else if (id !== "#one_mo") {
-        d3.select("#one_mo").classed("active", false);
+        d3.select(id).classed("active", true); 
+        active_btn = id
+      } else {
+        active_bin = "#one_mo"
       }
 
-      active_btn = id;    
+      if (id === "___") {
+        d3.select("#one_mo").classed("active", false);
+        active_btn = "#one_mo"
+      }
+
+
     
       // when update, remove previous graph
       svg.remove("path")
@@ -231,7 +237,7 @@
       if (listed == "True") {
         var date = "{{date}}"
         date = new Date(date).getTime() / 1000
-        if (date < one_month) plot_graph(date, data, "#one_mo") 
+        if (date < one_month) plot_graph(date, data, "___") 
         else plot_graph(one_month, data, "#one_mo")
       }
       d3.select("#one_year").on("click", ()=>{plot_graph(one_year, data, "#one_year")});
