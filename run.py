@@ -37,4 +37,5 @@ def check_admin():
       return redirect(url_for('main.landing'))
 
 if __name__ == '__main__':
+  app.app_context().push()
   app.run(debug=True)
