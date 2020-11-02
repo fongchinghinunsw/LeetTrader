@@ -14,6 +14,11 @@
          "responses": ["Happy to help!", "Any time!", "My pleasure ٩(˘◡˘)۶"],
          "context": 0
         },
+        {"tag": "noanswer",
+         "patterns": [],
+         "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+         "context": 0
+        },
         {"tag": "Reset password",
          "patterns": ["I'm trying to reset password", "I forgot my password", "I want to change my password", "How do I reset my password?"],
          "responses": ["On the login page, there is a forgot password button. You can click on this where you will be taken to a page where you can enter your email. After you have entered your email, click on send confirmation. You cannot send another confirmation email until the timer has counted down. Look in your email (don't forget to check the spam folder) for the email. It will contain a link. Click on the link to be directed to the reset password page. This link will expire after 30 minutes. Note that you cannot use the old password as the new password. You need to enter your new password twice to ensure you have typed your password correctly."],
