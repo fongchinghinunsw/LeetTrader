@@ -25,7 +25,7 @@
          "context": 1
         },
         {"tag": "Sell stock",
-         "patterns": ["How do I buy stock?", "Where can I buy stock?", "Buy stock"],
+         "patterns": ["How do I sell stock?", "Where can I sell stock?", "I want to sell my stocks"],
          "responses": ["You can either search the stock like you have done when buying a stock, except now click on the sell button. Another way is to click on the stock you want to see on your watchlist and it will take you to the stock page. Click on the sell button. Input how many stocks you want to sell. Note you cannot sell more than you own. Click proceed and confirm your order. Click confirm order. Congratulations, hopefully you have made some simulated profits. Note that stocks sold are simulated so they are not real."],
          "context": 1
         },
@@ -225,7 +225,7 @@
          "context": 2
         },
         {"tag": "Averaging down",
-         "patterns": ["Averaging down", "Whatis averaging down?", "Teach me about averaging down"],
+         "patterns": ["Averaging down", "What is averaging down?", "Teach me about averaging down"],
          "responses": ["Averaging down is a strategy you can employ. It involves buying more of a stock as its prices decreases. This is done to lower your average purchasing price. You would only use this strategy if you believe that the census about a company is wrong and the stock price will bounce back up. For example, people may feel a company is not performing well but you find this to be not true (because you did research) so you buy the stocks that are declining. If you are correct, then the stock price will bounce back up and you can sell your stocks for profit. This is one of the reason why financial reports and research is important: you can use various strategies based on your research."],
          "context": 2
         }
