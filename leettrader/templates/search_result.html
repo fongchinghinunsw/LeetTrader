@@ -208,8 +208,14 @@
         .style("font", "18px times")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x)
-          .ticks(tick_map.get(id)));//d3.timeDay.every(1)
-        
+          .ticks(tick_map.get(id))
+          .tickFormat(function(date){
+            if (id == "#one_mo" || id == "#one_week") {
+              return d3.timeFormat('%d/%m')(date);          //d3.timeDay.every(1) tick_map.get(id)
+            } else {
+              return d3.timeFormat('%b')(date);
+            }
+          }));
       // setting the price range for y axis
       var close_min = d3.min(data, function(d) { return d.Close; }) 
       var close_max = d3.max(data, function(d) {return d.Close; }) 
