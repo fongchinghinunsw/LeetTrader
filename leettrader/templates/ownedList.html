@@ -1,12 +1,28 @@
 <div style="padding-top: 20px;padding-left: 40px;">
 
   <h5>Owned Stocks (New Zealand)</h5>
-  <table id="nz_List" class="list-group" style="padding-right: 40px;"></table>
+  <table id="nz_List" class="list-group" style="padding-right: 40px;">
+    <tr style="border: 1px solid grey; text-align: center;">
+      <th> Company Name </th>
+      <th> Qty </th>
+      <th> Worth </th>
+      <th> Paid </th>
+      <th> P/L </th>
+    </tr>
+  </table>
   <h4 id="nz_PL" align="right" style="padding-right: 40px;"></h4>
 
   </br></br>
   <h5>Owned Stocks (Australia)</h5>
-  <table id="au_List" class="list-group"></table>
+  <table id="au_List" class="list-group">
+    <tr style="border: 1px solid grey; text-align: center;">
+      <th> Company Name </th>
+      <th> Qty </th>
+      <th> Worth </th>
+      <th> Paid </th>
+      <th> P/L </th>
+    </tr>
+  </table>
   <h4 id="au_PL" align="right" style="padding-right: 40px;"></h4>
 </div>
 
@@ -20,18 +36,11 @@
       success: function(data) { 
         
         // Create table of NZ stocks
-        first_row = '<tr style="border: 1px solid grey; text-align: center;">'
-        first_row += "<th> Company Name </th>" + "<th> Qty </th>"
-        first_row += "<th> Worth </th>" + "<th> Paid </th>" + "<th> P/L </th>"
-        first_row += '</tr>'
-        $("#nz_List").append(first_row);
-
         for (i = 0; i < data.ownedList[0].length; i++){
           $("#nz_List").append(data.ownedList[0][i]);
         }
 
         // Create table of AU stocks
-        $("#au_List").append(first_row);
         for (i = 0; i < data.ownedList[2].length; i++){
           $("#au_List").append(data.ownedList[2][i]);
         }
