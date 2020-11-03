@@ -361,14 +361,14 @@ def add_reminder():
 
   if reminder_form.validate_on_submit():
     if reminder_form.cancel.data:
-      return redirect(url_for('stock.search_page', code=code))
+      return redirect(url_for('stocks.search_page', code=code))
 
     # the user must enter the alert price.
     if reminder_form.alert_price.data:
       stock_obj = Stock.query.filter_by(code=code).first()
       reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.get_id(), orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
       add_and_start_reminder(reminder, current_user.username)
-      return redirect(url_for('stock.search_page', code=code))
+      return redirect(url_for('stocks.search_page', code=code))
       
     flash("Please enter a price.", "warning")
 
