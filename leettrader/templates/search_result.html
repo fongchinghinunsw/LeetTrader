@@ -146,6 +146,13 @@
     var six_months = curr_time - 15778800
     var one_month = curr_time - 2629800
     var one_week = curr_time - 604800
+    var tick_map = new Map()
+    tick_map.set("#one_year", d3.timeMonth.every(1))
+    tick_map.set("#six_mo", d3.timeMonth.every(1))
+    tick_map.set("#one_mo", d3.timeDay.every(4))
+    tick_map.set("#one_week", d3.timeDay.every(1))
+    tick_map.set("___", d3.timeMonth.every(1))
+    
     
     var active_btn = ""
     
@@ -198,9 +205,10 @@
         .domain(d3.extent(data, function(d) {if ((new Date(d.OGDate).getTime() / 1000) > duration)return d.Date; }))//if ((new Date(d.OGDate).getTime() / 1000) > one_month)
         .range([ 0, width - 50]);
       svg.append("g")        
-        .style("font", "14px times")
+        .style("font", "18px times")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x)
+          .ticks(tick_map.get(id)));//d3.timeDay.every(1)
         
       // setting the price range for y axis
       var close_min = d3.min(data, function(d) { return d.Close; }) 
@@ -239,6 +247,7 @@
         return { Date : d3.timeParse("%Y-%m-%d")(d.Date), OGDate: d.Date, Close : +d.Close };
       }
     }).then((data)=>{
+      console.log(data)
       var listed = "{{listed}}"
       if (listed == "True") {
         var date = "{{date}}"
