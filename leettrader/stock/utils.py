@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from leettrader.models import Stock
 from urllib import request
 import csv 
+import os
 
 headers_list = [
     # Firefox 77 Mac
@@ -119,6 +120,8 @@ def get_historical_data(stock_code):
     csv = response.read()
     csv = str(csv).strip("b'")
     lines = csv.split("\\n")
+    if not os.path.isdir("leettrader/stock/tmp/"):
+        os.mkdir("leettrader/stock/tmp/")
     f = open("leettrader/stock/tmp/" + stock_code + ".csv", 'w')
     for line in lines:
         f.write(line +"\n")
