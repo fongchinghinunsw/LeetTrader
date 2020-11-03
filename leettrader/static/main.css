@@ -218,6 +218,8 @@ body {
 
 #watchlist {
   margin-bottom: 30px;
+  height: 700px;
+  overflow-y: auto;
 }
 
 /*

@@ -1,0 +1,81 @@
+{"trading": [
+        {"tag": "Stock",
+         "response": ["One of the first terms you will need to know is what a stock is. A stock, also known as an equity, is a security that represents the ownership of a fraction of a corporation. Shares is the unit of stock. You will be trading simulated versions of these stocks for practice on LeetTrader. Since stocks represent proportionate ownership, owning stocks means you are entitled to the assets and profits of those corporations depending on your proportion. Corporations sell stocks for funds to operate their business. They are sold predominately on stock exchanges but can be sold privately as well."]
+        },
+        {"tag": "Stock market",
+        "response": ["It is also sometimes called stock exchange, however they mean the same thing. A stock market is any exchange that allows people to buy and sell stocks ( stock trading). It is also where companies issue their stocks. if you plan on stock trading, many of your transactions will take place in the stock market. Note that there is more than 1 stock market."]
+        },
+        {"tag": "Profit/Loss",
+         "response": ["If you are new to stock trading, then you will need to get familiar with these terms. Profit/loss is determined by taking revenue and subtracting expenses. Corporations have profit/loss and if you trade on LeetTrader, you too will have a profit/loss. If your revenue is higher than your expenses, you have a profit. If your expenses are higher than your revenue, then you have a loss. A quick example: If you bought a stock for $10 and sold it for $11, then you have a $1 profit. This is because your expense is $10 from buying the stock and your revenue is $11 from selling the stock. $11 - $10 is $1. You have gained a $1 profit in this case. On the other hand, if have another stock that you bought for $5 and sold it for $3, then you have a loss of $2. You have lost $2 in this trade. Ideally, you want to be in a position of profit."]
+        },
+        {"tag": "Arbitrage",
+        "response": ["Arbitrage is the concept of taking advantage of different prices in different markets for a particular stock. For example: Suppose we have a stock A and two markets X and y. In market X, stock A's price is $5, and in market Y, stock A's price is $3. You could buy stock A in market Y for $3 and then sell it on market X for $5, making an immediate profit of $2. While this is easy money, do not that an opportunity to exploit this is short-lived because everyone will be looking for it and the prices will converge due to supply and demand. As a result, they are quite rare and should not be relied on for a beginner."]
+        },
+        {"tag": "PE Ratio",
+        "response": ["One of the ratios used in finance, the PE ratio indicates the value of a companny by measuring its current share price relative to its per-share earnings. PE ratio stands for Price-to-Earn ratio. You may want to find out a stock's PE ratio because they help determine the relative value of a company' shares. You may compare this to past values as well. A high PE ratio suggests a company's stock is overvalued (but not always) and investors are willing to pay a higher price. They do this because they anticipate high growth rates in the future."]
+        },
+        {"tag": "EPS",
+        "response": ["EPS stands for Earnings Per Share. You can calculate this by taking the company's profits and dividing it by the number of company shares outstanding. The resulting number you get is an indicator of a company's profitability. The higher the EPS, the more profitable the company. EPS indicates how much money a company makes for each share of its stock. It is widely used to estimate corporate value."]
+        },
+        {"tag": "Percent Change",
+        "response": ["This is the percentage change in price compared to the previous day's stock price. It compares the previous day's stock price to the current price. It is expressed as a percentage. A positive percentage means the stock price has risen from the previous day while a negative percentage means the price has gone down. For example: If a stock was $100 the previous day, and it is $101 this current day, then it has risen by 1%. Many times you will not have to calculate this since many sites (including LeetTrader) will tell you the percentage change."]
+        },
+        {"tag": "Previous Close",
+        "response": ["The previous close is the closing price of a stock on the preceding period. In other words, it is the price at the point in time when the stock market closed. Usually, the previous close refers to the previous day's stock price when the stock market closed for the day. You can use this to compare current prices to the previous close to help you with making investment decisions."]
+        },
+        {"tag": "Open",
+        "response": ["This is the starting price of a stock for the current day in the stock market. In other words, it is the price of a stock at the moment the market opens for the day. Note that the open price can be different to the previous close. This is because stock prices can still move after the market has closed. A closed market simply means no trading occurs."]
+        },
+        {"tag": "Bid/Ask",
+        "response": ["The bid is the highest price a buyer is willing to pay for a share. The ask is the lowest price a seller is willing to sell a share for. The bid and ask together represent the supply and demand of a stock."]
+        },
+        {"tag": "Volatility",
+        "response": ["Volatility is an important term in finance. Volatility represents how large an asset's prices swing around the mean price. In other words, it represnts the degree of price flucuation that may occur with a stock. For example: A stock that only fluctuates between $5 and $10 is less volatile than a stock that fluctuates between $1 and $20. Volatile stocks are considered risky because the prices are harder to predict. However, this risk comes with reward so investing in volatile stocks is risky but come with potentially bigger rewards."]
+        },
+        {"tag": "Beta",
+        "response": ["Similar to volatility, a beta represents the systematic risk of a stock. It is also a measure of a stock's volatility in relation to the overall market. Markets have an overall beta of 1.0. Individual stocks are ranked according to how much they deviate from the market. A beta above 1.0 means the stock is more volatile so it swings more than the market over time (price channges much more drastically). A beta below 1.0 means the stock is less volatility so it swings less than the market (prices changes are less drastic). High beta stocks are risker but have higher potential rewards. High risk, but also high rewards."]
+        },
+        {"tag": "Day's Range",
+        "response": ["The day's range displays the loweest price of a share and the highest price of a share between a specific period of time. Usually this period starts at the moment the stock market opens and ends when the stock market closes for the day. If the day has not ended, it will display these prices for up to the current time. The first price is the lowest price during the period. The second price is the highest price during the period. A use of this is to help you determine a stock's volatility for the day. In other words, how unstable the stock price is. Volatility is an indicator of risk."]
+        },
+        {"tag": "52 Week Range",
+        "response": ["Similar to the day's range except the period is 52 weeks (close to a year). It displays the lowest price of a share during the period and the highest price of a share during the same period of 52 weeks. The start of this period can be the start of the year or financial year and ending 52 weeks later. If the period has not yet ended, then it will display prices up to the current time. The first value is the lowest price to occur during the 52 week period. The second value is the highest price of the 52 week period. This is usually used to see the stock's volatility over the year to determine its risk."]
+        },
+        {"tag": "Volume",
+        "response": ["Volume is the number of stocks traded during a period of time. Usually, this period of time is between the current day's openning and closing of a market. Alternatively, it could also be between the openning to the current time. A high volume means the stock is being traded frequently, which is a sign of high liquidity. This means that you would find a buyer for your stock more quickly than if you sold a stock with lower volume. Volume can be used to indicate the significance of a price move. A higher volume during a price move means it is more significant since more people are acting on it. On the other hand, a lower volume during a price move means it is less significant since less people are acting on it."]
+        },
+        {"tag": "Average Volume",
+        "response": ["Average volume is calculated by taking the total volume for a given period and dividing it by the length of that period. An example: A stock has a volume of 10,000 over 10 days. Then the average volume is 10,000/10 = 1,000. You can use this to compare the current volume with the average volume to see if the current volume is higher or lower than usual, indicated by the average volume."]
+        },
+        {"tag": "Market Cap",
+        "response": ["Market cap is short for Market Capitalisation. It refers to the total dollar market value of a company's outstanding shares of stock. It is calculate taking the total number of a company's outstanding shares and multipling by the current market price of one share. An example: A company with 1000 shares selling for $5 each would have a market cap of 1000 * 5 = $5000. The market cap represents how much the company is worth as determined by the stock market. Is is also used in acquisitions since the market cap represents how much it costs to takeover the company."]
+        },
+        {"tag": "Earnings Date",
+        "response": ["Earnings date is the date of the next release of a company's financial report. The financial report includes a balance sheet, income statement, statements of changes in equity and cash flow statement. An investor will read and use these financial reports to determine the performance of a company. These reports are crucial in making an informed decision when stock trading. Being able to read and interpret these financial reports will give you an edge in stock trading since you will have more information available to you to make your decisionn."]
+        },
+        {"tag": "Forward Dividend and Yield",
+        "response": ["The forward dividend and yield is an estimation of a year's dividend expressed as a percentage of the current stock price. The year's projected dividend is measured by taking a stock's most recent actual dividend payment and converting this into an annual rate (annuealising). The forward dividend and yield is calculated by taking a years worth of future dividend payments and dividing it by the stock's current share price. The higher the value, the better."]
+        },
+        {"tag": "Ex-Dividend Date",
+        "response": ["The ex-dividend date is also known as the ex-date. This is the day the stock starts trading without the value of its next dividend payment. Usually, the ex-dividend date for a stock is one business day before the record date. This means that an innvestor who buys a stock on its ex-dividend date or later, will not be eligible to receive the declared dividend. In fact, the dividend payment is made to whoever owned the stock the day before the ex-dividend date."]
+        },
+        {"tag": "1y Targest Est",
+        "response": ["This is short for the 1 year target estimate. It is a prediction of the price the stock will be one year from the current time. The prediction is done by analysts and is an estimate. It should be noted that the predicition is only as good as the analyst's skills which is not always known. It is important to also not that the predicted price is NOT a guarantee so take the 1 year estimate with a grain of salt and be careful when using it with your decision making. The stock can easily beat the estimate just as it can fail the estimate. Never use this by itself, but rather, use it as a supplement with other information."]
+        },
+        {"tag": "Fair Value",
+        "response": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the stock market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parennt company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued when considering the following factors: current index value, dividends paid on stock in the index, days to expiration of the futures contract and current interest rates."]
+        },
+        {"tag": "Bull and Bear Market",
+        "response": ["Bull market and bear market are terms the describe the market conditions of a stock market. A bull market is a market that where stock prices are rising. This market condition means that the economy is sound. On the other hand, a bear market is the opposite. A bear market means that stock prices are expected to decline and signifies a receding economy. A bear market can be more dangerous to invest in because prices are more volatile and many stocks lose value. It is also hard to determine when a bear market has reached the lowest point and stock prices stop declining. This adds to the risk. A strategy you may use is to withdraw money from a bear market and sitting on the cash until the trend reverses."]
+        },
+        {"tag": "Blue Chip Stocks",
+        "response": ["A blue chip stock is a huge company with excellent reputation. These companies are typically large, well established and financially sound companies that have operated for many years and that have dependable earnings. Most blue chip stocks pay dividends to investors. They are considered low risk investments and are very popular among investors. Some examples of blue chip stocks: IBM Corp, Coca-cola Co and Boeing Co. They are solid investments since they have operated for a considerable amount of time."]
+        },
+        {"tag": "IPO",
+        "response": ["IPO stands for Initial Public Offering. You may have heard of this term. This refers to the first sale of a company's stocks to the market. This signifies that a private company has gone public. This does not necessarily mean that the company is new since a company can be private for a considerable amount of time before going public. They are, however, are considered risky since these share prices are prone to frequent fluctuation based on economic and non-economic events often. Unless you are skilled and knowledgable in both the company and stock trading, it is recommended to avoid IPOs."]
+        },
+        {"tag": "Averaging Down",
+        "response": ["Averaging down is a strategy you can employ. It involves buying more of a stock as its prices decreases. This is done to lower your average purchasing price. You would only use this strategy if you believe that the census about a company is wrong and the stock price will bounce back up. For example, people may feel a company is not performing well but you find this to be not true (because you did research) so you buy the stocks that are declining. If you are correct, then the stock price will bounce back up and you can sell your stocks for profit. This is one of the reason why financial reports and research is important: you can use various strategies based on your research."]
+        }
+    ]
+}
