@@ -50,12 +50,12 @@ def format_watchlist_item(name, code, price, currency, change, percent):
 
 
 def wrap_tr(item):
-  tag = '<tr style="padding: 10px 30px 10px 30px; border: 1px solid grey">'
+  tag = '<tr style="padding: 5px 30px 5px 30px; border: 1px solid grey">'
   return tag + item + "</tr>"
 
 
 def wrap_td(item):
-  tag = '<td style="padding: 10px 30px 10px 30px; border: 1px, solid grey; text-align: center">'
+  tag = '<td style="padding: 5px 30px 5px 30px; border: 1px, solid grey; text-align: center">'
   return tag + item + "</td>"
 
 
