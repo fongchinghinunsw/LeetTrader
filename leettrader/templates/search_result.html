@@ -19,7 +19,22 @@
           <p>% Changes: {{ percent_change }}</p>
         {% endif %}
       </div>
-      
+    </div>  
+
+
+    <!-- Buttons: Add/Remove stocks from watchlist -->
+    <div class="row" id="add-remove">
+      {% if listed == False %}
+      <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
+      {% else %} 
+      <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
+      {% endif %}
+    <!--Buttons to buy and sell stocks-->
+      <a href="{{ url_for('users.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right">Buy Stock</a>
+      <a href="{{ url_for('users.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right">Sell Stock</a>
+    </div>
+    
+    <div class="row">
       <!-- Graph of historical data -->
       <div class="col-md-7">
         <div  id="stock_graph" >
@@ -34,18 +49,6 @@
       </div>
     </div>
 
-
-    <!-- Buttons: Add/Remove stocks from watchlist -->
-    <div class="row" id="add-remove">
-      {% if listed == False %}
-      <button id="add-to-watchlist" type="button" class="btn btn-outline-primary float-right">Add to watchlist</button>
-      {% else %} 
-      <button id="remove-btn" type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">Remove from watchlist</button>
-      {% endif %}
-    <!--Buttons to buy and sell stocks-->
-      <a href="{{ url_for('users.order', stock=code, action="buy") }}" class="btn btn-outline-primary float-right">Buy Stock</a>
-      <a href="{{ url_for('users.order', stock=code, action="sell") }}" class="btn btn-outline-primary float-right">Sell Stock</a>
-    </div>
 
     
     <!-- Modal -->
@@ -148,8 +151,8 @@
     
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60},
-        width = 600 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 1050 - margin.left - margin.right,
+        height = 550 - margin.top - margin.bottom;
         
     // append the svg object to the body of the page
     var svg = d3.select("#stock_graph")
@@ -194,7 +197,7 @@
         .domain(d3.extent(data, function(d) {if ((new Date(d.OGDate).getTime() / 1000) > duration)return d.Date; }))//if ((new Date(d.OGDate).getTime() / 1000) > one_month)
         .range([ 0, width - 50]);
       svg.append("g")        
-        .style("font", "6px times")
+        .style("font", "14px times")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
         
@@ -208,6 +211,7 @@
         .domain([starting_point , d3.max(data, function(d) {return d.Close; })])
         .range([ height, 0 ]);
       svg.append("g")
+        .style("font", "18px times")
         .call(d3.axisLeft(y));
     
       var plot_data = data.filter((d) => {
