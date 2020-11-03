@@ -19,6 +19,22 @@ def format_owned_info(name, code, qty, currency, market, purchase, pl):
   return div(own_stock)
 
 
+def owned_table_item(name, code, qty, currency, market, purchase, pl):
+  ''' Export a <tr> of stock info '''
+  # Round market & purchase, then calculate the P/L
+  worth = round(market, 4)
+  paid = round(purchase, 4)
+
+  # Format stock information
+  own_stock = wrap_td(a_href(name, code))
+  own_stock += wrap_td(str(qty))
+  own_stock += wrap_td(str(worth))
+  own_stock += wrap_td(str(paid))
+  own_stock += wrap_td(color_span(pl))
+
+  return wrap_tr(own_stock)
+
+
 def format_watchlist_item(name, code, price, currency, change, percent):
   # Hyperlink & Stock Name
   ans = '<li id="' + code.replace(".", "_") + '"class="list-group-item list-group-item-light">'
@@ -31,6 +47,16 @@ def format_watchlist_item(name, code, price, currency, change, percent):
   ans += '</li>'
 
   return ans
+
+
+def wrap_tr(item):
+  tag = '<tr style="padding: 10px 30px 10px 30px; border: 1px solid grey">'
+  return tag + item + "</tr>"
+
+
+def wrap_td(item):
+  tag = '<td style="padding: 10px 30px 10px 30px; border: 1px, solid grey; text-align: center">'
+  return tag + item + "</td>"
 
 
 def color_span(num):
