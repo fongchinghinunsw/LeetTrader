@@ -400,3 +400,15 @@ def view_reminder():
 
   return render_template('reminder.html', reminder_items_list=reminder_items_list)
 
+
+@user.route("/delete_reminder")
+@login_required
+def delete_reminder():
+  reminder_id = request.args.get('reminder_id')
+  db.session.query(Reminder).filter(Reminder.id==reminder_id).delete()
+  db.session.commit()
+
+  return redirect(url_for('users.view_reminder'))
+
+  
+  

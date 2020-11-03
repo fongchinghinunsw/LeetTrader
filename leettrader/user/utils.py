@@ -14,41 +14,60 @@ def add_and_start_reminder(reminder, username):
   thread.start()
 
 def reminder_handler(reminder, username):
-  stock_id = reminder.get_stock_id()
-  orig_price = float(reminder.orig_price)
-  target_price = float(reminder.target_price)
 
   from leettrader import create_app
   app = create_app()
 
 
   with app.app_context():
-    print(Reminder.query.all())
     db.session.add(reminder)
     db.session.commit()
+
+    reminder_id = reminder.get_id()
+    print("Reminder is", reminder)
+    print("Reminder id is", reminder_id, "right after initialized")
+    stock_id = reminder.get_stock_id()
+    orig_price = float(reminder.orig_price)
+    target_price = float(reminder.target_price)
+
     print(Reminder.query.all())
 
     user = User.query.filter_by(username=username).first()
     stock = Stock.query.filter_by(id=stock_id).first()
     print(stock.get_code(), "within the handler", flush=True)
+
+    # is the reminder still existing? (has it been deleted?)
+    exists = True
+    print("Reminder id is", reminder_id)
+    print(Reminder.query.filter_by(id=reminder_id).all(), "is the reminders list")
     if orig_price < target_price:
-      while True:  
+      while True and exists:  
+        if not exists:
+          print("Not exist")
         current_price = float(get_search_result(stock.get_code())['price'])
         if current_price >= target_price:
-          print("Hit the price, thread stopped")
+          print(reminder, "hits the price, thread stopped")
           send_stock_reminder(user, stock, reminder, current_price)
           break
+        print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        print("sleep for 10 seconds...")
+        exists = False if Reminder.query.filter_by(id=reminder_id).all() == [] else True
     else:
-      while True:
+      while True and exists:  
+        if not exists:
+          print("Not exist")
         current_price = float(get_search_result(stock.get_code())['price'])
         if current_price <= target_price:
-          print("Hit the price, thread stopped")
+          print(reminder, "hits the price, thread stopped")
           send_stock_reminder(user, stock, reminder, current_price)
           break
+        print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        print("sleep for 10 seconds...")
+        exists = False if Reminder.query.filter_by(id=reminder_id).all() == [] else True
 
-    db.session.delete(reminder)
-    db.session.commit()
+    if exists:
+      db.session.delete(reminder)
+      db.session.commit()
+    else:
+      print("The reminder is deleted manually")
+
