@@ -168,10 +168,11 @@ def process():
    # if the user entered invalid email
   if not user:
     return jsonify({'error': 'Invalid email, please try again'})
-  
+
+  print("Email sending now... ", userEmail)
   # if the user entered valid email
   send_reset_password_email(user)
-  print("Ajax processing... ", userEmail)
+  
   return jsonify({'userEmail': userEmail})
 
 
