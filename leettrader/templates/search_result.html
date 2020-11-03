@@ -165,18 +165,19 @@
     // the function for plotting graph
     const plot_graph = function(duration, data, id) {
       if (active_btn === id) return;
-      if (active_btn !== "") {
+
+      if (active_btn === "") {
+        if (id === "___") {
+          active_btn = "#one_mo"
+          d3.select(active_btn).classed("active", false);
+        }
+        else active_btn = id
+      } else {
         d3.select(active_btn).classed("active", false);
         d3.select(id).classed("active", true); 
         active_btn = id
-      } else {
-        active_bin = "#one_mo"
       }
 
-      if (id === "___") {
-        d3.select("#one_mo").classed("active", false);
-        active_btn = "#one_mo"
-      }
 
 
     
