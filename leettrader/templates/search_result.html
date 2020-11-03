@@ -158,7 +158,7 @@
     
     
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    var margin = {top: 10, right: 30, bottom: 30, left: 80},
         width = 950 - margin.left - margin.right,
         height = 550 - margin.top - margin.bottom;
         
@@ -203,7 +203,7 @@
       // Add X axis --> it is a date format
       var x = d3.scaleTime()
         .domain(d3.extent(data, function(d) {if ((new Date(d.OGDate).getTime() / 1000) > duration)return d.Date; }))//if ((new Date(d.OGDate).getTime() / 1000) > one_month)
-        .range([ 0, width - 50]);
+        .range([ 0, width - 100]);
       svg.append("g")        
         .style("font", "18px times")
         .attr("transform", "translate(0," + height + ")")
