@@ -239,7 +239,7 @@ def delete_account_token(token):
     db.session.delete(user)
     db.session.commit()
     flash('Your account has been deleted successfully', 'success')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('users.login'))
 
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
