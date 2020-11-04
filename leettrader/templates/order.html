@@ -10,12 +10,13 @@
     <div class="form-group">
       {{order_form.quantity.label(class="form-control-label") }}
       {{ order_form.quantity(class="form-control")}}
+
       {% if order_form.quantity.errors %}
-      <div class="alert alert-primary" role="alert">
-      {% for error in order_form.quantity.errors %}
-	<span>{{ error }}</span>
-      {% endfor %}
-      </div>
+        <div class="alert alert-primary" role="alert">
+          {% for error in order_form.quantity.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
       {% endif %}
     </div>
 
