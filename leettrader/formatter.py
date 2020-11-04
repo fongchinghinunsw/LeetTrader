@@ -2,21 +2,20 @@
   This Module exports HTML formated contents
 """
 
-def format_owned_info(name, code, qty, currency, market, purchase, pl):
-  ''' Export a <div> of stock info '''
+def owned_table_item(name, code, qty, currency, market, purchase, pl):
+  ''' Export a <tr> of stock info '''
   # Round market & purchase, then calculate the P/L
   worth = round(market, 2)
   paid = round(purchase, 2)
 
   # Format stock information
-  own_stock = '<b>' + a_href(name, code) + '</b></br>'
-  own_stock += " Qty: " + str(qty)
-  own_stock += " | Currency: " + currency
-  own_stock += " | Worth: " + str(worth)
-  own_stock += " | Paid: " + str(paid)
-  own_stock += " | P/L: " + color_span(pl) + '</br></br>'
+  own_stock = wrap_td_left(a_href(name, code))
+  own_stock += wrap_td(str(qty))
+  own_stock += wrap_td('{0:.2f}'.format(worth))
+  own_stock += wrap_td('{0:.2f}'.format(paid))
+  own_stock += wrap_td(color_span_2dp(pl))
 
-  return div(own_stock)
+  return wrap_tr(own_stock)
 
 
 def format_watchlist_item(name, code, price, currency, change, percent):
@@ -33,11 +32,32 @@ def format_watchlist_item(name, code, price, currency, change, percent):
   return ans
 
 
+def wrap_tr(item):
+  tag = '<tr style="padding: 5px 25px 5px 25px; border: 1px solid grey">'
+  return tag + item + "</tr>"
+
+
+def wrap_td(item):
+  tag = '<td style="padding: 5px 25px 5px 25px; border: 1px, solid grey; text-align: center">'
+  return tag + item + "</td>"
+
+
+def wrap_td_left(item):
+  tag = '<td style="padding: 5px 25px 5px 25px; border: 1px, solid grey; text-align: left">'
+  return tag + item + "</td>"
+
+
 def color_span(num):
   if num >= 0:
     return '<span style="color: green"> +' + str(num) + '</span>'
 
   return '<span style="color: red"> ' + str(num) + '</span>'
+
+def color_span_2dp(num):
+  if num >= 0:
+    return '<span style="color: green"> +' + '{0:.2f}'.format(num) + '</span>'
+
+  return '<span style="color: red"> ' + '{0:.2f}'.format(num) + '</span>'
 
 
 def div(content):
@@ -51,4 +71,3 @@ def a_href(content, stockCode):
   ans += str(content) + '</a>'
 
   return '<a href='+url+'>' + str(content) + '</a>'
-

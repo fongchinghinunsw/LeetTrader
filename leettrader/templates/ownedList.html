@@ -1,8 +1,15 @@
 <div style="padding-top: 20px;padding-left: 40px;">
 
-  <h4>Owned Stocks</h4>
-  <ul id="ownedStockList" class="list-group"></ul>
-  <h3 id="totalPL"></h3>
+  <h5>Owned Stocks (New Zealand)</h5>
+  <table id="nz_List" class="list-group" style="padding-right: 40px;"></table>
+  <h4 id="nz_PL" align="right" style="padding-right: 40px;"></h4>
+
+  </br></br>
+  <h5>Owned Stocks (Australia)</h5>
+  <table id="au_List" class="list-group">
+    <tr style="border: 1px solid grey; text-align: center;"></tr>
+  </table>
+  <h4 id="au_PL" align="right" style="padding-right: 40px;"></h4>
 </div>
 
 
@@ -12,15 +19,47 @@
       type: "GET",
       url: "/get_ownedList",      
       dataType: "json",
-      success: function(data) { 
-        // ownedList[0] is a list of <div> of stock info
-        for (i = 0; i < data.ownedList[0].length; i++){
-          $("#ownedStockList").append(data.ownedList[0][i]);
+      success: function(data) {
+        
+        // Create first row of the tables
+        first_row = '<tr style="border: 1px solid grey; text-align: center;">'
+        first_row += '<th> Company Name </th><th> Qty </th>'
+        first_row += '<th> Worth </th><th> Paid </th><th> P/L </th></tr>'
+
+        no_stock_msg = "<tr><td><i>  - You don't have any stock in this market. </i></td></tr>"
+
+        // Check if there's any stock in the market
+        if (data.ownedList[0].length == 0){
+          $("#nz_List").append(no_stock_msg)
+        }
+        else{
+          $("#nz_List").append(first_row);
         }
 
-        // ownedList[0] is a list of <span> of total P/L
-        tot = "</br><div> Total P/L: " + data.ownedList[1] + "</div>"
-        $("#totalPL").append(tot)
+        if (data.ownedList[2].length == 0){
+          msg = "<tr> You don't have any stock in this market. <tr>"
+          $("#au_List").append(no_stock_msg)
+        }else{
+          $("#au_List").append(first_row);
+        }
+        
+
+        // Create table of NZ stocks        
+        for (i = 0; i < data.ownedList[0].length; i++){
+          $("#nz_List").append(data.ownedList[0][i]);
+        }
+
+        // Create table of AU stocks
+        for (i = 0; i < data.ownedList[2].length; i++){
+          $("#au_List").append(data.ownedList[2][i]);
+        }
+
+        // Show P/L for both market
+        tot = "</br><div> P/L (NZD): " + data.ownedList[1] + "</div>"
+        $("#nz_PL").append(tot)
+
+        tot2 = "</br><div> P/L (AUD): " + data.ownedList[3] + "</div>"
+        $("#au_PL").append(tot2)
       }
     }))
 </script>

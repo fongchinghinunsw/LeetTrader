@@ -29,3 +29,7 @@ Week 6 & 7
 I completed the user stories about showing information of owned stock. 
 I refractored my old codes about watchlist, and make a new file called formatter.py.
 This file takes in different inputs and export a string of HTML tags. 
+
+Week 8
+Keep working on the statistic reports. Now stocks are grouped by currency, so that later on the P/L can be calcuated based on currency.
+Format and improve the appearance of the report.

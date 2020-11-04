@@ -120,6 +120,7 @@ class User(db.Model, UserMixin):
   def is_admin(self):
     return self.user_type == UserType.ADMIN
 
+
 class Watchlist(db.Model):
   """Watchlist class"""
   id = db.Column(db.Integer, primary_key=True)

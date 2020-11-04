@@ -239,7 +239,7 @@ def delete_account_token(token):
     db.session.delete(user)
     db.session.commit()
     flash('Your account has been deleted successfully', 'success')
-    return redirect(url_for('user.login'))
+    return redirect(url_for('users.login'))
 
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
@@ -313,11 +313,13 @@ def checkout(stock, action):
                             unit=int(quantity),
                             total_purchase_price=int(quantity) *
                             float(checkout_form.data['current_market_price']))
+        
         # "success" is bootstrap green alert formatting - checkout bootstrap alert
         flash(
             f"Brought a new stock " + stock + "! You have" +
             str(ownStock.unit) + " units of this stock remain", "success")
         db.session.add(ownStock)
+      
       else:
         if action == "buy":
           ownStock.unit += int(quantity)
@@ -326,6 +328,7 @@ def checkout(stock, action):
           flash(
               f"Brought " + stock + "! You have " + str(ownStock.unit) +
               " units of this stock remain", "success")
+        
         else:
           ownStock.unit -= int(quantity)
           ownStock.total_purchase_price -= int(quantity) * float(
@@ -353,6 +356,7 @@ def checkout(stock, action):
                          action=action,
                          quantity=quantity,
                          checkout_form=checkout_form)
+
 
 @user.route("/add_reminder", methods=['GET', 'POST'])
 @login_required

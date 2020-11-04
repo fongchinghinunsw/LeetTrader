@@ -59,7 +59,7 @@ def get_list(current_user):
     currency = search_result['currency']
 
     # Cast to float (2 d.p.)
-    price = round(float(price), 2)
+    price = round(float(price), 4)
     change = str_to_float(change)
     percent = str_to_float(percent)
 
@@ -78,4 +78,4 @@ def str_to_float(num):
   if num[0] == '-':
     return str_to_float(num[1:])*-1
 
-  return round(float(num), 2)
+  return round(float(num), 4)
