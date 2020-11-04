@@ -2,6 +2,7 @@
   Routing of Account Mangement, Simul-Buy and Sell
 """
 import operator
+from datetime import datetime
 from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
@@ -9,7 +10,7 @@ resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
 
 from leettrader.user.utils import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock, Reminder, UserType
+from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord
 from leettrader import db, bcrypt, mail
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
@@ -339,6 +340,10 @@ def checkout(stock, action):
           if ownStock.unit == 0:
             db.session.delete(ownStock)
 
+      action = {"buy": "BUY", "sell": "SELL"}[action]
+      print(stock_obj, "-----------------")
+      record = TransactionRecord(user_id=current_user.get_id(), time=datetime.now(), action=action, stock=stock_obj, stock_id=stock_id, quantity=quantity, unit_price=checkout_form.data['current_market_price'])
+      db.session.add(record)
       db.session.commit()
       return redirect(url_for('users.home'))
 
@@ -415,5 +420,17 @@ def delete_reminder():
 
   return redirect(url_for('users.view_reminder'))
 
+
+@user.route("/trading_history")
+@login_required
+def view_trading_history():
+  records = TransactionRecord.query.all()
+  records.reverse()
+  stocks = []
+  for record in records:
+    stock = Stock.query.filter_by(id=record.stock_id).first()
+    stocks.append(stock)
+
+  return render_template("trading_history.html", records=records, stock_items_list=stocks)
   
   
