@@ -30,7 +30,7 @@ def owned_table_item(name, code, qty, currency, market, purchase, pl):
   own_stock += wrap_td(str(qty))
   own_stock += wrap_td('{0:.2f}'.format(worth))
   own_stock += wrap_td('{0:.2f}'.format(paid))
-  own_stock += wrap_td(color_span(pl))
+  own_stock += wrap_td(color_span_2dp(pl))
 
   return wrap_tr(own_stock)
 
@@ -64,6 +64,12 @@ def color_span(num):
     return '<span style="color: green"> +' + str(num) + '</span>'
 
   return '<span style="color: red"> ' + str(num) + '</span>'
+
+def color_span_2dp(num):
+  if num >= 0:
+    return '<span style="color: green"> +' + '{0:.2f}'.format(num) + '</span>'
+
+  return '<span style="color: red"> ' + '{0:.2f}'.format(num) + '</span>'
 
 
 def div(content):

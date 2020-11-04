@@ -6,7 +6,7 @@ from flask import Blueprint, jsonify
 from flask_login import current_user, login_required
 from leettrader import db
 from leettrader.models import Stock, OwnStock
-from leettrader.formatter import format_owned_info, owned_table_item, color_span
+from leettrader.formatter import format_owned_info, owned_table_item, color_span, color_span_2dp
 from leettrader.stock.utils import get_search_result
 
 
@@ -58,7 +58,7 @@ def get_ownedlist_from_db():
       au_profit += profit
       au_list.append(item)
 
-  return [nz_list, color_span(nz_profit), au_list, color_span(au_profit)]
+  return [nz_list, color_span_2dp(nz_profit), au_list, color_span_2dp(au_profit)]
 
 
 # def get_ownedlist_from_db():
