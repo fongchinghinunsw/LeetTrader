@@ -54,6 +54,9 @@ def color_span(num):
   return '<span style="color: red"> ' + str(num) + '</span>'
 
 def color_span_2dp(num):
+  if '{0:.2f}'.format(num) == "-0.00":
+    return '<span style="color: green"> +0.00 </span>'
+
   if num >= 0:
     return '<span style="color: green"> +' + '{0:.2f}'.format(num) + '</span>'
 

@@ -45,7 +45,7 @@ def get_ownedlist_from_db():
     purchase = float(item.total_purchase_price)
 
     # Calculate Profit & Format Information as HTML Tags
-    profit = round(market-purchase, 2)
+    profit = round(market-purchase, 4)
     item = owned_table_item(name, code, item.unit, currency, market, purchase, profit)
 
     # NZ Stocks
