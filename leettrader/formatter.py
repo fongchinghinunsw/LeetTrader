@@ -22,14 +22,14 @@ def format_owned_info(name, code, qty, currency, market, purchase, pl):
 def owned_table_item(name, code, qty, currency, market, purchase, pl):
   ''' Export a <tr> of stock info '''
   # Round market & purchase, then calculate the P/L
-  worth = round(market, 4)
-  paid = round(purchase, 4)
+  worth = round(market, 2)
+  paid = round(purchase, 2)
 
   # Format stock information
   own_stock = wrap_td(a_href(name, code))
   own_stock += wrap_td(str(qty))
-  own_stock += wrap_td(str(worth))
-  own_stock += wrap_td(str(paid))
+  own_stock += wrap_td('{0:.2f}'.format(worth))
+  own_stock += wrap_td('{0:.2f}'.format(paid))
   own_stock += wrap_td(color_span(pl))
 
   return wrap_tr(own_stock)
@@ -77,7 +77,3 @@ def a_href(content, stockCode):
   ans += str(content) + '</a>'
 
   return '<a href='+url+'>' + str(content) + '</a>'
-
-
-def to_string_ndp(num, dp):
-  ans = str(round(num, dp))
