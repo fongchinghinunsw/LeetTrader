@@ -78,3 +78,6 @@ def a_href(content, stockCode):
 
   return '<a href='+url+'>' + str(content) + '</a>'
 
+
+def to_string_ndp(num, dp):
+  ans = str(round(num, dp))
