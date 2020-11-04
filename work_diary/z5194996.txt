@@ -34,3 +34,9 @@ Split the tasks together during the group meeting
 Completed US 35 (1.5 points) Admin user accounts 
 Completed US 38 (1.5 points) Check total users
 Completed US 39 (1.5 points) Admin delete accounts 
+
+Week 7
+Working on US 16 (6 points)
+
+Week 8
+Finish US 16

@@ -1,14 +1,27 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
-from flask import render_template, url_for, flash, redirect, Blueprint, request
-from leettrader.user.forms import LoginForm, RegisterForm, OrderForm, CheckoutForm, ReminderForm
+import operator
+from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
+
+from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
+resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
+
+from leettrader.user.utils import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock, Reminder, UserType
-from leettrader import db, bcrypt
+from leettrader import db, bcrypt, mail
 from flask_login import login_user, logout_user, current_user, login_required
+from flask_mail import Message
+
+from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
 
 user = Blueprint('users', __name__)
+
+# ugly global variable for now
+new_username = None
+new_email = None
+new_password = None
 
 
 @user.route("/home")
@@ -25,6 +38,9 @@ def admin():
 @user.route("/register", methods=['GET', 'POST'])
 def register():
   ''' Register Page '''
+  if current_user.is_authenticated:
+    return redirect(url_for('users.home'))
+
   # Set up register form
   rform = RegisterForm()
 
@@ -33,26 +49,59 @@ def register():
     # Hash password & Read User Input
     password_hashed = bcrypt.generate_password_hash(
         rform.password.data).decode('utf-8')
-    user = User(user_type = "NORMAL",
+    new_user = User(user_type = "NORMAL",
                 username=rform.username.data,
                 email=rform.email.data,
                 password=password_hashed)
-    
-    # Push changes to database, go to Login page
-    db.session.add(user)
-    db.session.commit()
-    flash('Account created successfully, please login !', 'success')
-    return redirect(url_for('users.login'))
 
-  # Fail to register, remain in register page
+    global new_username
+    new_username = new_user.username
+    global new_email
+    new_email = new_user.email
+    global new_password
+    new_password = new_user.password
+
+    # send the confirmation email
+    send_confirmation_email(new_user)
+    flash('Confirmation email has been sent, please check your emails', 'info')
+    return redirect(url_for('users.login'))
   return render_template('register.html', title='register', form=rform)
 
+@user.route("/confirm/<token>", methods=['GET', 'POST'])
+def confirm(token):
+  # check if the token is valid
+  res = User.verify_confirmation_token(token)
+  if res is False:
+    flash('The token has expired !', 'warning')
+    return redirect(url_for('users.register'))
+  else:
+    # if the user has already existed, the user wants to click it twice
+    # redirect to the home page
+    user = User.query.filter_by(email=new_email).first()
+    if user:
+      flash('The account has already been activated, Please login', 'success')
+      return redirect(url_for('users.login'))
+
+    # Push changes to database, go to Login page
+    new_user = User(user_type = "NORMAL",
+                username=new_username,
+                email=new_email,
+                password=new_password)
+
+    
+    # the first time when a new user clicked
+    db.session.add(new_user)
+    db.session.commit()
+    flash('Account created successfully, please login', 'success')
+    return redirect(url_for('users.login'))
 
 @user.route("/login", methods=['GET', 'POST'])
 def login():
-  ''' Login Page '''
-  login_form = LoginForm()
 
+  if current_user.is_authenticated:
+    return redirect(url_for('users.home'))
+
+  login_form = LoginForm()
   # When click login, read user inputs 
   if login_form.validate_on_submit():
     user = User.query.filter_by(email=login_form.email.data).first()
@@ -73,8 +122,14 @@ def login():
       flash('Wrong password, please try again', 'danger')
 
   # Fail to login, stay in login page
-  return render_template('login.html', title='login', form=login_form)
+  return render_template('login.html', title='login', loginForm=login_form)
 
+@user.route("/account", methods=['GET', 'POST'])
+@login_required
+def account_profile():
+  # image_file = url_for('../static', filename='profile_pic')
+  return render_template('account_profile.html', title='User Account')
+  
 
 @user.route("/settings")
 @login_required
@@ -88,6 +143,103 @@ def logout():
   
   logout_user()
   return redirect(url_for('main.landing'))
+
+
+@user.route("/resetPassword", methods=['GET', 'POST'])
+def reset_request():
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('user.home'))
+  form = resetRequestForm()
+  # if form.validate_on_submit():
+    # user = User.query.filter_by(email=form.email.data).first()
+    # send_reset_password_email(user)
+    # flash('An email has been sent to reset your password', 'info')
+  #   return jsonify({'user-email': user.email})
+  return render_template('reset_request.html', title='reset password', form=form)
+
+@user.route("/process", methods=['POST'])
+# process the json data
+def process():
+  userEmail = request.form['email']
+  if not userEmail:
+    return jsonify({'error': 'Please enter your email'})
+
+  user = User.query.filter_by(email=userEmail).first()
+   # if the user entered invalid email
+  if not user:
+    return jsonify({'error': 'Invalid email, please try again'})
+
+  print("Email sending now... ", userEmail)
+  # if the user entered valid email
+  send_reset_password_email(user)
+  
+  return jsonify({'userEmail': userEmail})
+
+
+@user.route("/resetPassword/<token>", methods=['GET', 'POST'])
+# reset their password when the token is active
+def reset_password_token(token):
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('user.home'))
+  # check if the token is valid
+  user = User.verify_reset_password_token(token)
+  if user is None:
+    flash('The token has expired !', 'warning')
+    return redirect(url_for('users.reset_request'))
+  else:
+    form = resetPasswordForm()
+    if form.validate_on_submit():
+      # Hash password & Read User Input
+      password_hashed = bcrypt.generate_password_hash(
+          form.password.data).decode('utf-8')
+      user.password = password_hashed
+      db.session.commit()
+      flash('Account has been reset, please login !', 'success')
+      return redirect(url_for('users.login'))
+    return render_template('reset_password_token.html', title='reset password', form=form)
+
+# delete account 
+@user.route("/deleteRequest", methods=['GET', 'POST'])
+@login_required
+def deleteRequest():
+  # if current_user.is_authenticated:
+  #   return redirect(url_for('user.home'))
+  form = deleteRequestForm()
+
+  if form.validate_on_submit():
+    if form.email.data != current_user.email:
+      flash('This is not the email for your account, please try again', 'danger')
+      return render_template('delete_request.html', title='Delete your account', delete_form=form)
+      
+    # user = User.query.filter_by(email=form.email.data).first()
+    # print(user)
+
+    if bcrypt.check_password_hash(current_user.password, form.password.data):
+      curr_user = User.query.filter_by(email=form.email.data).first()
+      send_delete_account_email(curr_user)
+      flash('An email has been sent to cancel your account', 'info')
+      logout_user()
+      return redirect(url_for('users.login'))
+    else:
+      flash('Wrong password, please try again', 'danger')
+
+  return render_template('delete_request.html', title='Delete your account', delete_form=form)
+
+
+@user.route("/deleteAcount/<token>", methods=['GET', 'POST'])
+# reset their password when the token is active
+def delete_account_token(token):
+  # check if the token is valid
+  user = User.verify_delete_account_token(token)
+  if user is None:
+    flash('The token has expired !', 'warning')
+    return redirect(url_for('users.deleteRequest'))
+  else:
+    # do the deletion if the token is valid
+    db.session.delete(user)
+    db.session.commit()
+    flash('Your account has been deleted successfully', 'success')
+    return redirect(url_for('user.login'))
 
 
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
@@ -214,16 +366,54 @@ def add_reminder():
 
   if reminder_form.validate_on_submit():
     if reminder_form.cancel.data:
-      return redirect(url_for('stock.search_page', code=code))
+      return redirect(url_for('stocks.search_page', code=code))
 
     # the user must enter the alert price.
     if reminder_form.alert_price.data:
       stock_obj = Stock.query.filter_by(code=code).first()
-      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.code, orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
-      print(reminder)
-      return redirect(url_for('stock.search_page', code=code))
+      reminder = Reminder(user_id=current_user.get_id(), stock_id=stock_obj.get_id(), orig_price=get_search_result(stock_obj.code)['price'], target_price=reminder_form.alert_price.data)
+      add_and_start_reminder(reminder, current_user.username)
+      return redirect(url_for('stocks.search_page', code=code))
       
     flash("Please enter a price.", "warning")
 
-
   return render_template('add_reminder.html', code=code, reminder_form=reminder_form)
+
+class ReminderListItem:
+  def __init__(self, stock_id, stock, reminder):
+    self.stock_id = stock_id
+    self.stock = stock
+    self.reminder_list = [reminder]
+
+
+@user.route("/view_reminder")
+@login_required
+def view_reminder():
+  reminders = Reminder.get_reminders_by_user_id(current_user.id)
+
+  reminder_items_dict = {}
+  for reminder in reminders:
+    if reminder.get_stock_id() not in reminder_items_dict:
+      stock = Stock.query.filter_by(id=reminder.get_stock_id()).first()
+      reminder_items_dict[reminder.get_stock_id()] = ReminderListItem(stock.id, stock, reminder)
+    else:
+      reminder_items_dict[reminder.get_stock_id()].reminder_list.append(reminder)
+
+  reminder_items_list = list(reminder_items_dict.values())
+  reminder_items_list.sort(key=operator.attrgetter('stock_id'))
+      
+
+  return render_template('reminder.html', reminder_items_list=reminder_items_list)
+
+
+@user.route("/delete_reminder")
+@login_required
+def delete_reminder():
+  reminder_id = request.args.get('reminder_id')
+  db.session.query(Reminder).filter(Reminder.id==reminder_id).delete()
+  db.session.commit()
+
+  return redirect(url_for('users.view_reminder'))
+
+  
+  

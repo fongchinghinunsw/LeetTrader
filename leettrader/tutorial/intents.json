@@ -1,7 +1,7 @@
 {"intents": [
         {"tag": "greeting",
          "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day", "Hello"],
-         "responses": ["Hello, you have come across Leettrader's personal assistant Alice :D", "Good to see you. I'm Alice :D", "Hi there, how can Alice help?"],
+         "responses": ["Hello, you have come across Leettrader's personal assistant Kurisu :D", "Good to see you. I'm Kurisu :D", "Hi there, how can Kurisu help?"],
          "context": 0
         },
         {"tag": "goodbye",
@@ -14,74 +14,94 @@
          "responses": ["Happy to help!", "Any time!", "My pleasure ٩(˘◡˘)۶"],
          "context": 0
         },
+        {"tag": "noanswer",
+         "patterns": [],
+         "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+         "context": 0
+        },
         {"tag": "Reset password",
          "patterns": ["I'm trying to reset password", "I forgot my password", "I want to change my password", "How do I reset my password?"],
-         "responses": ["On the login page, there is a forgot password button. You can click on this where you will be taken to a page where you can enter your email. After you have entered your email, click on send confirmation. You cannot send another confirmation email for some amount of time. Look into your email (don't forget to check the spam folder) for the email. It will contain a link. Click on the link to be directed to the reset password page. This link will last expire after 30 minutes. Note that you cannot use the old password as the new password. You need to enter your new password twice to ensure you have made no typos."],
+         "responses": ["On the login page, there is a forgot password button. You can click on this where you will be taken to a page where you can enter your email. After you have entered your email, click on send confirmation. You cannot send another confirmation email until the timer has counted down. Look in your email (don't forget to check the spam folder) for the email. It will contain a link. Click on the link to be directed to the reset password page. This link will expire after 30 minutes. Note that you cannot use the old password as the new password. You need to enter your new password twice to ensure you have typed your password correctly."],
          "context": 1
         },
         {"tag": "Buy Stock",
          "patterns": ["How do I buy stock?", "Where can I buy stock?", "Buy stock"],
-         "responses": ["First, search for a stock using the search bar on the top right. Click search. If the stock looks appealing to you, click on buy on the bottom. Input the amount you want to buy and click proceed. Finally, confirm your order by clicking the button. Congratulations, you have bought the stock. Note that the stock is simul-owned. This means that you do not actually own the stock and that it is for practice only."],
+         "responses": ["First, search for a stock using the search bar on the top right. Click search. Alternatively, if you have the stock in your watchlist, click on it for faster access. This will lead you to the stock page. If the stock looks appealing to you, click on Buy stock on the bottom. Fill in the details and click Proceed to go to the confirmation page. Finally, confirm your order by clicking the button. Congratulations, you have bought the stock. Note that the stock is simul-owned. This means that you do not actually own the stock and that it is for practice only."],
          "context": 1
         },
         {"tag": "Sell stock",
-         "patterns": ["How do I buy stock?", "Where can I buy stock?", "Buy stock"],
+         "patterns": ["How do I sell stock?", "Where can I sell stock?", "I want to sell my stocks"],
          "responses": ["You can either search the stock like you have done when buying a stock, except now click on the sell button. Another way is to click on the stock you want to see on your watchlist and it will take you to the stock page. Click on the sell button. Input how many stocks you want to sell. Note you cannot sell more than you own. Click proceed and confirm your order. Click confirm order. Congratulations, hopefully you have made some simulated profits. Note that stocks sold are simulated so they are not real."],
          "context": 1
         },
         {"tag": "Add to watchlist",
          "patterns": ["How do I add to my watchlist?", "How do I add a stock to my watchlist?"],
-         "responses": ["First, search for a stock using the search bar on the top right. Click search. This will lead you to the stock page. Click on Add to watchlist to add that stock to your watchlist. If the button says remove instead, this means the stock is already on your watchlist."],
+         "responses": ["First, search for a stock using the search bar on the top right. Click search. This will lead you to the stock page. Click on Add to watchlist to add that stock to your watchlist. If the button says remove instead, this means the stock is already on your watchlist. The watchlist is useful since it shows information about a stock and is highly visible. Clicking on a stock in the watchlist takes you to the stock's page where you can quickly buy or sell that stock."],
          "context": 1
         },
         {"tag": "Remove from watchlist",
          "patterns": ["How do I remove a stock from my watchlist?", "How do I remove from my watchlist?"],
-         "responses": ["From your watchlist, click on the stock you want to remove. This should take you to the stock page. Click on the remove from watchlist button on the bottom. A pop up will appear asking for confirmation. Click confirm and, this will remove that stock from your watchlist."],
+         "responses": ["From your watchlist, click on the stock you want to remove. This should take you to the stock page. Click on the remove from watchlist button on the bottom. A pop up will appear asking for confirmation. Click confirm and, this will remove that stock from your watchlist immediately."],
          "context": 1
         },
-        {"tag":"Use watchlist",
+        {"tag": "Using the watchlist",
          "patterns": ["How do I use the watchlist?"],
-         "responses": ["Click on any stock on the watchlist to view that stock's page where you can view information. Quick and easy access!"],
+         "responses": ["Click on any stock on the watchlist to view that stock's page where you can view information. This page also has buttons where you can remove from watchlist, buying or selling shares and adding a reminder. Quick and easy access!"],
          "context": 1
         },
         {"tag": "Search for stock",
          "patterns": ["How do I search for stocks?", "How do I look for stocks?", "How do I find stocks?"],
-         "responses": ["Use the search bar on the top right. It has an autocompletion so you can use the parts of the stock name to search. You can use the stock code as well as stock name. Once you have the stock entered in the search bar, click on the search button next to the search bar and this will take you to the stock page."],
+         "responses": ["Use the search bar on the top right. It has an autocompletion so you can use the parts of the stock name to search. You can use the stock code as well as stock name. Once you have the stock entered in the search bar, click on the search button next to the search bar and this will take you to the stock page. On this page, you can view the stock's information."],
          "context": 1
         },
         {"tag": "Add reminder",
          "patterns": ["How do I add a reminder?", "How do I set a reminder?", "How do I use the reminder?"],
-         "responses": ["Go to the stock's page. You can do this by either searching for the stock using the search bar on the top right, or you can click on a stock on your watchlist if you have added that stock to your watchlist. Click on the add reminder"],
+         "responses": ["Go to the stock's page. You can do this by either searching for the stock using the search bar on the top right, or you can click on a stock on your watchlist if you have added that stock to your watchlist. This will take you to the stock's page. Click on the Add reminder below the stock's information. You will be taken to a page where you can set up your reminder. You can set the price at which you will be notified when the stock reaches that price or beyond. Here's an example: If the stock's current price is $5 and you set the price for $8, then when the stock reaches $8 or above, you will receive an email notification. If you take the same stock at $5 and set the price for $2, then you will receive an email notifification if the price reaches $2 or below. When you are done with your set up, click Add to activate the reminder. You will then be redirected back to the search page. Otherwise, click cancel to go back to the search page."],
          "context": 1
         },
-        {"tag":"Delete reminder",
+        {"tag": "Delete reminder",
          "patterns": ["How do I delete a reminder?", "How do I stop reminders?"],
-         "responses": ["On the drop down menu on the top bar, click on view reminders. This should show you all the reminders you have set. On the right side of each item in the reminders list, there will be a remove button. Click on that button to remove the reminder from the list and you will not longer be notified on that stock."],
+         "responses": ["On the drop down menu on the top bar, click on view reminders. This should show you all the reminders you have set. On the right side of each item in the reminders list, there will be a remove button. Click on that button to remove the reminder from the list and you will not longer be get email notifications for that reminder and it will be removed."],
          "context": 1
         },
-        {"tag":"View reminders",
+        {"tag": "View reminders",
          "patterns": ["How can I see my reminders?", "How can I view my reminders?", "Where can I see my reminders?", "Show me my reminders."],
          "responses": ["You can view your reminders by using the drop down menu on the top bar. Click on View reminders. This will take you to a page listing all the reminders you have set."],
          "context": 1
         },
-        {"tag":"Historical data",
+        {"tag": "Historical data",
          "patterns": ["How do I see historical data?", "Where can I see historical data?", "How do I see a stock's historical data?", "How do i see historical data for a stock?", "Where can I see a stock's historical data?", "Where can I see historical data for a stock?"],
          "responses": ["You can see historical data for a stock by clicking on that stock on your watchlist. If a stock is not on your watchlist, you can search the stock with the search bar. Either way, this will lead you to the stock's page where you can see the historical price in graph form."],
-         "context":1
+         "context": 1
+        },
+        {"tag": "Deleting your account",
+         "patterns":["delete account", "remove my account", "account", "I want to delete my account"],
+         "responses": ["Expand the drop down menu on the right side of the top bar. Click on Manage account. You will be directed to a page where you can click on the Delete account button. You will be sent an email containing two links: one for confirming the deletion of your account and one to change your password. If it is you who have requested the deletion of your account, click on the link that will delete your account. Otherwise, your account may be compromised and it is recommended you change your password using the given link."],
+         "context": 1
+        },
+        {"tag": "Profit loss for selling all of a specific sim-owned stock",
+         "patterns": ["sell all of a specific stock", "sell all of a particular stock", "profit loss for a specific stock", "profit loss for a particular stock"],
+         "responses": ["Viewing the total profit/loss you get from selling all of a particular stock is useful if you want to know much money you gain or lose from selling all of that stock. You can find the profit/loss for selling all of a particular stock by visiting the home page. To reach this page, simply click on the home button on the left side of the top bar. You will find a list of all the stocks you own with some information. The value next to the P/L is the profit/loss you would have if you all sold of that stock. A red value means you will lose that amount in the trade, whereas a green amount means you would gain a profit. This is a quick a useful way in determining if you would make a profit or a loss if you were to sell that stock. You may also gain insight into the stock's performance."],
+         "context": 1
+        },
+        {"tag": "Profit loss for selling all simul-owned stocks",
+         "patterns": ["Profit loss for selling all stocks", "Profit loss for selling all simul-owned stocks", "profit loss for selling all my stocks"],
+         "responses": ["This is where you can see the profit or loss you would make if you were to sell all your currently simul-owned stocks. Same as viewing the profit or loss for a specific simul-owned stock, you will need to visit the home page. Again, you simply click on the home button on the left side of the search bar. The total profit/loss will be shown below the list of stocks you own, next to the Total P/L. A green number means that you will gain a profit for selling all your simul-owned stock whereas a red number means you will have a loss instead. This gives you an indication of the performance on your set of stocks."],
+         "context": 1
         },
         {"tag":"Profit",
          "patterns": ["What is profit?", "What does profit mean?", "Tell me about profit.", "Can you tell me about profit?", "Can you tell what profit is?", "Profit"],
-         "responses": ["In trading terms, profit is the difference between your earnings and your expenses. You take the price at which you sold your stocks and minus it with the cost of buying those shares. That result is your profit. For example, if you bought a share for $100 and then sold it for $150, your earnings is $200 since you gain that amount and the cost of that share is $150 since you spent that amount. $200 minus $150 is $50 so $50 is your profit. Note that a negative profit means a loss since you have lost money in the trade."],
+         "responses": ["In trading terms, profit is the difference between your earnings and your expenses. You take the price at which you sold your shares (revenue) and subtract from it with the cost of buying those shares (expenses). That result is your profit. For example, if you bought a share for $100 and then sold it for $150, your earnings is $150 since you gain that amount from selling the share and the cost of that share is $100 since you spent that amount. $150 - $100 is $50. This is the profit from the trade. Note that a negative profit means a loss since you have lost money in the trade."],
          "context": 2
         },
         {"tag":"Loss",
          "patterns": ["What is loss?", "What does loss mean?", "Tell me about loss.", "Can you tell me about loss?", "Can you tell what loss is?", "Can you teach me what is loss?", "Loss"],
-         "responses": ["Loss is the opposite of profit. Where profit is the different between earnings and expenses, loss is the difference between expenses and losses. For example, if you bought a stock for $100 and sold it for $50, your expense is $100 since you spent that money and $50 is your earnings since you gain that. $100 minus $50 is $50 so your loss is $50. Note that a negative loss means a profit."],
+         "responses": ["Loss is the opposite of profit. Where profit is the different between earnings and expenses, loss is the difference between expenses and losses. For example, if you bought a stock for $100 and sold it for $50, your expense is $100 since you spent that money and $50 is your earnings since you gain that. $100 - $50 is $50. This is your loss. Note that a negative loss means a profit. Typically, you would calculate profit loss using revenue minus expenses. A positive value is a profit, whereas a negative value is a loss."],
          "context": 2
         },
         {"tag": "Arbitrage",
          "patterns": ["What is arbitrage?", "What does arbitrage mean?", "Tell me about arbitrage.", "Can you tell me about arbitrage?", "Can you tell me what arbitrage is?", "Can you teach me what is arbitrage?", "Arbitrage"],
-         "responses": ["Arbitrage is the dealing of stocks in different markets. Sometimes stocks will have different prices on different markets. For example, if Stock A is $1 in Market 1 and Stock A is $2 in Market 2, you could buy Stock A from Market 1 at $1 per stock and sell it on Market 2 for $2 per stock. Making an easy profit based on the different market prices of the stock in each market. This is arbitrage."],
+         "responses": ["Arbitrage is the dealing of stocks in different markets. Sometimes stocks will have different prices on different markets. For example, if Stock A is $1 in Market 1 and Stock A is $2 in Market 2, you could buy Stock A from Market 1 at $1 per stock and sell it on Market 2 for $2 per stock. Making an easy profit based on the different market prices of the stock in each market. This is arbitrage trading. Note that opportunities like this are rare and limited since everyone wants to profit from these trades. Due to supply and demand, the prices of the stock would reach equilibrium very quickly. So, don't go searching the stock markets expecting to find this opportunity often."],
          "context": 2
         },
         {"tag": "PE Ratio",
@@ -96,17 +116,17 @@
         },
         {"tag": "Stock market",
          "patterns": ["What is the stock market?", "What does stock market mean?", "Tell me about the stock market", "Can you tell me about the stock market?", "Can you tell me what stock market is?", "Can you teach me what is stock market?", "Stock market"],
-         "responses": ["The stock market is any exchange that allows people to buy and sell stocks. It is also where companies issue stocks. If you are interested in trading, many transactions will take place in the stock market."],
+         "responses": ["Another term used is stock exchange, which is the same thing. The stock market is any exchange that allows people to buy and sell stocks. It is also where companies issue stocks. If you are interested in trading, many transactions will take place in the stock market. Note that there are more than 1 stock market. The stocks they have can vary too. Global stock markets usually have more stocks across the world compared to, for example, the Australian stock market."],
          "context": 2
         },
         {"tag": "Stock",
          "patterns": ["What is a stock?", "What does stock mean?", "Tell me about the stock market", "Can you tell me about stocks?", "Can you tell me what stock is?", "Can you teach me what is stock?"],
-         "responses": ["A stock represents the company's equity and are pieces of a company."],
+         "responses": ["A stock represents the company's equity and are pieces of a company. They represent proportionate ownership of a public company. Usually, for all intents and purposes, stocks and shares are used interchangably, and the minor distinction between them is usually overlooked. However, the syntax between them can become important. For example, when dealing with a broker, buying 50 shares means to buy 50 shares of a single company. On the other hand, buying 50 stocks means to buy from 50 different companies. So, it does become important when dealing with brokers to avoid confusion."],
          "context": 2
         },
         {"tag": "Percent change",
          "patterns": ["What is a percent change?", "What does percent change mean?", "Tell me about percent change", "Can you tell me about percent change?", "Can you tell me what percent change is?", "Can you teach me what is percent change?"],
-         "responses": ["Percent change compares the current price of a stock to the previous day's stock price. This is expressed as a percentage. For example, if a stock's price is $101 today and was $100 yesterday, then the percent change is 1% since the price rose by 1%"],
+         "responses": ["Percent change compares the current price of a stock to the previous day's stock price. This is expressed as a percentage. For example, if a stock's price is $101 today and was $100 yesterday, then the percent change is 1% since the price rose by 1%. This ic calculation from taking the difference between the current price and previous price, then dividing it by the previous price. From the example we had, $101 - $100 = $1. Then we take that $1, and dividen by $100, so 1/100 = 1%."],
          "context": 2
         },
         {"tag": "Previous Close",
@@ -136,7 +156,7 @@
         },
         {"tag": "52 Week Range",
          "patterns": ["What is 52 week range?", "What does 52 week range mean?", "Tell me about 52 week range", "Can you tell me about 52 week range?", "Can you tell me what 52 week range is?", "Can you teach me what is 52 week range?"],
-         "responses": ["Similar to the day's range, the 52 week range displays the lowest price of a share and the highest price of the share during a 52 week period. The duration starts from the beginning of the 52 week period to the end of the 52 week period (which is 52 weeks after the beginning), or until the current time if the period has not yet ended. The first value is the lowest price to occur during the 52 week period. The seocnd, and last, value is the highest price to occur during the 52 week period. One use of the 52 week range is to determine how volatile the stock is for the 52 week period, in other words, how stable the stock price is. Volatility is often associated with risk."],
+         "responses": ["Similar to the day's range, the 52 week range displays the lowest price of a share and the highest price of the share during a 52 week period. The duration starts from the beginning of the 52 week period to the end of the 52 week period (which is 52 weeks after the beginning), or until the current time if the period has not yet ended. The first value is the lowest price to occur during the 52 week period. The second, and last, value is the highest price to occur during the 52 week period. One use of the 52 week range is to determine how volatile the stock is for the 52 week period, in other words, how stable the stock price is. Volatility is often associated with risk."],
          "context": 2
         },
         {"tag": "Volume",
@@ -146,7 +166,7 @@
         },
         {"tag": "Average Volume",
          "patterns": ["What is average volume?", "What does average volume mean?", "Tell me about average volume", "Can you tell me about average volume?", "Can you tell me what average volume is?", "Can you teach me what is average volume?", "What is avg volume?", "What does avg volume mean?", "Tell me about avg volume", "Can you tell me about avg volume?", "Can you tell me what avg volume is?", "Can you teach me what is avg volume?"],
-         "responses": ["Average volume, or avg volume for short, is the total volume for a specified period divided by the length of that period. You can use this as a comparison to the current volume to see if the volume is higher or lower than the average volume."],
+         "responses": ["Average volume, or avg volume for short, is the total volume for a specified period divided by the length of that period. You can use this as a comparison to the current volume to see if the volume is higher or lower than the average volume. This is calculated by taking the total volume for the period and dividing it by the interval period. For example, a stock has a trading volume of 10,000 over a 10 day period. The period interval is a day, so we take 10,000 and divide it by 10 to get 1,000. Therefore, 1,000 is the average volume in this example."],
          "context": 2
         },
         {"tag": "Market Cap",
@@ -156,17 +176,17 @@
         },
         {"tag": "Beta",
          "patterns": ["What is beta?", "What does beta mean?", "Tell me about beta", "Can you tell me about beta?", "Can you tell me what beta is?", "Can you teach me what is beta?"],
-         "responses": ["A stock's beta represents the volatility of the stock. Since volatility is associated with risk, more volatility means more risk. However, with more risk comes more reward. A beta is a measure of a stock's volatility in relation to the overall market. Market's have a beta of 1.0. Individual stocks are ranked according to how much they deviate from the market. A beta above 1.0 means the stock is more volatile (it swings more than the market over time). A beta below 1.0 means the stock is less volatile (moves less than the market). High beta stocks are riskier but provide higher potential returns. High risk, high reward. Low beta stocks are less riskier but offer lower returns. Low risk, low reward."],
+         "responses": ["A stock's beta represents the volatility of the stock. Since volatility is associated with risk, more volatility means more risk. However, with more risk comes more reward. A beta is a measure of a stock's volatility in relation to the overall market. Market's have a beta of 1.0. Individual stocks are ranked according to how much they deviate from the market. A beta above 1.0 means the stock is more volatile (it swings more than the market over time). A beta below 1.0 means the stock is less volatile (moves less than the market). What this means is that if an event causes the market to increase or decrease the stock price by 1% overall, high beta stocks over 1.0 may actually increase/decrease by more than 1$, for example 2%, depending on how high the beta is. High beta stocks are riskier but provide higher potential returns. High risk, high reward. Low beta stocks are less riskier but offer lower returns. Low risk, low reward."],
          "context": 2
         },
         {"tag": "Earnings Date",
          "patterns": ["What is earnings date?", "What does earnings date mean?", "Tell me about earnings date", "Can you tell me about earnings date?", "Can you tell me what earnings date is?", "Can you teach me what is earnings date?"],
-         "responses": ["Earnings date is the date of the next release of a company's financial report. The financial report includes a balance sheet, income statement, statement of changes in equity and cash flow statement. An investor will use these financial reports to determine the performance of a company which will influence the investment decisions they make. If you can read these financial reports, you can make an informed decision in your investments."],
+         "responses": ["Earnings date is the date of the next release of a company's financial report. The financial report includes a balance sheet, income statement, statement of changes in equity and cash flow statement. An investor will use these financial reports to determine the performance of a company which will influence the investment decisions they make. If you can read these financial reports, you can make an informed decision in your investments. There is a lot of information you can learn from reading and interpreting financial statements. You will be able to judge a company's performance and state from this. For example, share price may go down due to poor performance, but if you read financial reports and notice otherwise, you can confidently buy shares because share price will bounce back up to correct the market's opinion."],
          "context": 2
         },
         {"tag": "Forward Dividend and Yield",
          "patterns": ["What is forward dividend and yield?", "What does forward dividend and yield mean?", "Tell me about forward dividend and yield", "Can you tell me about forward dividend and yield?", "Can you tell me what forward dividend and yield is?", "Can you teach me what is forward dividend and yield?"],
-         "responses": ["The forward dividend and yield is an estimation of a year's dividend expressed as a percentage of current stock price. The year's projected dividend is measured by taking a stock's most recent actual divivdend payment and annualising (converting it to an annual rate) it. The forward dividend and yield is calculated by dividing a year's worth of future dividend payments by a stock's current share price. The higher, the better."],
+         "responses": ["The forward dividend and yield is an estimation of a year's dividend expressed as a percentage of the current stock price. The year's projected dividend is measured by taking a stock's most recent actual divivdend payment and annualising (converting it to an annual rate) it. The forward dividend and yield is calculated by dividing a year's worth of future dividend payments by a stock's current share price. The higher, the better."],
          "context": 2
         },
         {"tag": "Ex-Dividend Date",
@@ -176,12 +196,42 @@
         },
         {"tag": "1y Target Est",
          "patterns": ["What is 1y target est?", "What does 1y target est mean?", "Tell me about 1y target est", "Can you tell me about 1y target est?", "Can you tell me what 1y target est is?", "Can you teach me what is 1y target est?"],
-         "responses": ["This is the 1 year target estimate. It is the price that analysts have predicted the stock will be one year from now. This is a prediction and an estimate. It is not by any means guaranteed so you should take the 1 year estimate with a grain of salt. The stock can easily beat the estimate just as it can fail the estimate. This estimate is done by an analyst so it is as good as the one doing the analysis. You shouldn't be using this by itself but rather as a check. If you believe the stock is looking good, and the 1 year target estimate is also looking good, then it can reinforce your decision. Otherwise, you may need to consider more favorable options."],
+         "responses": ["This is the 1 year target estimate. It is the price that analysts have predicted the stock will be one year from now. This is a prediction and an estimate. It is not by any means guaranteed so you should take the 1 year estimate with a grain of salt. The stock can easily beat the estimate just as it can fail the estimate. This estimate is done by an analyst so it is as good as the one doing the analysis. You shouldn't be using this by itself but rather as a check. If you believe the stock is looking good, and the 1 year target estimate is also looking good, then it can reinforce your decision. Otherwise, you may want to consider more favorable options."],
          "context": 2
         },
         {"tag": "Fair Value",
          "patterns": ["What is fair value?", "What does fair value mean?", "Tell me about fair value", "Can you tell me about fair value?", "Can you tell me what fair value is?", "Can you teach me what is fair value?"],
-         "responses": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parent company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued considering the: current index value, dividends paid on stock in the index, days to expiration of the futures contract, and current interest rates."],
+         "responses": ["Fair value is the sale price agreed upon by a willing buyer and seller. This price is determined by the market where the stock is traded. Fair value also represents the value of a company's assets and liabilities when a subsidiary company's financial statements are consolidated with a parent company. In more technical terms, the fair value is the theoretical calculation of how a futures stock index contract should be valued when considering the: current index value, dividends paid on stock in the index, days to expiration of the futures contract, and current interest rates."],
+         "context": 2
+        },
+        {"tag": "Percent Change",
+         "patterns": ["percent change", "percentage change", "What is percent change?", "What is percentage change?"],
+         "responses": ["This is the percentage change in price compared to the previous day's stock price. It compares the previous day's stock price to the current price. It is expressed as a percentage. A positive percentage means the stock price has risen from the previous day while a negative percentage means the price has gone down. For example: If a stock was $100 the previous day, and it is $101 this current day, then it has risen by 1%. Many times you will not have to calculate this since many sites (including LeetTrader) will tell you the percentage change."],
+         "context": 2
+        },
+        {"tag": "Volatility",
+         "patterns": ["volatility", "volatile", "price swing", "What is volatility?"],
+         "responses": ["Volatility is an important term in finance. Volatility represents how large an asset's prices swing around the mean price. In other words, it represents the degree of price fluctuation that may occur with a stock. For example: A stock that only fluctuates between $5 and $10 is less volatile than a stock that fluctuates between $1 and $20. Volatile stocks are considered risky because the prices are harder to predict. However, this risk comes with reward so investing in volatile stocks is risky but come with potentially bigger rewards."],
+         "context": 2
+        },
+        {"tag": "Bull and Bear Market",
+         "patterns": ["Bull", "Bear", "Bull and bear", "What is a bull market?", "What is a bear market?"],
+         "responses": ["Bull market and bear market are terms the describe the market conditions of a stock market. A bull market is a market that where stock prices are rising. This market condition is an indicator that the economy is sound. On the other hand, a bear market is the opposite. A bear market means that stock prices are expected to decline and signifies a receding economy. A bear market can be more dangerous to invest in because prices are more volatile and many stocks lose value. It is also hard to determine when a bear market has reached the lowest point and stock prices stop declining. This adds to the risk. A strategy you may use is to withdraw money from a bear market and sitting on the cash until the trend reverses."],
+         "context": 2
+        },
+        {"tag": "Blue Chip stocks",
+         "patterns": ["Blue chip", "What is blue chip stock?", "safe investment"],
+         "responses": ["A blue chip stock is a huge company with excellent reputation. These companies are typically large, well established and financially sound companies that have operated for many years and that have dependable earnings. Most blue chip stocks pay dividends to investors. They are considered low risk investments and are very popular among investors. Some examples of blue chip stocks: IBM Corp, Coca-cola Co and Boeing Co. They are solid investments since the companies have operated for a considerable amount of time."],
+         "context": 2
+        },
+        {"tag": "IPO",
+         "patterns": ["IPO", "Initial public offering", "What is initial public offering?"],
+         "responses": ["IPO stands for Initial Public Offering. You may have heard of this term. This refers to the first sale of a company's stocks to the market. This signifies that a private company has gone public. This does not necessarily mean that the company is new since a company can be private for a considerable amount of time before going public. They are, however, are considered risky since these share prices are prone to frequent fluctuation based on economic and non-economic events often. Unless you are skilled and knowledgable in both the company and stock trading, it is recommended to avoid IPOs."],
+         "context": 2
+        },
+        {"tag": "Averaging down",
+         "patterns": ["Averaging down", "What is averaging down?", "Teach me about averaging down"],
+         "responses": ["Averaging down is a strategy you can employ. It involves buying more of a stock as its prices decreases. This is done to lower your average purchasing price. You would only use this strategy if you believe that the census about a company is wrong and the stock price will bounce back up. For example, people may feel a company is not performing well but you find this to be not true (because you did research) so you buy the stocks that are declining. If you are correct, then the stock price will bounce back up and you can sell your stocks for profit. This is one of the reason why financial reports and research is important: you can use various strategies based on your research."],
          "context": 2
         }
    ]

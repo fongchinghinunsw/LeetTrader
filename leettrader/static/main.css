@@ -6,6 +6,7 @@
 
 body {
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .clear {
@@ -27,12 +28,72 @@ body {
   height: 60px;
   width: 100%;
   position: fixed;
-  z-index:0;
 }
 
 #top-navbar-notfixed {
   height: 60px;
   width: 100%;
+}
+
+#title {
+  font-size: 500%;
+  color: #FFFFFF;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+
+#text {
+  position: relative;
+  top: 150px;
+  width: 16em;
+  margin: 0 auto;
+  border-right: 2px solid rgba(255, 255, 255, 0.75);
+  font-size: 200%;
+  color: #FFFFFF;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(-50%);
+}
+
+.anim-typewriter {
+    /* animation-name binds the animation to an element
+       animation-duration defines how long time an animation should take to complete
+       animation-timing-function specifies the speed curve of the animation
+                                 steps(n) displays an animation iteration along n stops along the transition
+       animation-delay specifies a delay for the start of an animation
+       animation-iteration-count specifies the number of times an animation should run.
+       animation-direction specifies whether an animation should be played forwards (normal), backwards or in alternate cycles
+       animation-fill-mode specifies a style for the target element when the animation is not playing (before it starts, after it ends, or both).
+    */
+    animation: typewriter 7s steps(40) 1s 1 normal both,
+    blinkTextCursor 500ms steps(40) infinite normal;
+    animation-iteration-count: infinite;
+
+}
+
+/* specify CSS styles inside the @keyframes rule, the animation will
+   gradually change from the current style to the new style at certain times. */
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 22em;
+    }
+}
+
+@keyframes blinkTextCursor {
+    /* create blinking effect by changing transparency */
+    from {
+        border-right-color: rgba(255, 255, 255, 0.75);
+    }
+    to {
+        border-right-color:transparent;
+    }
 }
 
 .ui-autocomplete {
@@ -85,28 +146,18 @@ body {
   height: 500px;
   background: #FFFFFF;
   position: relative;
-  top: 470px;
+  top: 560px;
 }
 
 #ceo_image {
-  margin: 0 auto;
-  float: left;
   height: 400px;
   width: 450px;
   border-radius: 5%;
-  position: relative;
-  left: 200px;
-  top: 50px;
 }
 
 #ceo_intro {
-  margin: 0 auto;
-  float: right;
-  position: relative;
   height: 400px;
   width: 450px;
-  right: 200px;
-  top: 100px;
 }
 
 #footer {
@@ -163,6 +214,12 @@ body {
 #footer {
   position: relative;
   top: 500px;
+}
+
+#watchlist {
+  margin-bottom: 30px;
+  height: 700px;
+  overflow-y: auto;
 }
 
 /*
@@ -291,4 +348,65 @@ button {
 .left-content {
   margin-left: 20px;
   margin-right: 20px;
+}
+
+/* ======== request reset form ======== */
+.logo {
+  padding: 15px 0;
+  font-size: 35px;
+  color: #aaaaaa;
+  font-weight: bold;
+}
+
+.login-form-1 {
+  max-width: 300px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.etc-login-form {
+  color: #919191;
+  padding: 10px 20px;
+}
+.etc-login-form p {
+  margin-bottom: 5px;
+}
+
+/* account profile page  */
+
+.account-text {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 40px;
+}
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.mb-5, .my-5 {
+  margin-bottom: 1rem!important;
+}
+
+/* view reminder page  */
+
+.reminder-list {
+  margin-top: 20px;
+}
+
+.reminder-list-item {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.reminder-list-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#no-reminder-alert {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

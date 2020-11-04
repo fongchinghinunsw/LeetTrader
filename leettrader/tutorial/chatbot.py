@@ -6,7 +6,7 @@ import pickle
 import json
 import random
 from flask import Blueprint, jsonify
-tutorial = Blueprint('tutorial', __name__)
+chatbot = Blueprint('chabot', __name__)
 
 from keras.models import load_model
 model = load_model('leettrader/tutorial/model.h5')
@@ -40,7 +40,10 @@ def predict_class(sentence):
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
     for r in results:
+        print(str(r[1]))
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
+    if return_list == []:
+      return_list.append({"intent": 'noanswer', "probability": str(1)})
     return return_list
 
 def getResponse(ints, intents_json):
@@ -52,7 +55,7 @@ def getResponse(ints, intents_json):
             break
     return result
 
-@tutorial.route('/askQuestion/<string:user_input>', methods=['GET', 'POST'])
+@chatbot.route('/askQuestion/<string:user_input>', methods=['GET', 'POST'])
 def askQuestion(user_input):
   intent = predict_class(user_input)
   response = getResponse(intent, intents)

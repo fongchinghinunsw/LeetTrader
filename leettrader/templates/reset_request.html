@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class='form-container container'>
+  <div class="text-center" style="padding:50px 15px">
+    <div class="logo"> Reset your password from here :) </div>
+    <div class="login-form-1">
+      <form method="POST" action="">
+        <div class="etc-login-form" style="padding-bottom:30px">
+          <p>"When you fill in your registered email address, you will be sent instructions on how to reset your password."</p>
+        </div>
+        <!-- protect our form from certain attacks -->
+        {{ form.hidden_tag() }}
+        <div class="login-form-main-message">
+          <div class="main-login-form">
+            <div class="login-group">
+              <div class="form-group">
+                {% if form.email.errors %}
+                  {{ form.email(id="email-input", class="form-control form-control-lg is-invalid", placeholder="Enter your email") }}
+                  <div class="alert alert-danger" role="alert">
+                    {% for error in form.email.errors %}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form.email(id="email-input", class="form-control form-control-lg", placeholder="Enter your email") }}
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        
+        </div>
+        <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+        <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+        
+        <div class="form-group">
+          {{ form.submit(id="reset-button", class="btn btn-outline-info") }}
+        </div>
+   
+        <script>
+          $(document).ready(function() {
+            $('form').on('submit', function(event) {
+              $.ajax({
+                data: {
+                  email: $('#email-input').val()
+                },
+                type: 'POST',
+                url: '/process'
+              })
+              .done(function(myAjaxData) {
+                if (myAjaxData.error) {
+                  $('#errorAlert').text(myAjaxData.error).show();
+                  $('#successAlert').hide();
+                } else {
+                  // $("#reset-button").val(myAjaxData.userEmail);
+                  $('#successAlert').text("Email sent successfully !").show();
+                  $('#errorAlert').hide();
+                  countDownTimer()
+                }
+
+                
+              });
+              event.preventDefault()
+            });
+
+          });
+
+          function countDownTimer() {
+            var timeleft = 10;
+            var requestAgainTimer = setInterval(function(){
+              if(timeleft < 0){
+                clearInterval(requestAgainTimer);
+                document.getElementById("reset-button").disabled = false
+                document.getElementById("reset-button").value = "Send Request"
+              } else {
+                document.getElementById("reset-button").disabled = true
+                document.getElementById("reset-button").value = "Wait for " + timeleft + " seconds to send agin";
+              }
+              timeleft -= 1;
+            }, 1000);
+          }
+        </script>
+        
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

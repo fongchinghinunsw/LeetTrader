@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="form-container container">
+    <h1 class="account-text">Manage Your Account Here</h1>
+</div>
+<div class='form-container container'>
+    
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="../static/trump.jpg">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+
+        <form style="padding-top: 10px;" action="{{ url_for('users.deleteRequest') }}">
+            <button class="btn btn-outline-danger" type="submit">Delete Account</button>
+         </form>
+
+      </div>
+    </div>
+</div>
+{% endblock content %}

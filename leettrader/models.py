@@ -7,11 +7,15 @@
     5. OwnStock
     6. ActionType
 '''
+SECRET_KEY = '7b0dff182c1a883a7c12855dcc6f411d'
+
 import enum
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy import PickleType
 from flask_login import UserMixin
 from leettrader import db, login_manager
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 watchlist_items = db.Table(
     'watchlist_items',
@@ -75,6 +79,44 @@ class User(db.Model, UserMixin):
   def get_id(self):
     return self.id
 
+  def get_new_token(self, secs=1800):
+    # create a serializer with an expiration time of 1800s
+    s = Serializer(SECRET_KEY, secs)
+    # add the payload and create a token
+    token = s.dumps({'user_id': self.get_id()}).decode('utf-8')
+    return token
+
+  @staticmethod
+  def verify_reset_password_token(token):
+    s = Serializer(SECRET_KEY)
+    try:
+      # check if the token is valid, try to load the token
+      user_id = s.loads(token)['user_id']
+    except:
+      return None
+    # return the user with user_id
+    return User.query.get(user_id)
+
+  @staticmethod
+  def verify_confirmation_token(token):
+    s = Serializer(SECRET_KEY)
+    try:
+      # check if the token is valid, try to load the token
+      user_id = s.loads(token)['user_id']
+    except:
+      return False
+    return True
+
+  @staticmethod
+  def verify_delete_account_token(token):
+    s = Serializer(SECRET_KEY)
+    try:
+      # check if the token is valid, try to load the token
+      user_id = s.loads(token)['user_id']
+    except:
+      return None
+    # return the user with user_id
+    return User.query.get(user_id)
   def is_admin(self):
     return self.user_type == UserType.ADMIN
 
@@ -106,6 +148,12 @@ class Stock(db.Model):
 
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"
+
+  def get_id(self):
+    return self.id
+
+  def get_name(self):
+    return self.name
 
   def get_code(self):
     return self.code
@@ -151,3 +199,22 @@ class Reminder(db.Model):
     reminder += f"'{self.user_id}', '{self.stock_id}', "
     reminder += f"'{self.orig_price}', '{self.target_price}')"
     return reminder
+
+  @classmethod
+  def get_reminders_by_user_id(cls, user_id):
+    return cls.query.filter_by(user_id=user_id).all()
+
+  def get_id(self):
+    return self.id
+
+  def get_user_id(self):
+    return self.user_id
+
+  def get_stock_id(self):
+    return self.stock_id
+
+  def get_orig_price(self):
+    return self.orig_price
+
+  def get_target_price(self):
+    return self.target_price
