@@ -31,6 +31,8 @@ APIs usage currently at https://docs.google.com/document/d/1YRUvGNo87vkZKh3YlYKC
 
 Code Review currently at https://docs.google.com/spreadsheets/d/1utComw0ELxKtZN3wX4K8oQauqzD2dnYj-nBWxyI7iw4/edit
 
+Report currently at https://docs.google.com/document/d/1qXfHPVLkB7GAsk7u71y-b8ypeySqANPO9YS2G3CKgF4/edit?usp=sharing
+
 ### Project Description
 Potential new investors often want to practice their trading skills without risking real capital.
 Investors can look for stocks using a "stock code", with the search resultshowing the stock name,
