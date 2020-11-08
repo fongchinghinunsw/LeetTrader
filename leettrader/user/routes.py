@@ -5,7 +5,7 @@ import operator
 from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
-resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
+resetPasswordForm, deleteRequestForm, accountUpdatedForm, OrderForm, CheckoutForm, ReminderForm)
 
 from leettrader.user.utils import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
@@ -127,8 +127,18 @@ def login():
 @user.route("/account", methods=['GET', 'POST'])
 @login_required
 def account_profile():
+  update_form = accountUpdatedForm()
+  if update_form.validate_on_submit():
+    current_user.username = update_form.username.data
+    current_user.email = update_form.email.data
+    db.session.commit()
+    flash('Your account has been updated !', 'success')
+    return redirect(url_for('users.account_profile'))
+  elif request.method == 'GET':
+    update_form.username.data = current_user.username
+    update_form.email.data = current_user.email
   user_icon = url_for('static', filename='account_icons/' + current_user.icon)
-  return render_template('account_profile.html', title='User Account', icon=user_icon)
+  return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
   
 
 @user.route("/settings")
