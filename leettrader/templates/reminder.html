@@ -6,7 +6,7 @@
 <ul class="list-group reminder-list">
   {% for reminder_item in reminder_items_list %}
     <li class="list-group-item reminder-list-item">
-    <h2>{{reminder_item.stock.get_name()}} ({{reminder_item.stock.get_code()}})</h2>
+    <h2><a href='/search/{{reminder_item.stock.get_code()}}'>{{reminder_item.stock.get_name()}} ({{reminder_item.stock.get_code()}})</a></h2>
       <ul class="list-group reminder-list">
       {% for reminder in reminder_item.reminder_list %}
         <div class="row">
