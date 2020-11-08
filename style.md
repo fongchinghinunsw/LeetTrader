@@ -19,5 +19,5 @@ Usage:
 ```
 pip install pylint
 (cd into the root directory containing README.md file)
-pylint $(git ls-files '*.py')
+pylint --allow-any-import-level --indent-string='  ' $(git ls-files '*.py')
 ```
