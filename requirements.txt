@@ -3,6 +3,7 @@ astunparse==1.6.3
 attrs==20.2.0
 bcrypt==3.2.0
 beautifulsoup4==4.9.3
+blinker==1.4
 bs4==0.0.1
 cachetools==4.1.1
 certifi==2020.6.20
@@ -12,8 +13,11 @@ click==7.1.2
 dnspython==2.0.0
 email-validator==1.1.1
 Flask==1.1.2
+Flask-Admin==1.5.7
 Flask-Bcrypt==0.7.1
+Flask-Cors==3.0.9
 Flask-Login==0.5.0
+Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
 gast==0.3.3
