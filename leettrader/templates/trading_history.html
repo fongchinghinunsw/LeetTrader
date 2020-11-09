@@ -1,0 +1,14 @@
+{% extends "main_layout.html" %}
+{% block left_content %}
+<ul class="list-group reminder-list">
+{% for i in range(records|length) %}
+  <li class="list-group-item reminder-list-item">
+    <p><a href='/search/{{ stock_items_list[i].code }}'>{{ stock_items_list[i].name }} ({{ stock_items_list[i].code }})</a></p>
+    <p>transaction type: {{ records[i].action.__str__().split('.')[1] }}</p>
+    <p>unit price: {{ records[i].unit_price }}</p>
+    <p>quantity: {{ records[i].quantity }}</p>
+    <p>time: {{ records[i].time.strftime("%d/%m/%Y %H:%M:%S") }}</p>
+  </li>
+{% endfor %}
+</ul>
+{% endblock left_content %}

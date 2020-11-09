@@ -145,6 +145,7 @@ class Stock(db.Model):
   watchlist = db.relationship('Watchlist',
                               secondary=watchlist_items,
                               lazy=True)
+  transaction_id = db.Column(db.Integer, db.ForeignKey('transaction_record.id'))
 
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"
@@ -171,6 +172,7 @@ class TransactionRecord(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   time = db.Column(db.DateTime, nullable=False)
   action = db.Column(db.Enum(ActionType), nullable=False)
+  stock = db.relationship('Stock', lazy=True, uselist=False)
   stock_id = db.Column(db.Integer, nullable=False)
   quantity = db.Column(db.Integer, nullable=False)
   unit_price = db.Column(db.Float, nullable=False)
