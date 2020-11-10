@@ -15,14 +15,17 @@ def usage_guide():
   usage_guide_str = ""
   
   # Title
-  usage_guide_str += "<br><h1> Learn how to use LeetTrader </h1> <br>"
+  usage_guide_str += "<br><h1 id='top'> Learn how to use LeetTrader </h1> <br>"
+  nav_list = []
   # Body
   for intent in guides['intents']:
     # Context 1 is for tutorial on how to use LeetTrader
     if intent['context'] == 1:
-      usage_guide_str += "<h3>" + intent['tag'] + "</h3>" + "<br>" + "<p>" + intent['responses'][0] + "</p>" + "<br>"
+      usage_guide_str += "<h3 id='" + intent['tag'] + "'>" + intent['tag'] + "</h3>" + "<br>" + "<p>" + intent['responses'][0] + "</p>" + "<br>"
+      nav_list.append(intent['tag'])
 
-  return render_template('usage_guide.html', usage_guide_str=usage_guide_str)
+
+  return render_template('usage_guide.html', usage_guide_str=usage_guide_str, nav_list=nav_list)
 
 
 @tutorial.route("/tutorial", methods=['GET'])
@@ -33,9 +36,11 @@ def help():
   trading_help = ""
   # Title
   trading_help += "<br><h1> Learn trading terminology </h1> <br>"
+  nav_list = []
   # Body
   for intent in trading['intents']:
     # Context 2 is for learning trading terminology.
     if intent['context'] == 2:
-      trading_help += "<h3>" + intent['tag'] + "</h3>" + "<br>" + "<p>" + intent['responses'][0] + "</p>" + "<br>"
-  return render_template('tutorial.html', trading_help=trading_help)
+      trading_help += "<h3 id='" + intent['tag'] + "'>" + intent['tag'] + "</h3>" + "<br>" + "<p>" + intent['responses'][0] + "</p>" + "<br>"
+      nav_list.append(intent['tag'])
+  return render_template('tutorial.html', trading_help=trading_help, nav_list=nav_list)

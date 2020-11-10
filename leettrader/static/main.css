@@ -415,3 +415,24 @@ button {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+/* listgroup */
+
+.listgroup {
+  position: relative;
+  top: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.listgroup-item {
+  margin: 20px;
+}
+
+.listgroup-item a {
+  color: grey;
+}
+
+.listgroup-item a:hover {
+  color: black;
+  text-decoration: none;
+}

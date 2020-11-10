@@ -1,8 +1,13 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "listgroup_layout.html" %}
+{% block listgroup %}
+{% for item in nav_list %}
+  <p class='listgroup-item'><a href="#{{item}}">{{ item }}</a></p>
+{% endfor %}
+{% endblock listgroup %}
+{% block right_content %}
 
 <div class="container">
     {{ trading_help | safe }}
 </div>
 
-{% endblock content %}
+{% endblock right_content %}
