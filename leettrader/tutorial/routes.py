@@ -15,7 +15,7 @@ def usage_guide():
   usage_guide_str = ""
   
   # Title
-  usage_guide_str += "<h1> Learn how to use LeetTrader </h1> <br>"
+  usage_guide_str += "<br><h1> Learn how to use LeetTrader </h1> <br>"
   # Body
   for intent in guides['intents']:
     # Context 1 is for tutorial on how to use LeetTrader
@@ -32,7 +32,7 @@ def help():
   trading = json.loads(open('leettrader/tutorial/intents.json').read())
   trading_help = ""
   # Title
-  trading_help += "<h1> Learn trading terminology </h1> <br>"
+  trading_help += "<br><h1> Learn trading terminology </h1> <br>"
   # Body
   for intent in trading['intents']:
     # Context 2 is for learning trading terminology.
