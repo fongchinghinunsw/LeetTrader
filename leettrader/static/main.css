@@ -240,7 +240,7 @@ button {
     z-index: 2;
     position: fixed;
     right: 50px;
-    bottom: 150px;
+    bottom: 50px;
     background: dodgerblue;
     color: white;
     width: 60px;
