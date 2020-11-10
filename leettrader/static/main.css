@@ -150,14 +150,18 @@ body {
 }
 
 #ceo_image {
-  height: 400px;
-  width: 450px;
+  height: 300px;
+  width: 350px;
   border-radius: 5%;
+  position: relative;
+  top: 50px;
 }
 
 #ceo_intro {
-  height: 400px;
-  width: 450px;
+  height: 350px;
+  width: 400px;
+  position: relative;
+  top: 50px;
 }
 
 #footer {
