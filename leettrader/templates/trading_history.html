@@ -1,5 +1,8 @@
 {% extends "main_layout.html" %}
 {% block left_content %}
+{% if records|length == 0 %}
+<div id='no-reminder-alert' class="alert alert-danger">no transaction has been made</div>
+{% else %}
 <ul class="list-group reminder-list">
 {% for i in range(records|length) %}
   <li class="list-group-item reminder-list-item">
@@ -11,4 +14,5 @@
   </li>
 {% endfor %}
 </ul>
+{% endif %}
 {% endblock left_content %}
