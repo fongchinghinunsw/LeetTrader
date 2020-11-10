@@ -258,7 +258,7 @@ button {
 .chat-popup {
     display: none;
     position: fixed;
-    bottom: 220px;
+    bottom: 120px;
     right: 50px;
     height: 400px;
     width: 300px;
@@ -379,9 +379,10 @@ button {
 /* account profile page  */
 
 .account-text {
-  font-family: "Lucida Console", Monaco, monospace;
   font-size: 40px;
+  margin-bottom: 40px;
 }
+
 .account-img {
   height: 125px;
   width: 125px;
