@@ -51,3 +51,5 @@ def init_db():
   drop_db()
   create_db()
   add_data()
+
+init_db()
