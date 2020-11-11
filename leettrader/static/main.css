@@ -416,3 +416,23 @@ button {
 .my-customised {
   font-family: "Lucida Console", Monaco, monospace;
 }
+
+
+.file{
+  display:block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: url(https://icons.iconarchive.com/icons/graphicloads/flat-finance/128/person-icon.png) no-repeat center center;
+  background-size: cover;
+}
+
+.file input{
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+}
