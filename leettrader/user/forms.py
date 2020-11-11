@@ -104,7 +104,7 @@ class accountUpdatedForm(FlaskForm):
       ])
 
   email = StringField('Email', validators=[DataRequired(), Email()])
-  icon = FileField('Update your icon', validators=[FileAllowed(['jpeg', 'jpg', 'png'])])
+  icon = FileField('Choose your own icon Here', validators=[FileAllowed(['jpeg', 'jpg', 'png'])])
   submit = SubmitField('Update')
 
   def validate_username(self, username):
