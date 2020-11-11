@@ -64,11 +64,11 @@
           <div class="form-group">
             {{ update_form.icon.label() }}
             {{ update_form.icon(class="form-control-file") }}
-              {% if update_form.icon.errors %}
-                  {% for error in update_form.icon.errors %}
+            {% if update_form.icon.errors %}
+                {% for error in update_form.icon.errors %}
                     <span class="text-danger">{{ error }}</span>
-                  {% endfor %}
-              {% endif %}
+                {% endfor %}
+            {% endif %}
           </div>
           
           <div class="form-group">
