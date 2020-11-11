@@ -25,7 +25,7 @@ def create_app(config_class=Config):
   app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
   admin = Admin(app, name='Admin',base_template='admin/base.html', template_mode='bootstrap3')
   class UserView(ModelView):
-    can_delete = False 
+    can_edit = False 
     can_create = False
   from leettrader.models import User
   admin.add_view(UserView(User, db.session))
