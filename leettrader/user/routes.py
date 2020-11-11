@@ -128,17 +128,22 @@ def login():
 @login_required
 def account_profile():
   update_form = accountUpdatedForm()
+  update_form.username.data = current_user.username
+  update_form.email.data = current_user.email
+  user_icon = url_for('static', filename='account_icons/' + current_user.icon)
+  if request.method == 'GET':
+    return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
+  
   if update_form.validate_on_submit():
+    if current_user.username == update_form.username.data and current_user.email == update_form.email.data:
+      flash('Nothing updated !', 'info')
+      return redirect(url_for('users.account_profile'))
+
     current_user.username = update_form.username.data
     current_user.email = update_form.email.data
     db.session.commit()
     flash('Your account has been updated !', 'success')
     return redirect(url_for('users.account_profile'))
-  elif request.method == 'GET':
-    update_form.username.data = current_user.username
-    update_form.email.data = current_user.email
-  user_icon = url_for('static', filename='account_icons/' + current_user.icon)
-  return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
   
 
 @user.route("/settings")
