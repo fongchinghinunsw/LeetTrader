@@ -28,7 +28,7 @@
        </form>
       </div>
 
-      <form method="POST" action="">
+      <form method="POST" action="" enctype="multipart/form-data">
           <!-- protect our form from certain attacks -->
           {{ update_form.hidden_tag() }}
           <legend class="border-bottom mb-4">Update your Account</legend>
@@ -50,7 +50,7 @@
           <div class="form-group">
             {{ update_form.email.label(class="form-control-label") }}
             {% if update_form.email.errors %}
-        {{ update_form.email(class="form-control form-control-lg is-invalid my-customised") }}
+             {{ update_form.email(class="form-control form-control-lg is-invalid my-customised") }}
               <div class="alert alert-danger" role="alert">
                   {% for error in update_form.email.errors %}
                     <span>{{ error }}</span>

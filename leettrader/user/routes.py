@@ -1,7 +1,9 @@
 """
   Routing of Account Mangement, Simul-Buy and Sell
 """
+import os
 import operator
+import secrets
 from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
@@ -124,6 +126,29 @@ def login():
   # Fail to login, stay in login page
   return render_template('login.html', title='login', loginForm=login_form)
 
+# save the user chosen icon to the local
+def save_icon_pic(icon_file):
+   
+  # get the random hex number
+  rand_hex = secrets.token_hex(8)
+  # get the icon file suffix
+  _, file_suffix = os.path.splitext(icon_file.filename)
+  # get the icon name after hex
+  icon_name = rand_hex + file_suffix
+  # get the leettrader folder
+  parent_dir = os.path.dirname(user.root_path)
+
+   # remove the previous icon pic to save space
+  prev_icon_path = os.path.join(parent_dir, 'static', 'account_icons', current_user.icon)
+  if os.path.exists(prev_icon_path) and os.path.basename(prev_icon_path) != 'trump.jpg':
+    os.remove(prev_icon_path)
+
+  # get the whole icon file path
+  icon_path = os.path.join(parent_dir, 'static', 'account_icons', icon_name)
+  # save the file into the path we created
+  icon_file.save(icon_path)
+  return icon_name
+
 @user.route("/account", methods=['GET', 'POST'])
 @login_required
 def account_profile():
@@ -135,9 +160,10 @@ def account_profile():
     return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
   
   if update_form.validate_on_submit():
-    if current_user.username == update_form.username.data and current_user.email == update_form.email.data:
-      flash('Nothing updated !', 'info')
-      return redirect(url_for('users.account_profile'))
+    
+    if update_form.icon.data:
+      profile_icon_name = save_icon_pic(update_form.icon.data)
+      current_user.icon = profile_icon_name
 
     current_user.username = update_form.username.data
     current_user.email = update_form.email.data
