@@ -34,3 +34,16 @@ Week 6
 We had a meeting on Monday, assigned User stories for this iteration.
 I have completed the Chatbot for the app, although it looks great on other groupmates browser, it is a bit troublesome to handle the environment setup on vlab.
 We had a further meeting on Wednesday, decided that each of us will do more user stories on week 7.
+
+Week 7
+The chatbot implemented using Keras's Neural Network has been done.
+All the reminder functionalties have been implemented, the main challenge I faced is the child threads cannot access the original app instance easily, I tried to pass the database items directly to the child thread but it becomes null once leave the main thread. So instead, I create a new app instance in child thread which has the access to all data in the original app instance.
+
+Week 8
+We have a meeting on Tuesday, tested the app together, 2-3 acceptance criteria were founded not implemented correctly. Each of us agreed on finishing their part on Wednesday.
+On Wednesday, I rechecked all the acceptance criteria in the 2nd sprint, and then push them into the release branch.
+
+Week 9
+I have completed the transaction history, I have also add a side navbar on the tutorial and usage guide page so that users can easily navigate with these two pages.
+I have improved the UI of the whole app, making it more dynamic and look prettier.
+I have written a script to build and run the app on vlab, previously, not all of our functionalities can be demonstrated on vlab because of the virtual environment issue but now I've managed to fix it.
