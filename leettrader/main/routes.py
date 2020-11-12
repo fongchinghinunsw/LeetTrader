@@ -11,11 +11,3 @@ main = Blueprint('main', __name__)
 def landing():
   ''' Landing Page before Login '''
   return render_template('landing.html')
-
-
-@main.route("/<int:userID>")
-@login_required
-def home(userID):
-  ''' Home Page after Login '''
-  
-  return render_template('home.html')
