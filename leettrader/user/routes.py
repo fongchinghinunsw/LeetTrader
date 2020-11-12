@@ -243,42 +243,36 @@ def delete_account_token(token):
     return redirect(url_for('users.login'))
 
 
+''' ========== Order ==========='''
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
 def order(stock, action):
-  ''' Order Page '''
+  ''' Order Page: Check if buy/sell action is legal '''
   order_form = OrderForm()
   
+  # When user click on sumbit, react accordingly
   if order_form.validate_on_submit():
+    # Read Database
     quantity = order_form.quantity.data
     transaction_type = order_form.transaction_type.data
     stock_id = Stock.query.filter_by(code=stock).first().id
+    ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
+                                          stock_id=stock_id).first()
     print(stock_id)
 
-    if action == "buy":
-      print("You are buying a stock")
-      return redirect(
-          url_for('users.checkout',
-                  action=action,
-                  stock=stock,
-                  quantity=quantity,
-                  transaction_type=transaction_type))
 
-    elif action == "sell":
-      ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                          stock_id=stock_id).first()
-      print("You don't own any this stock")
-      if ownStock is not None and ownStock.unit >= quantity:
-        print("Currently, you own", ownStock.unit, "units of stock")
-        return redirect(
-            url_for('users.checkout',
-                    action=action,
-                    stock=stock,
-                    quantity=quantity,
-                    transaction_type=transaction_type))
-      else:
-        flash('You do not have enough amount of this stock to sell', "danger")
+    # Case 1: Buy Stock / Have enough stock to sell, go to checkout page
+    if action == "buy" or (ownStock is not None and ownStock.unit >= quantity):
+      print("You are " + action + "ing a stock.")
+      return redirect(url_for('users.checkout',
+                              action=action,
+                              stock=stock,
+                              quantity=quantity,
+                              transaction_type=transaction_type))
 
+    # Case 2: Fail to Sell Stock, display flash msg
+    flash('You do not have enough amount of this stock to sell', "danger")          
+  
   return render_template('order.html',
                          title='order',
                          stock=stock,
@@ -290,71 +284,66 @@ def order(stock, action):
             methods=['GET', 'POST'])
 @login_required
 def checkout(stock, action):
+  # Read Inputs
   quantity = request.args.get('quantity')
   transaction_type = request.args.get('transaction_type')
-
   stock_obj = Stock.query.filter_by(code=stock).first()
   stock_id = stock_obj.id
-
   current_market_price = get_search_result(stock_obj.code)['price']
 
+  # Construct checkout form
   checkout_form = CheckoutForm(
       current_market_price=current_market_price,
       total_price=str(float(current_market_price) * int(quantity)))
 
+  # React according to Button Onclick
   if checkout_form.validate_on_submit():
-    # the submit button is clicked.
-    if checkout_form.submit.data:
-      ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                          stock_id=stock_id).first()
-      if ownStock is None:
-        # only true if the action is buy.
-        ownStock = OwnStock(user_id=current_user.get_id(),
-                            stock_id=stock_id,
-                            unit=int(quantity),
-                            total_purchase_price=int(quantity) *
-                            float(checkout_form.data['current_market_price']))
-        
-        # "success" is bootstrap green alert formatting - checkout bootstrap alert
-        flash(
-            f"Brought a new stock " + stock + "! You have" +
-            str(ownStock.unit) + " units of this stock remain", "success")
-        db.session.add(ownStock)
-      
-      else:
-        if action == "buy":
-          ownStock.unit += int(quantity)
-          ownStock.total_purchase_price += int(quantity) * float(
-              checkout_form.data['current_market_price'])
-          flash(
-              f"Brought " + stock + "! You have " + str(ownStock.unit) +
-              " units of this stock remain", "success")
-        
-        else:
-          ownStock.unit -= int(quantity)
-          ownStock.total_purchase_price -= int(quantity) * float(
-              checkout_form.data['current_market_price'])
-          flash(
-              "Sold " + stock + "! You have " + str(ownStock.unit) +
-              " units of this stock remain", "success")
-          if ownStock.unit == 0:
-            db.session.delete(ownStock)
-
-      action = {"buy": "BUY", "sell": "SELL"}[action]
-      print(stock_obj, "-----------------")
-      record = TransactionRecord(user_id=current_user.get_id(), time=datetime.now(), action=action, stock=stock_obj, stock_id=stock_id, quantity=quantity, unit_price=checkout_form.data['current_market_price'])
-      db.session.add(record)
-      db.session.commit()
-      return redirect(url_for('users.home'))
-
-    # the cancel button is clicked.
-    elif checkout_form.cancel.data:
+    # Return to Search Page if Cancel Order
+    if checkout_form.cancel.data:
       return redirect(url_for('stocks.search_page', code=stock_obj.code))
 
-  # checkout_form.data is a dict containing all fields value, e.g. {'current_market_price': None, 'total_price': None, 'submit': False, 'csrf_token': None}
-  #checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']
-  print(checkout_form.data)
+    # Calcualte Quantity & Total purchase price change
+    unit_change = int(quantity)
+    price_change = int(quantity) * float(checkout_form.data['current_market_price'])
+    if action == "sell":
+      unit_change *= -1
+      price_change *= -1
 
+    # If stock is not owned list, create Tuple & buy stock
+    ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
+                                        stock_id=stock_id).first()
+
+    if ownStock is None:
+      # Create Tuple & Add to Database
+      ownStock = OwnStock(user_id=current_user.get_id(), stock_id=stock_id,
+                          unit=unit_change, total_purchase_price=price_change)
+      db.session.add(ownStock)
+
+    # Else, buy Stock / Sell Stock
+    else:
+      ownStock.unit += unit_change
+      ownStock.total_purchase_price += price_change
+      if ownStock.unit == 0:
+        db.session.delete(ownStock) # Delete Tuple if Ownstock is Zero
+
+    # Display Flash Message
+    flash_msg = build_order_success_msg(action, stock, ownStock.unit)
+    flash(flash_msg, "success")
+
+    # Modify Database & Return
+    action = {"buy": "BUY", "sell": "SELL"}[action]
+    print(stock_obj, "-----------------")
+    record = TransactionRecord(user_id=current_user.get_id(), 
+                              time=datetime.now(), action=action, 
+                              stock=stock_obj, stock_id=stock_id, 
+                              quantity=quantity, unit_price=checkout_form.data['current_market_price'])
+    db.session.add(record)
+    db.session.commit()
+    return redirect(url_for('users.home'))
+
+  # checkout_form.data is a dict: {'current_market_price': v1, 'total_price': v2, 'submit': Bool, 'csrf_token': v3}
+  # checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']
+  print(checkout_form.data)
   return render_template('checkout.html',
                          title='checkout',
                          stock_obj=stock_obj,
@@ -363,6 +352,19 @@ def checkout(stock, action):
                          checkout_form=checkout_form)
 
 
+def build_order_success_msg(action, stock, unit):
+  ''' Construct a flash message depending on different kinds of Order '''
+  if action == "buy":
+    flash_msg = "Brought " + stock + "! "
+  else:
+    flash_msg = "Sold " + stock + "! "
+
+  return flash_msg + "You have " + str(unit) + " units of this stock remain."
+
+
+
+
+''' =========== REMINDERS =========== '''
 @user.route("/add_reminder", methods=['GET', 'POST'])
 @login_required
 def add_reminder():
