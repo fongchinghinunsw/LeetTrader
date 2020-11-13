@@ -27,18 +27,15 @@ def check_legal_order(stock, action, qty):
   if action == "buy":
     return True
 
-  # Return False if user doesn't have this stock to sell
+  # Return False if user doesn't have enough of this stock to sell
   sid = Stock.query.filter_by(code=stock).first().id
-  own_stock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                       stock_id=sid).first()
+  uid = current_user.get_id()
+  own_stock = OwnStock.query.filter_by(user_id=uid, stock_id=sid).first()
   if own_stock is None:
     return False
-
-  # Return False if user doesn't have enough stock to sell
   if own_stock.unit < qty:
     return False
-
-  # The sell action is legal
+  
   return True
 
 
@@ -47,30 +44,36 @@ def update_own_stock(uid, sid, action, qty, tot_price):
   # Buy Stock at first time
   own_stock = OwnStock.query.filter_by(user_id=uid, stock_id=sid).first()
   if own_stock is None:
-    own_stock = OwnStock(user_id=current_user.get_id(),
-                         stock_id=sid,
-                         unit=qty,
-                         total_purchase_price=tot_price)
-    db.session.add(own_stock)
-    db.session.commit()
-    return qty
+    return buy_stock_at_first_time(uid, sid, qty, tot_price)
 
-  # Calculate change of total paid and qty, update database
+  # Calculate change of total paid and qty
   if action == "sell":
     qty *= -1
     tot_price *= -1
+  
+  # Update database
   own_stock.unit += qty
   own_stock.total_purchase_price += tot_price
-
-  # Update bank balances of user
-  update_bank(tot_price, sid)
+  update_bank(tot_price, sid) # Update bank balances of user
 
   # Delete Tuple if own stock becomes zero after order
   if own_stock.unit == 0:
     db.session.delete(own_stock)
+    db.session.commit()
 
-  db.session.commit()
   return own_stock.unit
+
+
+def buy_stock_at_first_time(uid, sid, qty, price):
+  ''' Create new stock tuple in database, return qty '''
+  own_stock = OwnStock(user_id=uid,
+                         stock_id=sid,
+                         unit=qty,
+                         total_purchase_price=price)
+  db.session.add(own_stock)
+  db.session.commit()
+  update_bank(price, sid)
+  return qty
 
 
 def update_bank(price, sid):
