@@ -2,21 +2,20 @@
   Routing of Account Mangement, Simul-Buy and Sell
 """
 import operator
-from datetime import datetime
 from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
 
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
-resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
+resetPasswordForm, deleteRequestForm, ReminderForm)
 
 from leettrader.user.utils import add_and_start_reminder
-from leettrader.user.order import check_legal_order, checkout_stock
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord, MarketType
+from leettrader.models import User, Stock, Reminder, TransactionRecord, MarketType
 from leettrader import db, bcrypt, mail
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
 
 from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
+from leettrader.order.route import order_stock, checkout_stock
 
 
 user = Blueprint('users', __name__)
@@ -69,7 +68,9 @@ def register():
     send_confirmation_email(new_user)
     flash('Confirmation email has been sent, please check your emails', 'info')
     return redirect(url_for('users.login'))
+
   return render_template('register.html', title='register', form=rform)
+
 
 @user.route("/confirm/<token>", methods=['GET', 'POST'])
 def confirm(token):
@@ -321,15 +322,11 @@ def view_trading_history():
   
   
 
-''' 
-  ORDER & CHECKOUT:
-  Backend Logic is implemented in order.py
-'''
 @user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
 @login_required
 def order(stock, action):
-  ''' Routing for Order Form '''
-  return check_legal_order(stock, action)
+  ''' Routing of Order Form '''
+  return order_stock(stock, action)
 
 
 @user.route("/checkout/<string:action>/<string:stock>",
