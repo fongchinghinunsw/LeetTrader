@@ -3,7 +3,7 @@
 """
 
 
-def build_order_success_msg(action, stock, unit):
+def get_order_success_msg(action, stock, unit):
   ''' Flash message after buy / sell stocks '''
   if action == "buy":
     flash_msg = "Brought " + stock + ". "
