@@ -35,7 +35,7 @@ def check_legal_order(stock, action, qty):
     return False
   if own_stock.unit < qty:
     return False
-  
+
   return True
 
 
@@ -50,11 +50,11 @@ def update_own_stock(uid, sid, action, qty, tot_price):
   if action == "sell":
     qty *= -1
     tot_price *= -1
-  
+
   # Update database
   own_stock.unit += qty
   own_stock.total_purchase_price += tot_price
-  update_bank(tot_price, sid) # Update bank balances of user
+  update_bank(tot_price, sid)  # Update bank balances of user
 
   # Delete Tuple if own stock becomes zero after order
   if own_stock.unit == 0:
@@ -67,9 +67,9 @@ def update_own_stock(uid, sid, action, qty, tot_price):
 def buy_stock_at_first_time(uid, sid, qty, price):
   ''' Create new stock tuple in database, return qty '''
   own_stock = OwnStock(user_id=uid,
-                         stock_id=sid,
-                         unit=qty,
-                         total_purchase_price=price)
+                       stock_id=sid,
+                       unit=qty,
+                       total_purchase_price=price)
   db.session.add(own_stock)
   db.session.commit()
   update_bank(price, sid)
