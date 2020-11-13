@@ -13,7 +13,7 @@ from leettrader.formatter import owned_table_item, color_span_2dp
 
 class BalanceSheet:
   '''
-    Balance sheet class
+    Balance sheet class. API is as followed:
       1. update() - Update B/S by given stock
       2. get_final_bs() - Return final result
   '''
@@ -25,21 +25,26 @@ class BalanceSheet:
     self.profit = {'NZD': 0.0, 'AUD': 0.0}
     self.stock_worth = {'NZD': 0.0, 'AUD': 0.0}
     self.bank = {'NZD': nz_bank, 'AUD': au_bank}
-    self.color = {'NZD': False, 'AUD': False}
+    self.color = {'NZD': False, 'AUD': False} # For format each row into diff colour
+
 
   def update(self, stock_info, purchase, qty):
     ''' Update B/S by inputing a new stock in owned list '''
+    # Read information of the owned stock
     name = stock_info[0]
     code = stock_info[1]
     market = stock_info[2] * int(qty)
     currency = stock_info[3]
 
+    # Calculate P/L & determine row color of the stock
     profit = round(market - purchase, 4)
     color = self.get_item_color(currency)
 
+    # Format the result from above into HTML string
     item = owned_table_item(name, code, qty, currency, market, purchase,
                             profit, color)
 
+    # Calcuate the new profit, worth, update stock list
     self.profit[currency] += profit
     self.stock_worth[currency] += purchase
     self.stock_list[currency].append(item)
@@ -72,5 +77,7 @@ class BalanceSheet:
 
 
   def get_item_color(self, currency):
+    ''' Determine the row color of owned stock list '''
+    # Flip color for each row, return original color
     self.color[currency] = not (self.color[currency])
     return not (self.color[currency])

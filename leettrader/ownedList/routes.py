@@ -16,24 +16,22 @@ ownedList = Blueprint('ownedList', __name__)
 @login_required
 def get_owned_list():
   ''' Initialize Banks, Return Balance Sheet '''
-  # If user doesn't have bank a/c yet, create a/c
+  # If user doesn't have bank a/c yet, create bank a/c
   if current_user.balance == {}:
-    print("Initialize bank accounts ... ")
     current_user.balance = {'AUD': 0.00, 'NZD': 0.00}
     db.session.commit()
 
-  print("Balance already initialized. Now print balance sheet.")
-  print(current_user.balance)
-
+  # Get balance sheet, jsonify it & return
   ans = get_balance_sheet()
   return jsonify(ownedList=ans), 200
 
 
 def get_balance_sheet():
   ''' Return list of owned stocks '''
+  # Initialize balance sheet object
   bal_sheet = BalanceSheet()
 
-  # Access database, get list of owned stocks from user id
+  # Access database, get user's owned stock list
   uid = current_user.get_id()
   own_list = db.session.query(OwnStock).filter(OwnStock.user_id == uid).all()
   
@@ -47,12 +45,11 @@ def get_balance_sheet():
   return bal_sheet.get_final_bs()
 
 
-def get_stock_info(stock_id):
-  ''' Return stock information of a stock '''
-  target = db.session.query(Stock).filter(Stock.id == int(stock_id)).first()
+def get_stock_info(sid):
+  ''' Return information of a owned stock '''
+  target = db.session.query(Stock).filter(Stock.id == int(sid)).first()
 
   info = get_search_result(target.code)
   worth = float(info['price'])
   currency = info['currency']
-
   return [target.name, target.code, worth, currency]
