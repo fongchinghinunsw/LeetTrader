@@ -1,5 +1,5 @@
 """
-  Routing of Owned List
+  Routing of Balance Sheet Displayed At Home
 """
 
 from flask import Blueprint, jsonify
@@ -8,6 +8,7 @@ from leettrader import db
 from leettrader.models import Stock, OwnStock
 from leettrader.formatter import owned_table_item, color_span_2dp
 from leettrader.stock.utils import get_search_result
+from leettrader.ownedList.bal_sheet import BalanceSheet
 
 
 ownedList = Blueprint('ownedList', __name__)
@@ -26,65 +27,28 @@ def get_owned_list():
   print("Balance already initialized. Now print balance sheet.")
   print(current_user.balance)
 
-  ans = get_ownedlist_from_db()
+  ans = get_balance_sheet()
   return jsonify(ownedList=ans), 200
 
 
-
-
-def get_ownedlist_from_db():
+def get_balance_sheet():
   ''' Return list of owned stocks '''
-  nz_list = []
-  au_list = []
-  nz_profit = 0
-  au_profit = 0
-  nz_worth = 0
-  au_worth = 0
-  nz_bank = current_user.balance['NZD']
-  au_bank = current_user.balance['AUD']
+  bs = BalanceSheet()
 
   # Access database, get list of owned stocks from user id
-  own_list = db.session.query(OwnStock).filter(
-      OwnStock.user_id == current_user.get_id()).all()
-
+  uid = current_user.get_id()
+  own_list = db.session.query(OwnStock).filter(OwnStock.user_id == uid).all()
   NZisColorGrey = False
   AUisColorGrey = False
-  # For each owned stock, create a HTML formatted string
+  
+  # For each owned stock, update user's balance sheet
   for item in own_list:
-    # Get information of a owned stock
-    stock_info = get_stock_info(item.stock_id)
-    name = stock_info[0]
-    code = stock_info[1]
-    market = stock_info[2] * int(item.unit)
-    currency = stock_info[3]
+    qty = item.unit
     purchase = float(item.total_purchase_price)
+    stock_info = get_stock_info(item.stock_id)
+    bs.update(stock_info, purchase, NZisColorGrey, AUisColorGrey, qty)
 
-    # Calculate Profit & Format Information as HTML Tags
-    profit = round(market-purchase, 4)
-
-    # NZ Stocks
-    if currency == "NZD":
-      item = owned_table_item(name, code, item.unit, currency, market, purchase, profit, NZisColorGrey)
-      NZisColorGrey = True if False else True
-      nz_profit += profit
-      nz_worth += purchase
-      nz_list.append(item)
-
-    # AU Stocks
-    elif currency == "AUD":
-      item = owned_table_item(name, code, item.unit, currency, market, purchase, profit, AUisColorGrey)
-      AUisColorGrey = True if False else True
-      au_profit += profit
-      au_worth += purchase
-      au_list.append(item)
-
-  # Calculate net worths of users, return balance sheet in HTML format
-  nz_tot = nz_bank + nz_worth
-  au_tot = au_bank + au_worth
-  return [nz_list, color_span_2dp(nz_profit), au_list, color_span_2dp(au_profit),
-          color_span_2dp(nz_worth), color_span_2dp(au_worth),
-          color_span_2dp(nz_bank), color_span_2dp(au_bank),
-          color_span_2dp(nz_tot), color_span_2dp(au_tot)]
+  return bs.get_final_bs()
 
 
 def get_stock_info(stock_id):

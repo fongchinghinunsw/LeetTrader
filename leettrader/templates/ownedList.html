@@ -1,22 +1,10 @@
-<!--
-<div>
-    <h5>{{ market_label }}</h5>
-    <table>
-      <tr class="ownedList-table-header">
-        <th class="m">Company Name</th>
-        <th class="m">Qty</th>
-        <th class="m">Worth</th>
-        <th class="m">Paid</th>
-        <th class="m">P/L</th>
-      </tr>
-    </table>
-
-</div>
--->
 <div style="padding-top: 20px;padding-left: 40px;">
-
+  <hr><h4>Balance Sheet</h4>
+  <table id="bs" class="ownedList" style="padding-right: 40px;"></table>
+  </br><hr>
+  
   {% for market_label in market_labels %}
-  <h5><b>Owned Stocks ({{ market_label[0] }})</b></h5>
+  <h5><b>Stocks List ({{ market_label[0] }})</b></h5>
   <table id="{{market_label[1]}}_List"  class="ownedList" style="padding-right: 40px;"></table>
   <h4 id="{{market_label[1]}}_PL" align="right" style="padding-right: 40px;"></h4>
   </br></br>
@@ -33,7 +21,7 @@
       dataType: "json",
       success: function(data) {
         
-        // Create first row of the tables
+        // Create first row of the tables of Owned Stocks
         first_row = '<tr class="ownedList-headers">'
         first_row += '<th class="ownedList-header"> Company Name </th><th class="ownedList-header"> Qty </th>'
         first_row += '<th class="ownedList-header"> Worth </th><th class="ownedList-header"> Paid </th><th class="ownedList-header"> P/L </th></tr>'
@@ -43,41 +31,47 @@
         $("#au_List").append(first_row);
 
         // Check if there's any stock in the market
-        if (data.ownedList[0].length == 0){
+        if (data.ownedList['NZD']['list'].length == 0){
           $("#nz_List").append(no_stock_msg)
         }
-
-        if (data.ownedList[2].length == 0){
+        if (data.ownedList['AUD']['list'].length == 0){
           $("#au_List").append(no_stock_msg)
         }
         
         // Create table of NZ & AU Stocks      
-        for (i = 0; i < data.ownedList[0].length; i++){
-          $("#nz_List").append(data.ownedList[0][i]);
+        for (i = 0; i < data.ownedList['NZD']['list'].length; i++){
+          $("#nz_List").append(data.ownedList['NZD']['list'][i]);
         }
-        for (i = 0; i < data.ownedList[2].length; i++){
-          $("#au_List").append(data.ownedList[2][i]);
+        for (i = 0; i < data.ownedList['AUD']['list'].length; i++){
+          $("#au_List").append(data.ownedList['AUD']['list'][i]);
         }
 
         // Show P/L for both market
-        tot = "</br><div> P/L (NZD): " + data.ownedList[1] + "</div>"
-        worth = "</br><div> Stock Worth (NZD): " + data.ownedList[4] + "</div>"
-        bank = "</br><div> Bank (NZD): " + data.ownedList[6] + "</div>"
-        net = "</br><div> Net Worth (NZD): " + data.ownedList[8] + "</div>"
-        $("#nz_PL").append(tot)
-        $("#nz_PL").append(worth)
-        $("#nz_PL").append(bank)
-        $("#nz_PL").append(net)
+        pl_nzd = "</br><div> P/L (NZD): " + data.ownedList['NZD']['profit'] + "</div>"
+        pl_aud = "</br><div> P/L (AUD): " + data.ownedList['AUD']['profit'] + "</div>"
+        $("#nz_PL").append(pl_nzd)
+        $("#au_PL").append(pl_aud)
+       
 
-        
-        tot2 = "</br><div> P/L (AUD): " + data.ownedList[3] + "</div>"
-        worth2 = "</br><div> Stock Worth (AUD): " + data.ownedList[5] + "</div>"
-        bank2 = "</br><div> Bank (AUD): " + data.ownedList[7] + "</div>"
-        net2 = "</br><div> Net Worth (AUD): " + data.ownedList[9] + "</div>"
-        $("#au_PL").append(tot2)
-        $("#au_PL").append(worth2)
-        $("#au_PL").append(bank2)
-        $("#au_PL").append(net2)
+        // Fill Balance Sheet
+        bs_row_1 = '<tr class="ownedList-headers">'
+        bs_row_1 += '<th class="ownedList-header"></th><th class="ownedList-header"> Bank </th>'
+        bs_row_1 += '<th class="ownedList-header"> Stock Worth </th><th class="ownedList-header"> Total </th></tr>'
+        $("#bs").append(bs_row_1)
+
+        bs_row_2 = '<tr class="ownedList-row">'
+        bs_row_2 += '<td class="ownedList-data"> New Zealand Market </td>'
+        bs_row_2 += '<td class="ownedList-data">' + data.ownedList['NZD']['bank']+ '</td>'
+        bs_row_2 += '<td class="ownedList-data">' + data.ownedList['NZD']['worth']+ '</td>'
+        bs_row_2 += '<td class="ownedList-data">' + data.ownedList['NZD']['total']+ '</td></tr>'
+        $("#bs").append(bs_row_2)
+
+        bs_row_3 = '<tr class="ownedList-row">'
+        bs_row_3 += '<td class="ownedList-data"> Australia Market </td>'
+        bs_row_3 += '<td class="ownedList-data">' + data.ownedList['AUD']['bank']+ '</td>'
+        bs_row_3 += '<td class="ownedList-data">' + data.ownedList['AUD']['worth']+ '</td>'
+        bs_row_3 += '<td class="ownedList-data">' + data.ownedList['AUD']['total']+ '</td></tr>'
+        $("#bs").append(bs_row_3)
       }
     }))
 </script>
