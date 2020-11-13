@@ -14,7 +14,7 @@ words=[]
 classes = []
 documents = []
 ignore_letters = ['!', '?', ',', '.']
-intents_file = open('leettrader/tutorial/intents.json').read()
+intents_file = open('intents.json').read()
 intents = json.loads(intents_file)
 
 for intent in intents['intents']:
@@ -40,8 +40,8 @@ print (len(classes), "classes", classes)
 # words = all words, vocabulary
 print (len(words), "unique lemmatized words", words)
 
-pickle.dump(words, open('leettrader/tutorial/words.pkl','wb'))
-pickle.dump(classes, open('leettrader/tutorial/classes.pkl','wb'))
+pickle.dump(words, open('words.pkl','wb'))
+pickle.dump(classes, open('classes.pkl','wb'))
 
 # create the training data
 training = []
@@ -97,6 +97,6 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 # By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 # The batch size defines the number of samples that will be propagated through the network
 hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
-model.save('leettrader/tutorial/model.h5', hist)
+model.save('model.h5', hist)
 
 print("model created")
