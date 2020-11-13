@@ -51,23 +51,33 @@
           $("#au_List").append(no_stock_msg)
         }
         
-
-        // Create table of NZ stocks        
+        // Create table of NZ & AU Stocks      
         for (i = 0; i < data.ownedList[0].length; i++){
           $("#nz_List").append(data.ownedList[0][i]);
         }
-
-        // Create table of AU stocks
         for (i = 0; i < data.ownedList[2].length; i++){
           $("#au_List").append(data.ownedList[2][i]);
         }
 
         // Show P/L for both market
         tot = "</br><div> P/L (NZD): " + data.ownedList[1] + "</div>"
+        worth = "</br><div> Stock Worth (NZD): " + data.ownedList[4] + "</div>"
+        bank = "</br><div> Bank (NZD): " + data.ownedList[6] + "</div>"
+        net = "</br><div> Net Worth (NZD): " + data.ownedList[8] + "</div>"
         $("#nz_PL").append(tot)
+        $("#nz_PL").append(worth)
+        $("#nz_PL").append(bank)
+        $("#nz_PL").append(net)
 
+        
         tot2 = "</br><div> P/L (AUD): " + data.ownedList[3] + "</div>"
+        worth2 = "</br><div> Stock Worth (AUD): " + data.ownedList[5] + "</div>"
+        bank2 = "</br><div> Bank (AUD): " + data.ownedList[7] + "</div>"
+        net2 = "</br><div> Net Worth (AUD): " + data.ownedList[9] + "</div>"
         $("#au_PL").append(tot2)
+        $("#au_PL").append(worth2)
+        $("#au_PL").append(bank2)
+        $("#au_PL").append(net2)
       }
     }))
 </script>
