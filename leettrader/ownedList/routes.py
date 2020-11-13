@@ -36,9 +36,7 @@ def get_balance_sheet():
   # Access database, get list of owned stocks from user id
   uid = current_user.get_id()
   own_list = db.session.query(OwnStock).filter(OwnStock.user_id == uid).all()
-  # nz_color_flag = False
-  # au_color_flag = False
-
+  
   # For each owned stock, update user's balance sheet
   for item in own_list:
     qty = item.unit

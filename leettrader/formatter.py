@@ -3,8 +3,7 @@
 """
 
 
-def owned_table_item(name, code, qty, currency, market, purchase, pl,
-                     isColorGrey):
+def owned_table_item(name, code, qty, currency, market, purchase, pl, color):
   ''' Export a <tr> of stock info '''
   # Round market & purchase, then calculate the P/L
   worth = round(market, 2)
@@ -17,7 +16,7 @@ def owned_table_item(name, code, qty, currency, market, purchase, pl,
   own_stock += wrap_td('{0:.2f}'.format(paid))
   own_stock += wrap_td(color_span_2dp(pl))
 
-  return wrap_tr(own_stock, isColorGrey)
+  return wrap_tr(own_stock, color)
 
 
 def format_watchlist_item(name, code, price, currency, change, percent):
@@ -35,8 +34,12 @@ def format_watchlist_item(name, code, price, currency, change, percent):
   return ans
 
 
-def wrap_tr(item, isColorGrey):
-  tag = '<tr ' + 'class="ownedList-row" style="background: #F5F5F5"' + '>' if isColorGrey else '<tr class="ownedList-row">'
+def wrap_tr(item, color):
+  if color:
+    tag = '<tr class="ownedList-row" style="background: #F5F5F5">'
+  else:
+    tag = '<tr class="ownedList-row">'
+
   return tag + item + "</tr>"
 
 

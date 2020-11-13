@@ -25,6 +25,7 @@ class BalanceSheet:
     self.profit = {'NZD': 0.0, 'AUD': 0.0}
     self.stock_worth = {'NZD': 0.0, 'AUD': 0.0}
     self.bank = {'NZD': nz_bank, 'AUD': au_bank}
+    self.color = {'NZD': False, 'AUD': False}
 
   def update(self, stock_info, purchase, qty):
     ''' Update B/S by inputing a new stock in owned list '''
@@ -34,8 +35,10 @@ class BalanceSheet:
     currency = stock_info[3]
 
     profit = round(market - purchase, 4)
+    color = self.get_item_color(currency)
+
     item = owned_table_item(name, code, qty, currency, market, purchase,
-                            profit, False)
+                            profit, color)
 
     self.profit[currency] += profit
     self.stock_worth[currency] += purchase
@@ -66,3 +69,8 @@ class BalanceSheet:
         'worth': worth,
         'total': total
     }
+
+
+  def get_item_color(self, currency):
+    self.color[currency] = not (self.color[currency])
+    return not (self.color[currency])
