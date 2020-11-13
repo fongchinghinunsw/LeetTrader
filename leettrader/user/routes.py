@@ -9,6 +9,7 @@ from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
 resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
 
 from leettrader.user.utils import add_and_start_reminder, trade_stock, create_transaction_record
+from leettrader.user.order import check_legal_order, checkout_stock
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord
 from leettrader import db, bcrypt, mail
@@ -16,7 +17,6 @@ from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
 
 from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
-from leettrader.flash import build_order_success_msg
 
 
 user = Blueprint('users', __name__)
@@ -245,93 +245,6 @@ def delete_account_token(token):
     return redirect(url_for('users.login'))
 
 
-''' ========== Order ==========='''
-@user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
-@login_required
-def order(stock, action):
-  ''' Order Page: Check if buy/sell action is legal '''
-  order_form = OrderForm()
-  
-  # When user click on sumbit, react accordingly
-  if order_form.validate_on_submit():
-    # Read Database
-    quantity = order_form.quantity.data
-    transaction_type = order_form.transaction_type.data
-    stock_id = Stock.query.filter_by(code=stock).first().id
-    ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                        stock_id=stock_id).first()
-    print(stock_id)
-
-
-    # Case 1: Buy Stock / Have enough stock to sell, go to checkout page
-    if action == "buy" or (ownStock is not None and ownStock.unit >= quantity):
-      print("You are " + action + "ing a stock.")
-      return redirect(url_for('users.checkout',
-                              action=action,
-                              stock=stock,
-                              quantity=quantity,
-                              transaction_type=transaction_type))
-
-    # Case 2: Fail to Sell Stock, display flash msg
-    flash('You do not have enough amount of this stock to sell', "danger")          
-  
-  return render_template('order.html',
-                         title='order',
-                         stock=stock,
-                         action=action,
-                         order_form=order_form)
-
-
-@user.route("/checkout/<string:action>/<string:stock>",
-            methods=['GET', 'POST'])
-@login_required
-def checkout(stock, action):
-  # Read Inputs
-  uid = current_user.get_id()
-  quantity = request.args.get('quantity')
-  transaction_type = request.args.get('transaction_type')
-  stock_obj = Stock.query.filter_by(code=stock).first()
-  stock_id = stock_obj.id
-  current_market_price = get_search_result(stock_obj.code)['price']
-
-  # Construct checkout form
-  checkout_form = CheckoutForm(
-    current_market_price=current_market_price,
-    total_price=str(float(current_market_price) * int(quantity))
-  )
-
-  # Action defined when user submit order form
-  if checkout_form.validate_on_submit():
-    # Return to Search Page if Cancel Order
-    if checkout_form.cancel.data:
-      return redirect(url_for('stocks.search_page', code=stock_obj.code))
-
-    # Access Owned Stock List, trade stocks, modify database
-    ownStock = OwnStock.query.filter_by(user_id=uid, stock_id=stock_id).first()
-    unit_change = int(quantity)
-    price_change = unit_change * float(checkout_form.data['current_market_price'])
-    trade_stock(ownStock, stock_id, unit_change, price_change, action)
-
-    # Display Flash Message
-    if ownStock == None:
-      new_qty = unit_change
-    else:
-      new_qty = ownStock.unit
-    flash_msg = build_order_success_msg(action, stock, new_qty)
-    flash(flash_msg, "success")
-
-    # Construct Transaction Record, return
-    create_transaction_record(action, uid, stock_obj, stock_id, quantity, checkout_form)    
-    return redirect(url_for('users.home'))
-
-  print(checkout_form.data)
-  return render_template('checkout.html',
-                         title='checkout',
-                         stock_obj=stock_obj,
-                         action=action,
-                         quantity=quantity,
-                         checkout_form=checkout_form)
-
 
 
 ''' =========== REMINDERS =========== '''
@@ -406,3 +319,21 @@ def view_trading_history():
   return render_template("trading_history.html", records=records, stock_items_list=stocks)
   
   
+
+''' 
+  ORDER & CHECKOUT:
+  Backend Logic is implemented in order.py
+'''
+@user.route("/order/<string:action>/<string:stock>", methods=['GET', 'POST'])
+@login_required
+def order(stock, action):
+  ''' Routing for Order Form '''
+  return check_legal_order(stock, action)
+
+
+@user.route("/checkout/<string:action>/<string:stock>",
+            methods=['GET', 'POST'])
+@login_required
+def checkout(stock, action):
+  ''' Routing for Checkout Form'''
+  return checkout_stock(stock, action)
