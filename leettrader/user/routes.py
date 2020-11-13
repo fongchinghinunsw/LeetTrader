@@ -8,7 +8,7 @@ from flask import render_template, url_for, flash, redirect, Blueprint, jsonify,
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
 resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
 
-from leettrader.user.utils import add_and_start_reminder
+from leettrader.user.utils import add_and_start_reminder, trade_stock, create_transaction_record
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord
 from leettrader import db, bcrypt, mail
@@ -16,6 +16,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
 
 from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
+from leettrader.flash import build_order_success_msg
+
 
 user = Blueprint('users', __name__)
 
@@ -257,7 +259,7 @@ def order(stock, action):
     transaction_type = order_form.transaction_type.data
     stock_id = Stock.query.filter_by(code=stock).first().id
     ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                          stock_id=stock_id).first()
+                                        stock_id=stock_id).first()
     print(stock_id)
 
 
@@ -285,6 +287,7 @@ def order(stock, action):
 @login_required
 def checkout(stock, action):
   # Read Inputs
+  uid = current_user.get_id()
   quantity = request.args.get('quantity')
   transaction_type = request.args.get('transaction_type')
   stock_obj = Stock.query.filter_by(code=stock).first()
@@ -293,56 +296,34 @@ def checkout(stock, action):
 
   # Construct checkout form
   checkout_form = CheckoutForm(
-      current_market_price=current_market_price,
-      total_price=str(float(current_market_price) * int(quantity)))
+    current_market_price=current_market_price,
+    total_price=str(float(current_market_price) * int(quantity))
+  )
 
-  # React according to Button Onclick
+  # Action defined when user submit order form
   if checkout_form.validate_on_submit():
     # Return to Search Page if Cancel Order
     if checkout_form.cancel.data:
       return redirect(url_for('stocks.search_page', code=stock_obj.code))
 
-    # Calcualte Quantity & Total purchase price change
+    # Access Owned Stock List, trade stocks, modify database
+    ownStock = OwnStock.query.filter_by(user_id=uid, stock_id=stock_id).first()
     unit_change = int(quantity)
-    price_change = int(quantity) * float(checkout_form.data['current_market_price'])
-    if action == "sell":
-      unit_change *= -1
-      price_change *= -1
-
-    # If stock is not owned list, create Tuple & buy stock
-    ownStock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                        stock_id=stock_id).first()
-
-    if ownStock is None:
-      # Create Tuple & Add to Database
-      ownStock = OwnStock(user_id=current_user.get_id(), stock_id=stock_id,
-                          unit=unit_change, total_purchase_price=price_change)
-      db.session.add(ownStock)
-
-    # Else, buy Stock / Sell Stock
-    else:
-      ownStock.unit += unit_change
-      ownStock.total_purchase_price += price_change
-      if ownStock.unit == 0:
-        db.session.delete(ownStock) # Delete Tuple if Ownstock is Zero
+    price_change = unit_change * float(checkout_form.data['current_market_price'])
+    trade_stock(ownStock, stock_id, unit_change, price_change, action)
 
     # Display Flash Message
-    flash_msg = build_order_success_msg(action, stock, ownStock.unit)
+    if ownStock == None:
+      new_qty = unit_change
+    else:
+      new_qty = ownStock.unit
+    flash_msg = build_order_success_msg(action, stock, new_qty)
     flash(flash_msg, "success")
 
-    # Modify Database & Return
-    action = {"buy": "BUY", "sell": "SELL"}[action]
-    print(stock_obj, "-----------------")
-    record = TransactionRecord(user_id=current_user.get_id(), 
-                              time=datetime.now(), action=action, 
-                              stock=stock_obj, stock_id=stock_id, 
-                              quantity=quantity, unit_price=checkout_form.data['current_market_price'])
-    db.session.add(record)
-    db.session.commit()
+    # Construct Transaction Record, return
+    create_transaction_record(action, uid, stock_obj, stock_id, quantity, checkout_form)    
     return redirect(url_for('users.home'))
 
-  # checkout_form.data is a dict: {'current_market_price': v1, 'total_price': v2, 'submit': Bool, 'csrf_token': v3}
-  # checkout_form.data['current_market_price'] = get_search_result(stock_obj.code)['price']
   print(checkout_form.data)
   return render_template('checkout.html',
                          title='checkout',
@@ -350,17 +331,6 @@ def checkout(stock, action):
                          action=action,
                          quantity=quantity,
                          checkout_form=checkout_form)
-
-
-def build_order_success_msg(action, stock, unit):
-  ''' Construct a flash message depending on different kinds of Order '''
-  if action == "buy":
-    flash_msg = "Brought " + stock + "! "
-  else:
-    flash_msg = "Sold " + stock + "! "
-
-  return flash_msg + "You have " + str(unit) + " units of this stock remain."
-
 
 
 
