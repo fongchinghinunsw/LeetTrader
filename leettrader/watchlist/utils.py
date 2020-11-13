@@ -38,7 +38,6 @@ def remove_stocks(current_user, code):
     db.session.commit()
 
 
-
 def get_list(current_user):
   ''' Return stock code & name of all stock in watchlist '''
   # Set up ans list and get watchlist of user
@@ -76,6 +75,6 @@ def str_to_float(num):
     return str_to_float(num[:-1])
 
   if num[0] == '-':
-    return str_to_float(num[1:])*-1
+    return str_to_float(num[1:]) * -1
 
   return round(float(num), 4)

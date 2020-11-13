@@ -30,7 +30,7 @@ def check_legal_order(stock, action, qty):
   # Return False if user doesn't have this stock to sell
   sid = Stock.query.filter_by(code=stock).first().id
   own_stock = OwnStock.query.filter_by(user_id=current_user.get_id(),
-                                        stock_id=sid).first()
+                                       stock_id=sid).first()
   if own_stock is None:
     return False
 
@@ -47,8 +47,10 @@ def update_own_stock(uid, sid, action, qty, tot_price):
   # Buy Stock at first time
   own_stock = OwnStock.query.filter_by(user_id=uid, stock_id=sid).first()
   if own_stock is None:
-    own_stock = OwnStock(user_id=current_user.get_id(), stock_id=sid,
-                        unit=qty, total_purchase_price=tot_price)
+    own_stock = OwnStock(user_id=current_user.get_id(),
+                         stock_id=sid,
+                         unit=qty,
+                         total_purchase_price=tot_price)
     db.session.add(own_stock)
     db.session.commit()
     return qty
@@ -72,23 +74,26 @@ def update_own_stock(uid, sid, action, qty, tot_price):
 
 
 def update_bank(price, sid):
-  target = db.session.query(Stock).filter(Stock.id==int(sid)).first()
+  ''' Update bank balance after placing stock order '''
+  target = db.session.query(Stock).filter(Stock.id == int(sid)).first()
   info = get_search_result(target.code)
   current_user.balance[info['currency']] -= price
   db.session.commit()
-  return
-
 
 
 def create_transaction_record(uid, action, stock, qty, checkout_form):
   ''' Create transaction record in Database '''
   action = {"buy": "BUY", "sell": "SELL"}[action]
-  record = TransactionRecord(user_id=uid, time=datetime.now(), action=action,
-                            stock=stock, stock_id=stock.id, quantity=qty,
-                            unit_price=checkout_form.data['current_market_price'])
+  record = TransactionRecord(
+      user_id=uid,
+      time=datetime.now(),
+      action=action,
+      stock=stock,
+      stock_id=stock.id,
+      quantity=qty,
+      unit_price=checkout_form.data['current_market_price'])
   db.session.add(record)
   db.session.commit()
-
 
 
 def get_order_success_msg(action, stock, unit):

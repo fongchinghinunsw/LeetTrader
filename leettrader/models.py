@@ -16,7 +16,6 @@ from flask_login import UserMixin
 from leettrader import db, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-
 watchlist_items = db.Table(
     'watchlist_items',
     db.Column('watchlist_id',
@@ -52,8 +51,7 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
-  balance = db.Column(MutableDict.as_mutable(PickleType),
-                  default=dict())
+  balance = db.Column(MutableDict.as_mutable(PickleType), default=dict())
 
   # backref is a way to declare a new property on the TransactionRecord class
   # You can then use transaction.person to get to the person at that address
@@ -117,6 +115,7 @@ class User(db.Model, UserMixin):
       return None
     # return the user with user_id
     return User.query.get(user_id)
+
   def is_admin(self):
     return self.user_type == UserType.ADMIN
 
@@ -137,7 +136,6 @@ class MarketType(enum.Enum):
   @staticmethod
   def get_market_labels():
     return [['New Zealand', 'nz'], ['Australia', 'au']]
-    
 
 
 class Stock(db.Model):
@@ -150,7 +148,8 @@ class Stock(db.Model):
   watchlist = db.relationship('Watchlist',
                               secondary=watchlist_items,
                               lazy=True)
-  transaction_id = db.Column(db.Integer, db.ForeignKey('transaction_record.id'))
+  transaction_id = db.Column(db.Integer,
+                             db.ForeignKey('transaction_record.id'))
 
   def __repr__(self):
     return f"Stock('{self.name}', '{self.code}')"

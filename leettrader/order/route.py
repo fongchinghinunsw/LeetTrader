@@ -6,7 +6,10 @@ from flask import render_template, url_for, flash, redirect, request
 from flask_login import current_user
 
 from leettrader.user.forms import (OrderForm, CheckoutForm)
-from leettrader.order.utils import *
+from leettrader.order.utils import check_min_order, check_legal_order
+from leettrader.order.utils import update_own_stock, get_order_success_msg
+from leettrader.order.utils import create_transaction_record
+
 from leettrader.stock.utils import get_search_result
 from leettrader.models import Stock
 
@@ -24,19 +27,26 @@ def order_stock(stock, action):
     # Check if transaction amt > $1
     if not check_min_order(stock, int(qty)):
       flash('Transaction amount should be larger than $1.', "danger")
-    
+
     # If the order is legal, direct to checkout page
     elif check_legal_order(stock, action, qty):
-      return redirect(url_for('users.checkout', action=action,
-                              stock=stock, quantity=qty, transaction_type=t_type))
+      return redirect(
+          url_for('users.checkout',
+                  action=action,
+                  stock=stock,
+                  quantity=qty,
+                  transaction_type=t_type))
 
     # Else, show flash message of error
     else:
-      flash('You do not have enough amount of this stock to sell', "danger") 
-  
+      flash('You do not have enough amount of this stock to sell', "danger")
+
   #Direct to Order Page
-  return render_template('order.html', title='order',
-                         stock=stock, action=action, order_form=order_form)
+  return render_template('order.html',
+                         title='order',
+                         stock=stock,
+                         action=action,
+                         order_form=order_form)
 
 
 def checkout_stock(stock, action):
@@ -50,7 +60,8 @@ def checkout_stock(stock, action):
   # Calculate total checkout price, display it on checkout page
   unit_price = get_search_result(stock_obj.code)['price']
   tot_price = float(unit_price) * int(qty)
-  checkout_form = CheckoutForm(current_market_price=unit_price, total_price=str(tot_price))
+  checkout_form = CheckoutForm(current_market_price=unit_price,
+                               total_price=str(tot_price))
 
   # When user submit the checkout form
   if checkout_form.validate_on_submit():
@@ -65,7 +76,7 @@ def checkout_stock(stock, action):
     create_transaction_record(uid, action, stock_obj, qty, checkout_form)
     return redirect(url_for('users.home'))
 
-  # Return Checkout Page    
+  # Return Checkout Page
   return render_template('checkout.html',
                          title='checkout',
                          stock_obj=stock_obj,

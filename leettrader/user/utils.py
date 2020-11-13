@@ -10,18 +10,19 @@ from leettrader.models import User, Stock, Reminder, TransactionRecord, OwnStock
 from flask_login import current_user
 
 
-
 def add_and_start_reminder(reminder, username):
 
-  thread = Thread(name="ReminderHandler", target=reminder_handler, args=[reminder, username])
+  thread = Thread(name="ReminderHandler",
+                  target=reminder_handler,
+                  args=[reminder, username])
   thread.daemon = True
   thread.start()
+
 
 def reminder_handler(reminder, username):
 
   from leettrader import create_app
   app = create_app()
-
 
   with app.app_context():
     db.session.add(reminder)
@@ -43,9 +44,11 @@ def reminder_handler(reminder, username):
     # is the reminder still existing? (has it been deleted?)
     exists = True
     print("Reminder id is", reminder_id)
-    print(Reminder.query.filter_by(id=reminder_id).all(), "is the reminders list")
+    print(
+        Reminder.query.filter_by(id=reminder_id).all(),
+        "is the reminders list")
     if orig_price < target_price:
-      while True and exists:  
+      while True and exists:
         if not exists:
           print("Not exist")
         current_price = float(get_search_result(stock.get_code())['price'])
@@ -55,9 +58,10 @@ def reminder_handler(reminder, username):
           break
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        exists = False if Reminder.query.filter_by(id=reminder_id).all() == [] else True
+        exists = False if Reminder.query.filter_by(
+            id=reminder_id).all() == [] else True
     else:
-      while True and exists:  
+      while True and exists:
         if not exists:
           print("Not exist")
         current_price = float(get_search_result(stock.get_code())['price'])
@@ -67,11 +71,11 @@ def reminder_handler(reminder, username):
           break
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        exists = False if Reminder.query.filter_by(id=reminder_id).all() == [] else True
+        exists = False if Reminder.query.filter_by(
+            id=reminder_id).all() == [] else True
 
     if exists:
       db.session.delete(reminder)
       db.session.commit()
     else:
       print("The reminder is deleted manually")
-

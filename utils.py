@@ -35,21 +35,26 @@ def add_data():
       stocks = get_stocks_by_country(market)
       print(f"Adding {len(stocks)} stocks from the {market} market.")
       for stock in stocks:
-        db.session.add(Stock(market_type=market, name=stock['description'], code=stock['symbol']))
+        db.session.add(
+            Stock(market_type=market,
+                  name=stock['description'],
+                  code=stock['symbol']))
 
     password_hashed = bcrypt.generate_password_hash("passw0rd").decode('utf-8')
-    admin = User(user_type = "ADMIN",
+    admin = User(user_type="ADMIN",
                  username="Donald Trump",
                  email="trump@leettrader.com",
                  password=password_hashed)
 
     db.session.add(admin)
-    
+
     db.session.commit()
+
 
 def init_db():
   drop_db()
   create_db()
   add_data()
+
 
 init_db()

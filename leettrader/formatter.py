@@ -2,7 +2,9 @@
   This Module exports HTML formated contents
 """
 
-def owned_table_item(name, code, qty, currency, market, purchase, pl, isColorGrey):
+
+def owned_table_item(name, code, qty, currency, market, purchase, pl,
+                     isColorGrey):
   ''' Export a <tr> of stock info '''
   # Round market & purchase, then calculate the P/L
   worth = round(market, 2)
@@ -20,7 +22,8 @@ def owned_table_item(name, code, qty, currency, market, purchase, pl, isColorGre
 
 def format_watchlist_item(name, code, price, currency, change, percent):
   # Hyperlink & Stock Name
-  ans = '<li id="' + code.replace(".", "_") + '"class="list-group-item list-group-item-light">'
+  ans = '<li id="' + code.replace(
+      ".", "_") + '"class="list-group-item list-group-item-light">'
   ans += a_href(str(name + ' (' + code + ')'), code)
 
   # Price Tags
@@ -48,6 +51,7 @@ def color_span(num):
 
   return '<span style="color: red"> ' + str(num) + '</span>'
 
+
 def color_span_2dp(num):
   if '{0:.2f}'.format(num) == "-0.00":
     return '<span style="color: green"> +0.00 </span>'
@@ -64,8 +68,8 @@ def div(content):
 
 def a_href(content, stockCode):
   url = '/search/' + stockCode
-  
+
   ans = '<a href=' + url + '>'
   ans += str(content) + '</a>'
 
-  return '<a href='+url+'>' + str(content) + '</a>'
+  return '<a href=' + url + '>' + str(content) + '</a>'

@@ -66,6 +66,7 @@ class resetRequestForm(FlaskForm):
     if user is None:
       raise ValidationError('This email has not been registered yet')
 
+
 class resetPasswordForm(FlaskForm):
   password = PasswordField(
       'Password',
@@ -80,6 +81,7 @@ class resetPasswordForm(FlaskForm):
                                       EqualTo('password')])
 
   submit = SubmitField('Reset Password')
+
 
 class deleteRequestForm(FlaskForm):
   ''' delete account request Form '''
