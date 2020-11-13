@@ -17,7 +17,6 @@ class BalanceSheet:
       1. update() - Update B/S by given stock
       2. get_final_bs() - Return final result
   '''
-
   def __init__(self):
     nz_bank = current_user.balance['NZD']
     au_bank = current_user.balance['AUD']
@@ -25,8 +24,10 @@ class BalanceSheet:
     self.profit = {'NZD': 0.0, 'AUD': 0.0}
     self.stock_worth = {'NZD': 0.0, 'AUD': 0.0}
     self.bank = {'NZD': nz_bank, 'AUD': au_bank}
-    self.color = {'NZD': False, 'AUD': False} # For format each row into diff colour
-
+    self.color = {
+        'NZD': False,
+        'AUD': False
+    }  # For format each row into diff colour
 
   def update(self, stock_info, purchase, qty):
     ''' Update B/S by inputing a new stock in owned list '''
@@ -49,7 +50,6 @@ class BalanceSheet:
     self.stock_worth[currency] += purchase
     self.stock_list[currency].append(item)
 
-
   def get_final_bs(self):
     ''' Return B/S after calculation as formatted HTML String '''
     nz_table = self.get_stock_table('NZD')
@@ -58,14 +58,12 @@ class BalanceSheet:
 
     return {'NZD': nz_table, 'AUD': au_table, 'BS': bs_table}
 
-
   def get_stock_table(self, currency):
     ''' Return a financial statement for a given market '''
     stocklist = self.stock_list[currency]
     profit = color_span_2dp(self.profit[currency])
-    
-    return {'list': stocklist, 'profit': profit}
 
+    return {'list': stocklist, 'profit': profit}
 
   def get_bs_table(self):
     ''' Return a HTML formatted table of balance sheet '''
@@ -81,9 +79,8 @@ class BalanceSheet:
 
     return format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot)
 
-
   def get_item_color(self, currency):
     ''' Determine the row color of owned stock list '''
     # Flip color for each row, return original color
-    self.color[currency] = not (self.color[currency])
-    return not (self.color[currency])
+    self.color[currency] = not self.color[currency]
+    return not self.color[currency]

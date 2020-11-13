@@ -34,7 +34,7 @@ def get_balance_sheet():
   # Access database, get user's owned stock list
   uid = current_user.get_id()
   own_list = db.session.query(OwnStock).filter(OwnStock.user_id == uid).all()
-  
+
   # For each owned stock, update user's balance sheet
   for item in own_list:
     qty = item.unit

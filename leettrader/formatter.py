@@ -12,7 +12,7 @@ def format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot):
 
   row_2 = '<tr class="ownedList-row">'
   row_2 += '<td class="ownedList-data"> NZ Market </td>'
-  row_2 += '<td class="ownedList-data">' + nz_bank+ '</td>'
+  row_2 += '<td class="ownedList-data">' + nz_bank + '</td>'
   row_2 += '<td class="ownedList-data">' + nz_worth + '</td>'
   row_2 += '<td class="ownedList-data">' + nz_tot + '</td></tr>'
 
