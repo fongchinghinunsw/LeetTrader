@@ -1,6 +1,28 @@
 """
-  This Module exports HTML formated contents
+  This Module exports HTML formated contents, 
+  which would be used to print the balance sheet at the HOME page.
 """
+
+
+def format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot):
+  ''' Export a formated table of Balance Sheet '''
+  row_1 = '<tr class="ownedList-headers">'
+  row_1 += '<th class="ownedList-header"></th><th class="ownedList-header"> Bank </th>'
+  row_1 += '<th class="ownedList-header"> Stock </th><th class="ownedList-header"> Total </th></tr>'
+
+  row_2 = '<tr class="ownedList-row">'
+  row_2 += '<td class="ownedList-data"> NZ Market </td>'
+  row_2 += '<td class="ownedList-data">' + nz_bank+ '</td>'
+  row_2 += '<td class="ownedList-data">' + nz_worth + '</td>'
+  row_2 += '<td class="ownedList-data">' + nz_tot + '</td></tr>'
+
+  row_3 = '<tr class="ownedList-row">'
+  row_3 += '<td class="ownedList-data"> AU Market </td>'
+  row_3 += '<td class="ownedList-data">' + au_bank + '</td>'
+  row_3 += '<td class="ownedList-data">' + au_worth + '</td>'
+  row_3 += '<td class="ownedList-data">' + au_tot + '</td></tr>'
+
+  return row_1 + row_2 + row_3
 
 
 def owned_table_item(name, code, qty, currency, market, purchase, pl, color):

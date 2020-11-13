@@ -8,7 +8,7 @@
 '''
 
 from flask_login import current_user
-from leettrader.formatter import owned_table_item, color_span_2dp
+from leettrader.formatter import owned_table_item, color_span_2dp, format_bs
 
 
 class BalanceSheet:
@@ -52,28 +52,34 @@ class BalanceSheet:
 
   def get_final_bs(self):
     ''' Return B/S after calculation as formatted HTML String '''
-    nz_statement = self.get_statement('NZD')
-    au_statement = self.get_statement('AUD')
-    return {'NZD': nz_statement, 'AUD': au_statement}
+    nz_table = self.get_stock_table('NZD')
+    au_table = self.get_stock_table('AUD')
+    bs_table = self.get_bs_table()
+
+    return {'NZD': nz_table, 'AUD': au_table, 'BS': bs_table}
 
 
-  def get_statement(self, currency):
+  def get_stock_table(self, currency):
     ''' Return a financial statement for a given market '''
     stocklist = self.stock_list[currency]
-    bank = color_span_2dp(self.bank[currency])
     profit = color_span_2dp(self.profit[currency])
-    worth = color_span_2dp(self.stock_worth[currency])
+    
+    return {'list': stocklist, 'profit': profit}
 
-    tot = self.stock_worth[currency] + self.bank[currency]
-    total = color_span_2dp(tot)
 
-    return {
-        'list': stocklist,
-        'bank': bank,
-        'profit': profit,
-        'worth': worth,
-        'total': total
-    }
+  def get_bs_table(self):
+    ''' Return a HTML formatted table of balance sheet '''
+    nz_bank = color_span_2dp(self.bank['NZD'])
+    nz_worth = color_span_2dp(self.stock_worth['NZD'])
+    nz_tot = self.stock_worth['NZD'] + self.bank['NZD']
+    nz_tot = color_span_2dp(nz_tot)
+
+    au_bank = color_span_2dp(self.bank['AUD'])
+    au_worth = color_span_2dp(self.stock_worth['AUD'])
+    au_tot = self.stock_worth['AUD'] + self.bank['AUD']
+    au_tot = color_span_2dp(au_tot)
+
+    return format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot)
 
 
   def get_item_color(self, currency):
