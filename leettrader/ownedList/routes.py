@@ -16,7 +16,16 @@ ownedList = Blueprint('ownedList', __name__)
 @ownedList.route('/get_ownedList', methods=['GET'])
 @login_required
 def get_owned_list():
-  ''' Return list of owned stocks in JSON format '''
+  ''' Initialize Banks, Return Balance Sheet '''
+  # If user doesn't have bank a/c yet, create a/c
+  if current_user.balance == {}:
+    print("Initialize bank accounts ... ")
+    current_user.balance = {'AUD': 0.00, 'NZD': 0.00}
+    db.session.commit()
+  
+  print("Balance already initialized. Now print balance sheet.")
+  print(current_user.balance)
+
   ans = get_ownedlist_from_db()
   return jsonify(ownedList=ans), 200
 
@@ -29,6 +38,10 @@ def get_ownedlist_from_db():
   au_list = []
   nz_profit = 0
   au_profit = 0
+  nz_worth = 0
+  au_worth = 0
+  nz_bank = current_user.balance['NZD']
+  au_bank = current_user.balance['AUD']
 
   # Access database, get list of owned stocks from user id
   own_list = db.session.query(OwnStock).filter(
@@ -54,6 +67,7 @@ def get_ownedlist_from_db():
       item = owned_table_item(name, code, item.unit, currency, market, purchase, profit, NZisColorGrey)
       NZisColorGrey = True if False else True
       nz_profit += profit
+      nz_worth += purchase
       nz_list.append(item)
 
     # AU Stocks
@@ -61,9 +75,16 @@ def get_ownedlist_from_db():
       item = owned_table_item(name, code, item.unit, currency, market, purchase, profit, AUisColorGrey)
       AUisColorGrey = True if False else True
       au_profit += profit
+      au_worth += purchase
       au_list.append(item)
 
-  return [nz_list, color_span_2dp(nz_profit), au_list, color_span_2dp(au_profit)]
+  # Calculate net worths of users, return balance sheet in HTML format
+  nz_tot = nz_bank + nz_worth
+  au_tot = au_bank + au_worth
+  return [nz_list, color_span_2dp(nz_profit), au_list, color_span_2dp(au_profit),
+          color_span_2dp(nz_worth), color_span_2dp(au_worth),
+          color_span_2dp(nz_bank), color_span_2dp(au_bank),
+          color_span_2dp(nz_tot), color_span_2dp(au_tot)]
 
 
 def get_stock_info(stock_id):
