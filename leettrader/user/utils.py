@@ -1,11 +1,15 @@
 from threading import Condition, Thread
 from time import sleep
+from datetime import datetime
 
 from flask import has_app_context
 from leettrader import db
 from leettrader.user.send_emails import send_stock_reminder
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, Reminder
+from leettrader.models import User, Stock, Reminder, TransactionRecord, OwnStock
+from flask_login import current_user
+
+
 
 def add_and_start_reminder(reminder, username):
 

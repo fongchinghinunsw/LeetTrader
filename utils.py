@@ -44,7 +44,7 @@ def add_data():
                  password=password_hashed)
 
     db.session.add(admin)
-
+    
     db.session.commit()
 
 def init_db():
