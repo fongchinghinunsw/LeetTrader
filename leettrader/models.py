@@ -134,6 +134,11 @@ class MarketType(enum.Enum):
   NZ = 0
   AX = 1
 
+  @staticmethod
+  def get_market_labels():
+    return [['New Zealand', 'nz'], ['Australia', 'au']]
+    
+
 
 class Stock(db.Model):
   """Stock class"""

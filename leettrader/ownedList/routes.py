@@ -34,6 +34,8 @@ def get_ownedlist_from_db():
   own_list = db.session.query(OwnStock).filter(
       OwnStock.user_id == current_user.get_id()).all()
 
+  NZisColorGrey = False
+  AUisColorGrey = False
   # For each owned stock, create a HTML formatted string
   for item in own_list:
     # Get information of a owned stock
@@ -46,15 +48,18 @@ def get_ownedlist_from_db():
 
     # Calculate Profit & Format Information as HTML Tags
     profit = round(market-purchase, 4)
-    item = owned_table_item(name, code, item.unit, currency, market, purchase, profit)
 
     # NZ Stocks
     if currency == "NZD":
+      item = owned_table_item(name, code, item.unit, currency, market, purchase, profit, NZisColorGrey)
+      NZisColorGrey = True if False else True
       nz_profit += profit
       nz_list.append(item)
 
     # AU Stocks
     elif currency == "AUD":
+      item = owned_table_item(name, code, item.unit, currency, market, purchase, profit, AUisColorGrey)
+      AUisColorGrey = True if False else True
       au_profit += profit
       au_list.append(item)
 

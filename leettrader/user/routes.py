@@ -10,7 +10,7 @@ resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
 
 from leettrader.user.utils import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord
+from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord, MarketType
 from leettrader import db, bcrypt, mail
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
@@ -29,7 +29,8 @@ new_password = None
 @login_required
 def home():
   ''' Home Page '''
-  return render_template('home.html')
+  market_labels = MarketType.get_market_labels()
+  return render_template('home.html', market_labels=market_labels)
   
 @user.route("/admin")
 @login_required

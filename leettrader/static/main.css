@@ -436,3 +436,30 @@ button {
   color: black;
   text-decoration: none;
 }
+
+.ownedList {
+  text-align: center;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.ownedList-headers {
+  background: #36304A;
+  color: white;
+  border: none;
+}
+
+.ownedList-header {
+  padding: 10px 25px 10px 25px;
+}
+
+.ownedList-data {
+  padding: 10px 35px 10px 35px;
+  text-align: center;
+}
+
+.ownedList-row:hover {
+  background: #F5F5F5;
+  cursor: pointer;
+}

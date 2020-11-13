@@ -1,15 +1,27 @@
+<!--
+<div>
+    <h5>{{ market_label }}</h5>
+    <table>
+      <tr class="ownedList-table-header">
+        <th class="m">Company Name</th>
+        <th class="m">Qty</th>
+        <th class="m">Worth</th>
+        <th class="m">Paid</th>
+        <th class="m">P/L</th>
+      </tr>
+    </table>
+
+</div>
+-->
 <div style="padding-top: 20px;padding-left: 40px;">
 
-  <h5>Owned Stocks (New Zealand)</h5>
-  <table id="nz_List" class="list-group" style="padding-right: 40px;"></table>
-  <h4 id="nz_PL" align="right" style="padding-right: 40px;"></h4>
-
+  {% for market_label in market_labels %}
+  <h5><b>Owned Stocks ({{ market_label[0] }})</b></h5>
+  <table id="{{market_label[1]}}_List"  class="ownedList" style="padding-right: 40px;"></table>
+  <h4 id="{{market_label[1]}}_PL" align="right" style="padding-right: 40px;"></h4>
   </br></br>
-  <h5>Owned Stocks (Australia)</h5>
-  <table id="au_List" class="list-group">
-    <tr style="border: 1px solid grey; text-align: center;"></tr>
-  </table>
-  <h4 id="au_PL" align="right" style="padding-right: 40px;"></h4>
+  {% endfor %}
+
 </div>
 
 
@@ -22,25 +34,21 @@
       success: function(data) {
         
         // Create first row of the tables
-        first_row = '<tr style="border: 1px solid grey; text-align: center;">'
-        first_row += '<th> Company Name </th><th> Qty </th>'
-        first_row += '<th> Worth </th><th> Paid </th><th> P/L </th></tr>'
+        first_row = '<tr class="ownedList-headers">'
+        first_row += '<th class="ownedList-header"> Company Name </th><th class="ownedList-header"> Qty </th>'
+        first_row += '<th class="ownedList-header"> Worth </th><th class="ownedList-header"> Paid </th><th class="ownedList-header"> P/L </th></tr>'
 
-        no_stock_msg = "<tr><td><i>  - You don't have any stock in this market. </i></td></tr>"
+        no_stock_msg = "<tr><td class='ownedList-data'><i>You don't have any stock in this market.</i></td></tr>"
+        $("#nz_List").append(first_row);
+        $("#au_List").append(first_row);
 
         // Check if there's any stock in the market
         if (data.ownedList[0].length == 0){
           $("#nz_List").append(no_stock_msg)
         }
-        else{
-          $("#nz_List").append(first_row);
-        }
 
         if (data.ownedList[2].length == 0){
-          msg = "<tr> You don't have any stock in this market. <tr>"
           $("#au_List").append(no_stock_msg)
-        }else{
-          $("#au_List").append(first_row);
         }
         
 

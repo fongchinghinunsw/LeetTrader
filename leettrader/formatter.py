@@ -2,20 +2,20 @@
   This Module exports HTML formated contents
 """
 
-def owned_table_item(name, code, qty, currency, market, purchase, pl):
+def owned_table_item(name, code, qty, currency, market, purchase, pl, isColorGrey):
   ''' Export a <tr> of stock info '''
   # Round market & purchase, then calculate the P/L
   worth = round(market, 2)
   paid = round(purchase, 2)
 
   # Format stock information
-  own_stock = wrap_td_left(a_href(name, code))
+  own_stock = wrap_td(a_href(name, code))
   own_stock += wrap_td(str(qty))
   own_stock += wrap_td('{0:.2f}'.format(worth))
   own_stock += wrap_td('{0:.2f}'.format(paid))
   own_stock += wrap_td(color_span_2dp(pl))
 
-  return wrap_tr(own_stock)
+  return wrap_tr(own_stock, isColorGrey)
 
 
 def format_watchlist_item(name, code, price, currency, change, percent):
@@ -32,18 +32,13 @@ def format_watchlist_item(name, code, price, currency, change, percent):
   return ans
 
 
-def wrap_tr(item):
-  tag = '<tr style="padding: 5px 25px 5px 25px; border: 1px solid grey">'
+def wrap_tr(item, isColorGrey):
+  tag = '<tr ' + 'class="ownedList-row" style="background: #F5F5F5"' + '>' if isColorGrey else '<tr class="ownedList-row">'
   return tag + item + "</tr>"
 
 
 def wrap_td(item):
-  tag = '<td style="padding: 5px 25px 5px 25px; border: 1px, solid grey; text-align: center">'
-  return tag + item + "</td>"
-
-
-def wrap_td_left(item):
-  tag = '<td style="padding: 5px 25px 5px 25px; border: 1px, solid grey; text-align: left">'
+  tag = '<td class="ownedList-data">'
   return tag + item + "</td>"
 
 
