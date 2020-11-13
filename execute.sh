@@ -6,5 +6,4 @@ virtualenv --seeder=pip /var/tmp/$USER/venv
 source /var/tmp/$USER/venv/bin/activate
 pip install -r requirements.txt
 python utils.py
-python leettrader/tutorial/train.py
 python run.py
