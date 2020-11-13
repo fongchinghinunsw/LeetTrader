@@ -8,7 +8,7 @@ from flask import render_template, url_for, flash, redirect, Blueprint, jsonify,
 from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
 resetPasswordForm, deleteRequestForm, OrderForm, CheckoutForm, ReminderForm)
 
-from leettrader.user.utils import add_and_start_reminder, trade_stock, create_transaction_record
+from leettrader.user.utils import add_and_start_reminder
 from leettrader.user.order import check_legal_order, checkout_stock
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, OwnStock, Reminder, TransactionRecord, MarketType
