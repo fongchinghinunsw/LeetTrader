@@ -12,7 +12,6 @@ from leettrader.flash import get_order_success_msg
 
 def check_legal_order(stock, action):
   ''' Interface to check if the order action is legal '''
-  
   # When user submit the Order form, check if the action is legal
   order_form = OrderForm()
   if order_form.validate_on_submit():
