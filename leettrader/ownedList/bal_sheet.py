@@ -42,7 +42,7 @@ class BalanceSheet:
     color = self.get_item_color(currency)
 
     # Format the result from above into HTML string
-    item = owned_table_item(name, code, qty, currency, market, purchase,
+    item = owned_table_item(name, code, qty, market, purchase,
                             profit, color)
 
     # Calcuate the new profit, worth, update stock list

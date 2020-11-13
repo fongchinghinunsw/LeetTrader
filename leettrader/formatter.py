@@ -1,5 +1,5 @@
 """
-  This Module exports HTML formated contents, 
+  This Module exports HTML formated contents,
   which would be used to print the balance sheet at the HOME page.
 """
 
@@ -7,8 +7,10 @@
 def format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot):
   ''' Export a formated table of Balance Sheet '''
   row_1 = '<tr class="ownedList-headers">'
-  row_1 += '<th class="ownedList-header"></th><th class="ownedList-header"> Bank </th>'
-  row_1 += '<th class="ownedList-header"> Stock </th><th class="ownedList-header"> Total </th></tr>'
+  row_1 += '<th class="ownedList-header">'
+  row_1 += '</th><th class="ownedList-header"> Bank </th>'
+  row_1 += '<th class="ownedList-header"> Stock </th>'
+  row_1 += '<th class="ownedList-header"> Total </th></tr>'
 
   row_2 = '<tr class="ownedList-row">'
   row_2 += '<td class="ownedList-data"> NZ Market </td>'
@@ -25,7 +27,7 @@ def format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot):
   return row_1 + row_2 + row_3
 
 
-def owned_table_item(name, code, qty, currency, market, purchase, pl, color):
+def owned_table_item(name, code, qty, market, purchase, pl, color):
   ''' Export a <tr> of stock info '''
   # Round market & purchase, then calculate the P/L
   worth = round(market, 2)
@@ -42,6 +44,7 @@ def owned_table_item(name, code, qty, currency, market, purchase, pl, color):
 
 
 def format_watchlist_item(name, code, price, currency, change, percent):
+  ''' Export HTML string of watchlist '''
   # Hyperlink & Stock Name
   ans = '<li id="' + code.replace(
       ".", "_") + '"class="list-group-item list-group-item-light">'
@@ -57,6 +60,7 @@ def format_watchlist_item(name, code, price, currency, change, percent):
 
 
 def wrap_tr(item, color):
+  ''' Wrap item with <tr> & set colour '''
   if color:
     tag = '<tr class="ownedList-row" style="background: #F5F5F5">'
   else:
@@ -91,8 +95,8 @@ def div(content):
   return "<div>" + str(content) + "</div>"
 
 
-def a_href(content, stockCode):
-  url = '/search/' + stockCode
+def a_href(content, stock_code):
+  url = '/search/' + stock_code
 
   ans = '<a href=' + url + '>'
   ans += str(content) + '</a>'
