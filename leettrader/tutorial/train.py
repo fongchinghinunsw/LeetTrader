@@ -107,16 +107,7 @@ model.compile(loss='categorical_crossentropy',
 # fitting and saving the model
 # By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 # The batch size defines the number of samples that will be propagated through the network
-<<<<<<< HEAD
 hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
 model.save('model.h5', hist)
-=======
-hist = model.fit(np.array(train_x),
-                 np.array(train_y),
-                 epochs=200,
-                 batch_size=5,
-                 verbose=1)
-model.save('leettrader/tutorial/model.h5', hist)
->>>>>>> f35
 
 print("model created")
