@@ -1,3 +1,7 @@
+'''
+  This file contains support function for Stock Price Reminder
+'''
+
 from threading import Thread
 from time import sleep
 
