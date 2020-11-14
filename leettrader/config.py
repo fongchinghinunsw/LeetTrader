@@ -23,4 +23,3 @@ class Config:
   # MAIL_MAX_EMAILS = None
   # MAIL_SUPPRESS_SEND = False
   # MAIL_ASCII_ATTACHMENTS = False
-

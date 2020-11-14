@@ -10,7 +10,7 @@ lemmatizer = WordNetLemmatizer()
 import json
 import pickle
 
-words=[]
+words = []
 classes = []
 documents = []
 ignore_letters = ['!', '?', ',', '.']
@@ -18,30 +18,37 @@ intents_file = open('intents.json').read()
 intents = json.loads(intents_file)
 
 for intent in intents['intents']:
-    for pattern in intent['patterns']:
-        word = nltk.word_tokenize(pattern)
-        words.extend(word)
-        #add documents in the corpus
-        documents.append((word, intent['tag']))
-        # add to our classes list
-        if intent['tag'] not in classes:
-            classes.append(intent['tag'])
+  for pattern in intent['patterns']:
+    word = nltk.word_tokenize(pattern)
+    words.extend(word)
+    #add documents in the corpus
+    documents.append((word, intent['tag']))
+    # add to our classes list
+    if intent['tag'] not in classes:
+      classes.append(intent['tag'])
 
 print(documents)
 # lemmaztize and lower each word and remove duplicates
-words = [lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_letters]
+words = [
+    lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_letters
+]
 words = sorted(list(set(words)))
 # sort classes
 classes = sorted(list(set(classes)))
 # documents = combination between patterns and intents
-print (len(documents), "documents")
+print(len(documents), "documents")
 # classes = intents
-print (len(classes), "classes", classes)
+print(len(classes), "classes", classes)
 # words = all words, vocabulary
-print (len(words), "unique lemmatized words", words)
+print(len(words), "unique lemmatized words", words)
 
+<<<<<<< HEAD
 pickle.dump(words, open('words.pkl','wb'))
 pickle.dump(classes, open('classes.pkl','wb'))
+=======
+pickle.dump(words, open('leettrader/tutorial/words.pkl', 'wb'))
+pickle.dump(classes, open('leettrader/tutorial/classes.pkl', 'wb'))
+>>>>>>> f35
 
 # create the training data
 training = []
@@ -49,29 +56,31 @@ training = []
 output_empty = [0] * len(classes)
 # training set, bag of words for each sentence
 for doc in documents:
-    # initialize our bag of words
-    bag = []
-    # list of tokenized words for the pattern
-    pattern_words = doc[0]
-    # lemmatize each word - create base word, in attempt to represent related words
-    pattern_words = [lemmatizer.lemmatize(word.lower()) for word in pattern_words]
-    # create our bag of words array with 1, if word match found in current pattern
-    for word in words:
-        bag.append(1) if word in pattern_words else bag.append(0)
-        
-    # output is a '0' for each tag and '1' for current tag (for each pattern)
-    output_row = list(output_empty)
-    output_row[classes.index(doc[1])] = 1
-    
-    training.append([bag, output_row])
+  # initialize our bag of words
+  bag = []
+  # list of tokenized words for the pattern
+  pattern_words = doc[0]
+  # lemmatize each word - create base word, in attempt to represent related words
+  pattern_words = [
+      lemmatizer.lemmatize(word.lower()) for word in pattern_words
+  ]
+  # create our bag of words array with 1, if word match found in current pattern
+  for word in words:
+    bag.append(1) if word in pattern_words else bag.append(0)
+
+  # output is a '0' for each tag and '1' for current tag (for each pattern)
+  output_row = list(output_empty)
+  output_row[classes.index(doc[1])] = 1
+
+  training.append([bag, output_row])
 
 # shuffle our features and turn into np.array
 random.shuffle(training)
 training = np.array(training)
 
 # create train and test lists. X - patterns, Y - intents
-train_x = list(training[:,0])
-train_y = list(training[:,1])
+train_x = list(training[:, 0])
+train_y = list(training[:, 1])
 print("Training data created")
 
 # Create model - 3 layers. First layer 128 neurons, second layer 64 neurons and 3rd output layer contains number of neurons
@@ -79,7 +88,7 @@ print("Training data created")
 # Sequential() allows you to create models layer-by-layer
 model = Sequential()
 # Dense layer is a regular layer of neurons in a neural network
-model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
+model.add(Dense(128, input_shape=(len(train_x[0]), ), activation='relu'))
 # Dropout is used for prevent overfitting.
 # Dropout works by randomly setting the outgoing edges of hidden units (neurons that make up hidden layers) to 0 at each update of the training phase
 model.add(Dropout(0.5))
@@ -91,12 +100,23 @@ model.add(Dense(len(train_y[0]), activation='softmax'))
 # nesterov is an optimal method (in terms of oracle complexity) for smooth convex optimization
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 # loss is the loss function
-model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',
+              optimizer=sgd,
+              metrics=['accuracy'])
 
-# fitting and saving the model 
+# fitting and saving the model
 # By setting verbose 0, 1 or 2 you just say how do you want to 'see' the training progress for each epoch.
 # The batch size defines the number of samples that will be propagated through the network
+<<<<<<< HEAD
 hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
 model.save('model.h5', hist)
+=======
+hist = model.fit(np.array(train_x),
+                 np.array(train_y),
+                 epochs=200,
+                 batch_size=5,
+                 verbose=1)
+model.save('leettrader/tutorial/model.h5', hist)
+>>>>>>> f35
 
 print("model created")

@@ -3,12 +3,12 @@
 """
 
 from random import choice
-from datetime import datetime 
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 from leettrader.models import Stock
 from urllib import request
-import csv 
+import csv
 import os
 
 headers_list = [
@@ -80,14 +80,14 @@ def get_currency_by_stock_code(stock_code):
 def get_search_result(stock_code):
   ''' Get stock information from Stock Code '''
 
-  print(stock_code, "!!!")
+  #print(stock_code, "!!!")
   source = requests.get(f'https://finance.yahoo.com/quote/{stock_code}',
                         headers=choice(headers_list)).text
   soup = BeautifulSoup(source, 'lxml')
 
   price = soup.find('span',
                     class_="Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)").text
-  print("price is", price)
+  #print("price is", price)
   change = soup.find('span',
                      class_="Trsdu(0.3s) Fw(500) Pstart(10px) Fz(24px)")
 
@@ -112,19 +112,21 @@ def get_search_result(stock_code):
       'percent_change': percent_change
   }
 
+
 def get_historical_data(stock_code):
-    # eg stock_code = ANZ.AX
-    curr_time = datetime.today()
-    curr_time = int(curr_time.timestamp())
-    prev_year = curr_time - 31622400
-    request_url = "https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&includeAdjustedClose=true".format(stock_code, prev_year, curr_time)
-    response = request.urlopen(request_url)
-    csv = response.read()
-    csv = str(csv).strip("b'")
-    lines = csv.split("\\n")
-    if not os.path.isdir("leettrader/stock/tmp/"):
-        os.mkdir("leettrader/stock/tmp/")
-    f = open("leettrader/stock/tmp/" + stock_code + ".csv", 'w')
-    for line in lines:
-        f.write(line +"\n")
-    f.close()
+  # eg stock_code = ANZ.AX
+  curr_time = datetime.today()
+  curr_time = int(curr_time.timestamp())
+  prev_year = curr_time - 31622400
+  request_url = "https://query1.finance.yahoo.com/v7/finance/download/{}?period1={}&period2={}&interval=1d&events=history&includeAdjustedClose=true".format(
+      stock_code, prev_year, curr_time)
+  response = request.urlopen(request_url)
+  csv = response.read()
+  csv = str(csv).strip("b'")
+  lines = csv.split("\\n")
+  if not os.path.isdir("leettrader/stock/tmp/"):
+    os.mkdir("leettrader/stock/tmp/")
+  f = open("leettrader/stock/tmp/" + stock_code + ".csv", 'w')
+  for line in lines:
+    f.write(line + "\n")
+  f.close()

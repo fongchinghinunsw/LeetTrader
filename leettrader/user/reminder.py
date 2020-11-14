@@ -1,27 +1,29 @@
-from threading import Condition, Thread
-from time import sleep
-from datetime import datetime
+'''
+  This file contains support function for Stock Price Reminder
+'''
 
-from flask import has_app_context
+from threading import Thread
+from time import sleep
+
 from leettrader import db
 from leettrader.user.send_emails import send_stock_reminder
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, Reminder, TransactionRecord, OwnStock
-from flask_login import current_user
-
+from leettrader.models import User, Stock, Reminder
 
 
 def add_and_start_reminder(reminder, username):
-
-  thread = Thread(name="ReminderHandler", target=reminder_handler, args=[reminder, username])
+  ''' Add reminder & Start checking for target price '''
+  thread = Thread(name="ReminderHandler",
+                  target=reminder_handler,
+                  args=[reminder, username])
   thread.daemon = True
   thread.start()
 
-def reminder_handler(reminder, username):
 
+def reminder_handler(reminder, username):
+  ''' Function for handling Reminder '''
   from leettrader import create_app
   app = create_app()
-
 
   with app.app_context():
     db.session.add(reminder)
@@ -45,7 +47,7 @@ def reminder_handler(reminder, username):
     print("Reminder id is", reminder_id)
     print(Reminder.query.filter_by(id=reminder_id).all(), "is the reminders list")
     if orig_price < target_price:
-      while True and exists:  
+      while True and exists:
         if not exists:
           print("Not exist")
         current_price = float(get_search_result(stock.get_code())['price'])
@@ -55,9 +57,10 @@ def reminder_handler(reminder, username):
           break
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        exists = False if Reminder.query.filter_by(id=reminder_id).all() == [] else True
+        exists = not Reminder.query.filter_by(id=reminder_id).all() == []
+
     else:
-      while True and exists:  
+      while True and exists:
         if not exists:
           print("Not exist")
         current_price = float(get_search_result(stock.get_code())['price'])
@@ -67,11 +70,10 @@ def reminder_handler(reminder, username):
           break
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        exists = False if Reminder.query.filter_by(id=reminder_id).all() == [] else True
+        exists = not Reminder.query.filter_by(id=reminder_id).all() == []
 
     if exists:
       db.session.delete(reminder)
       db.session.commit()
     else:
       print("The reminder is deleted manually")
-

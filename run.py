@@ -17,6 +17,7 @@ cors = CORS(app, resources={r"/search/<string:code>": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['Access-Control-Allow-Origin'] = '*'
 
+
 @app.context_processor
 def inject_list_of_stocks():
   """ Inject the variable `stocks` in all the templates """
@@ -30,6 +31,7 @@ def inject_search_stock_form():
   form = SearchStockForm()
   return dict(form=form)
 
+
 @app.before_request
 def check_admin():
   if request.path.startswith('/admin/'):
@@ -38,6 +40,7 @@ def check_admin():
         return redirect(url_for('users.home', userID=current_user.id))
     else:
       return redirect(url_for('main.landing'))
+
 
 if __name__ == '__main__':
   app.app_context().push()

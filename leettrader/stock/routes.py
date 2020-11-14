@@ -8,7 +8,6 @@ from leettrader.models import Stock, Watchlist
 from leettrader.stock.forms import SearchStockForm
 from leettrader.stock.utils import get_search_result, get_historical_data
 
-
 stock = Blueprint('stocks', __name__)
 
 
@@ -48,8 +47,9 @@ def search_page(code):
   print(result)
 
   # Check if stock is already in watchlist
-  in_watchlist = Watchlist.query.filter_by(user_id=current_user.get_id()).filter(
-      Watchlist.stocks.any(code=code)).first()
+  in_watchlist = Watchlist.query.filter_by(
+      user_id=current_user.get_id()).filter(
+          Watchlist.stocks.any(code=code)).first()
   if in_watchlist is None:
     date_added = 0
     listed = False
@@ -73,6 +73,7 @@ def search_page(code):
                          listed=listed,
                          date=date_added)
 
+
 @stock.route('/get_csv/<string:code>', methods=['GET'])
 @login_required
 def get_csv(code):
@@ -82,11 +83,9 @@ def get_csv(code):
   '''
   # if os.path.isfile("leettrader/stock/tmp/"+ code + ".csv"):
   #   return send_file("stock/tmp/"+ code + ".csv")
-  
+
   for root, dirs, files in os.walk(tmp_bin):
-      for f in files:
-          os.remove(os.path.join(root, f))
+    for f in files:
+      os.remove(os.path.join(root, f))
   get_historical_data(code)
-  return send_file("stock/tmp/"+ code + ".csv")
-
-
+  return send_file("stock/tmp/" + code + ".csv")
