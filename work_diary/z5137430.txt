@@ -33,3 +33,10 @@ This file takes in different inputs and export a string of HTML tags.
 Week 8
 Keep working on the statistic reports. Now stocks are grouped by currency, so that later on the P/L can be calcuated based on currency.
 Format and improve the appearance of the report.
+
+Week 9
+Final refinement of codes before working on project:
+  - Min. Amt of buy/sell >= $1
+  - Bank balance implemented (Both UI & Backend)
+  - Refractor user.routes.py. Codes related to Buy / Sell are moved to the folder "order"
+  - Refractor the folder "ownList". Now the entire balance sheet is encapsulated in OOP style.
