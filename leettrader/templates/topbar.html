@@ -20,12 +20,12 @@
     {% endif %}
     </ul>
   </div>
-
+  
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
       <!-- Logout Button & Searchbar-->
       {% if current_user.is_authenticated %}
-
+      
         <li class="nav-item mr-3">
           <form method="POST" class="form-inline" action="{{ url_for('stocks.search_stock', stock=form.stock.data) }}">
             {{form.hidden_tag() }}
@@ -38,8 +38,7 @@
           </form>
         </li>
 	<li class="nav-item dropdown mr-1">
-	  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	  </a>
+    <img src="../static/account_icons/{{ current_user.icon }}" class="avatar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">    
 	  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
       <a class="dropdown-item" href="/account">Manage account</a>
 	    <a class="dropdown-item" href="{{ url_for('users.view_reminder') }}">View Reminders</a>
