@@ -45,7 +45,13 @@ def add_data():
                  username="Donald Trump",
                  email="trump@leettrader.com",
                  password=password_hashed)
+    db.session.add(admin)
 
+    db.session.commit()
+    admin = User(user_type="ADMIN",
+                 username="Scomo",
+                 email="scomo@leettrader.com",
+                 password=password_hashed)
     db.session.add(admin)
 
     db.session.commit()

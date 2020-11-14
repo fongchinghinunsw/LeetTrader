@@ -2,6 +2,47 @@
 
 {% block body %}
 
-<h1>Space for analytics</h1>
+<div class="d-flex justify-content-around">
+    <div class="card bg-light mb-3" style="max-width: 22rem;">
+        <div class="card-body">
+          <h3 class="card-title text-center">{{users}}</h3>
+          <p class="card-text text-center">People have registered on Leettrader</p>
+        </div>
+    </div>
+    <div class="card bg-light mb-3" style="max-width: 22rem;">
+      <div class="card-body">
+        <h3 class="card-title text-center">{{transactions}}</h3>
+        <p class="card-text text-center">Transactions completed by far</p>
+      </div>
+    </div>
+    <div class="card bg-light mb-3" style="max-width: 22rem;">
+      <div class="card-body">
+        <h3 class="card-title text-center">{{stocks}}</h3>
+        <p class="card-text text-center">Stocks are avaliable for trading simulation</p>
+      </div>
+    </div>
+</div>
 
+<h2>Recent Login Activity</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Role</th>
+        <th scope="col">Username</th>
+        <th scope="col">Last login</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Admin</td>
+        <td>Trump</td>
+        <td>Sat, 14 Nov 2020 00:00:00 GMT</td>
+      </tr>
+    </tbody>
+  </table>
+<script>
+
+</script>
 {% endblock %}

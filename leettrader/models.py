@@ -15,6 +15,7 @@ from sqlalchemy import PickleType
 from flask_login import UserMixin
 from leettrader import db, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from datetime import datetime
 
 watchlist_items = db.Table(
     'watchlist_items',
@@ -51,6 +52,7 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
+  login_time = db.Column(db.Date)
   balance = db.Column(MutableDict.as_mutable(PickleType), default=dict())
 
   # backref is a way to declare a new property on the TransactionRecord class
@@ -68,7 +70,7 @@ class User(db.Model, UserMixin):
   def __repr__(self):
     user = "User("
     user += f"'{self.username}', '{self.email}', "
-    user += f"'{self.password}', '{self.balance}')"
+    user += f"'{self.password}', '{self.balance}', '{self.login_time}')"
     return user
 
   def getUserName(self):
@@ -76,7 +78,10 @@ class User(db.Model, UserMixin):
 
   def get_id(self):
     return self.id
-
+    
+  def get_time(self):
+    return self.login_time
+    
   def get_new_token(self, secs=1800):
     # create a serializer with an expiration time of 1800s
     s = Serializer(SECRET_KEY, secs)

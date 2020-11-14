@@ -14,6 +14,7 @@ from leettrader.models import User, Stock, Reminder, TransactionRecord, MarketTy
 from leettrader import db, bcrypt, mail
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
+from datetime import datetime
 
 from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
 from leettrader.order.route import order_stock, checkout_stock
@@ -117,6 +118,8 @@ def login():
     if user and bcrypt.check_password_hash(user.password,
                                            login_form.password.data):
       login_user(user, remember=login_form.remember.data)
+      current_user.login_time = datetime.now()
+      db.session.commit()
       if user.is_admin():
         return redirect(url_for('users.admin', userID=user.id))
       else:
@@ -357,3 +360,20 @@ def order(stock, action):
 def checkout(stock, action):
   ''' Routing for Checkout Form'''
   return checkout_stock(stock, action)
+
+''' ======================= admin dashboard =========================== '''
+@user.route("/admin/get_list_of_users_sorted_by_login_time", methods=['GET'])
+@login_required
+def get_list_of_users_sorted_by_login_time():
+  ''' Return a list of users '''
+  users_list = User.query.order_by(User.login_time.desc())
+  u_list = []
+  for i in users_list:
+    time = i.get_time().strftime('%Y-%m-%d-%H:%M:%S') #.strftime('%Y-%m-%d') #.strftime('%Y-%m-%d-%H:%M:%S')
+    if i.is_admin():  
+      u_type = "Admin"
+    else:
+      u_type = "User"
+    i.id
+    u_list.append((i.id, u_type , i.username , time))
+  return jsonify(u_list), 200
