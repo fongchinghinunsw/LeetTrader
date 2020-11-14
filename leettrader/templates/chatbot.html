@@ -21,6 +21,7 @@ const chatBtn = document.querySelector('.chat-btn');
 const submitBtn = document.querySelector('.submit');
 const chatArea = document.querySelector('.chat-area');
 const inputElm = document.querySelector('#chat-input');
+const current_user_icon = "{{ current_user.icon }}";
 
 // chat button toggler
 chatBtn.addEventListener('click', () => {
@@ -31,10 +32,11 @@ chatBtn.addEventListener('click', () => {
 submitBtn.addEventListener("click", () => {
   let userInput = inputElm.value;
   console.log(userInput)
+  console.log(current_user_icon)
   // ${} is String interpolation, it transforms the value of that variable into a string.
   let temp = `<div class="out-msg">
   <span class="my-msg">${userInput}</span>
-  <img src="../static/user.png" class="avatar">
+  <img src="../static/account_icons/${current_user_icon}" class="avatar">
   </div>`
 
   // Insert a new element before the end of the element chatArea.
