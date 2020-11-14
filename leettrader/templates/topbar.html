@@ -27,7 +27,7 @@
       {% if current_user.is_authenticated %}
       
         <li class="nav-item mr-3">
-          <form method="POST" class="form-inline" action="{{ url_for('stocks.search_stock', stock=form.stock.data) }}">
+          <form method="POST" id="search-stock-form" class="form-inline" style="padding-right: 15px;" action="{{ url_for('stocks.search_stock', stock=form.stock.data) }}">
             {{form.hidden_tag() }}
             <div class="input-group">
               {{ form.stock(id="search-bar", class="form-control mr-sm-2") }}
