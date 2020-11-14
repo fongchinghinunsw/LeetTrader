@@ -7,9 +7,11 @@
 """
 
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired, NumberRange
 from leettrader.models import User
+from flask_login import current_user
 
 
 # forms for login and regsiter account
@@ -88,6 +90,38 @@ class deleteRequestForm(FlaskForm):
   email = StringField('Email', validators=[DataRequired(), Email()])
   password = PasswordField('Password', validators=[DataRequired()])
   submit = SubmitField('Confirm and Send Request')
+
+
+
+
+class accountUpdatedForm(FlaskForm):
+  ''' direct change username and password Form '''
+  username = StringField(
+      'Username',
+      validators=[
+          DataRequired(),
+          Length(message="Username must be between 2 and 20 characters long",
+                 min=2,
+                 max=20)
+      ])
+
+  email = StringField('Email', validators=[DataRequired(), Email()])
+  icon = FileField('Change Your Icon ', validators=[FileAllowed(['jpeg', 'jpg', 'png'])])
+  submit = SubmitField('Update')
+
+  def validate_username(self, username):
+    if username.data != current_user.username:
+  
+      user = User.query.filter_by(username=username.data).first()
+      if user:
+        raise ValidationError('The username has been taken')
+
+  def validate_email(self, email):
+    if email.data != current_user.email:
+      user = User.query.filter_by(email=email.data).first()
+      if user:
+        raise ValidationError('The email has been registered')
+
 
 
 class OrderForm(FlaskForm):

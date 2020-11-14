@@ -51,7 +51,9 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
-  balance = db.Column(MutableDict.as_mutable(PickleType), default=dict())
+  balance = db.Column(MutableDict.as_mutable(PickleType),
+                  default=dict())
+  icon = db.Column(db.String(20), nullable=False, default='user.png')
 
   # backref is a way to declare a new property on the TransactionRecord class
   # You can then use transaction.person to get to the person at that address
