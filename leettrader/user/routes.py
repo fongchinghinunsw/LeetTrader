@@ -145,7 +145,7 @@ def save_icon_pic(icon_file):
 
   # remove the previous icon pic to save space
   prev_icon_path = os.path.join(parent_dir, 'static', 'account_icons', current_user.icon)
-  if os.path.exists(prev_icon_path) and os.path.basename(prev_icon_path) != 'trump.jpg':
+  if os.path.exists(prev_icon_path) and os.path.basename(prev_icon_path) != 'user.png':
     os.remove(prev_icon_path)
 
   # get the whole icon file path
@@ -173,7 +173,7 @@ def account_profile():
     current_user.email = update_form.email.data
     db.session.commit()
     print(current_user.email, current_user.username)
-    flash('Your account has been updated successfuly!', 'success')
+    flash('Your account info has been updated successfuly!', 'success')
     return redirect(url_for('users.account_profile'))
   return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
 
