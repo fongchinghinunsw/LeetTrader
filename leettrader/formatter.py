@@ -12,17 +12,13 @@ def format_bs(nz_bank, nz_worth, nz_tot, au_bank, au_worth, au_tot):
   row_1 += '<th class="ownedList-header"> Stock </th>'
   row_1 += '<th class="ownedList-header"> Total </th></tr>'
 
-  row_2 = '<tr class="ownedList-row">'
-  row_2 += '<td class="ownedList-data"> NZ Market </td>'
-  row_2 += '<td class="ownedList-data">' + nz_bank + '</td>'
-  row_2 += '<td class="ownedList-data">' + nz_worth + '</td>'
-  row_2 += '<td class="ownedList-data">' + nz_tot + '</td></tr>'
+  row_2 = wrap_td("NZ Market") + wrap_td(nz_bank)
+  row_2 += wrap_td(nz_worth) + wrap_td(nz_tot)
+  row_2 = wrap_tr(row_2, False)
 
-  row_3 = '<tr class="ownedList-row">'
-  row_3 += '<td class="ownedList-data"> AU Market </td>'
-  row_3 += '<td class="ownedList-data">' + au_bank + '</td>'
-  row_3 += '<td class="ownedList-data">' + au_worth + '</td>'
-  row_3 += '<td class="ownedList-data">' + au_tot + '</td></tr>'
+  row_3 = wrap_td("AU Market") + wrap_td(au_bank)
+  row_3 += wrap_td(au_worth) + wrap_td(au_tot)
+  row_3 = wrap_tr(row_3, True)
 
   return row_1 + row_2 + row_3
 
