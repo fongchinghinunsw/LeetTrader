@@ -8,7 +8,7 @@ from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
                                    resetPasswordForm, deleteRequestForm,
                                    ReminderForm)
 
-from leettrader.user.utils import add_and_start_reminder
+from leettrader.user.reminder import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
 from leettrader.models import User, Stock, Reminder, TransactionRecord, MarketType
 from leettrader import db, bcrypt, mail
