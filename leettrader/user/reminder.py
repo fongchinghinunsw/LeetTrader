@@ -45,9 +45,7 @@ def reminder_handler(reminder, username):
     # is the reminder still existing? (has it been deleted?)
     exists = True
     print("Reminder id is", reminder_id)
-    print(
-        Reminder.query.filter_by(id=reminder_id).all(),
-        "is the reminders list")
+    print(Reminder.query.filter_by(id=reminder_id).all(), "is the reminders list")
     if orig_price < target_price:
       while True and exists:
         if not exists:
