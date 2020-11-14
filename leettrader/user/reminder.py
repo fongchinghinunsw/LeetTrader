@@ -21,7 +21,7 @@ def add_and_start_reminder(reminder, username):
 
 
 def reminder_handler(reminder, username):
-  ''' Function for handling Reminder ''' 
+  ''' Function for handling Reminder '''
   from leettrader import create_app
   app = create_app()
 
@@ -60,7 +60,7 @@ def reminder_handler(reminder, username):
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
         exists = not Reminder.query.filter_by(id=reminder_id).all() == []
-    
+
     else:
       while True and exists:
         if not exists:
