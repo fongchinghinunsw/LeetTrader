@@ -262,8 +262,6 @@ def delete_account_token(token):
 
 
 ''' =========== REMINDERS =========== '''
-
-
 @user.route("/add_reminder", methods=['GET', 'POST'])
 @login_required
 def add_reminder():

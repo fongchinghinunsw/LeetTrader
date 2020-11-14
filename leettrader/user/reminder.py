@@ -1,17 +1,14 @@
-from threading import Condition, Thread
+from threading import Thread
 from time import sleep
-from datetime import datetime
 
-from flask import has_app_context
 from leettrader import db
 from leettrader.user.send_emails import send_stock_reminder
 from leettrader.stock.utils import get_search_result
-from leettrader.models import User, Stock, Reminder, TransactionRecord, OwnStock
-from flask_login import current_user
+from leettrader.models import User, Stock, Reminder
 
 
 def add_and_start_reminder(reminder, username):
-
+  ''' Add reminder & Start checking for target price '''
   thread = Thread(name="ReminderHandler",
                   target=reminder_handler,
                   args=[reminder, username])
@@ -20,7 +17,7 @@ def add_and_start_reminder(reminder, username):
 
 
 def reminder_handler(reminder, username):
-
+  ''' Function for handling Reminder ''' 
   from leettrader import create_app
   app = create_app()
 
@@ -58,8 +55,8 @@ def reminder_handler(reminder, username):
           break
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        exists = False if Reminder.query.filter_by(
-            id=reminder_id).all() == [] else True
+        exists = not Reminder.query.filter_by(id=reminder_id).all() == []
+    
     else:
       while True and exists:
         if not exists:
@@ -71,8 +68,7 @@ def reminder_handler(reminder, username):
           break
         print(reminder, "sleeps for 10 seconds...")
         sleep(10)
-        exists = False if Reminder.query.filter_by(
-            id=reminder_id).all() == [] else True
+        exists = not Reminder.query.filter_by(id=reminder_id).all() == []
 
     if exists:
       db.session.delete(reminder)
