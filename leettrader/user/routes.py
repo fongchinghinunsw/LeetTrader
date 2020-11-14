@@ -127,8 +127,8 @@ def login():
   return render_template('login.html', title='login', loginForm=login_form)
 
 # save the user chosen icon to the local
+# return the icon file name after hex
 def save_icon_pic(icon_file):
-   
   # get the random hex number
   rand_hex = secrets.token_hex(8)
   # get the icon file suffix
@@ -138,7 +138,7 @@ def save_icon_pic(icon_file):
   # get the leettrader folder
   parent_dir = os.path.dirname(user.root_path)
 
-   # remove the previous icon pic to save space
+  # remove the previous icon pic to save space
   prev_icon_path = os.path.join(parent_dir, 'static', 'account_icons', current_user.icon)
   if os.path.exists(prev_icon_path) and os.path.basename(prev_icon_path) != 'trump.jpg':
     os.remove(prev_icon_path)
@@ -153,24 +153,24 @@ def save_icon_pic(icon_file):
 @login_required
 def account_profile():
   update_form = accountUpdatedForm()
-  update_form.username.data = current_user.username
-  update_form.email.data = current_user.email
+ 
   user_icon = url_for('static', filename='account_icons/' + current_user.icon)
   if request.method == 'GET':
-    return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
+    update_form.username.data = current_user.username
+    update_form.email.data = current_user.email
   
   if update_form.validate_on_submit():
-    
     if update_form.icon.data:
       profile_icon_name = save_icon_pic(update_form.icon.data)
       current_user.icon = profile_icon_name
-
+    
     current_user.username = update_form.username.data
     current_user.email = update_form.email.data
     db.session.commit()
-    flash('Your account has been updated !', 'success')
+    print(current_user.email, current_user.username)
+    flash('Your account has been updated successfuly!', 'success')
     return redirect(url_for('users.account_profile'))
-  
+  return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
 
 @user.route("/settings")
 @login_required

@@ -436,3 +436,7 @@ button {
   left: 0;
   cursor: pointer;
 }
+
+.element {
+  display: inline-block;
+}
