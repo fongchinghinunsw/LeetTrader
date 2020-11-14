@@ -1,21 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="form-container container">
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-  <h1 class="account-text">Manage Your Account Here</h1>
-</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 
 <div class='form-container container'>
-    <legend class="border-bottom account-text">Manage Your Account</legend>
+    <legend class="border-bottom account-text">Manage Account</legend>
+    <br>
     <div class="content-section">
       <div class="media">
         <img class="rounded-circle account-img" src="{{ icon }}">
