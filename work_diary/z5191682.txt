@@ -44,3 +44,14 @@ Week 7
 
 
 Week 8
+
+1. add the new user story to jira, about creating a user account profile page
+2. finishe this new user story and refine the ui of it
+
+Week 9
+
+1. start writing pytests for the whole application 
+2. refine the all the UI component of my US to make sure they are consistent
+3. Help writing the report with group members
+
+

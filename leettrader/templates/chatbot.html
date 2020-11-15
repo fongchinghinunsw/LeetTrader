@@ -5,7 +5,7 @@
 <div class="chat-popup">
   <div class="chat-area">
     <div class="income-msg">
-      <img src="../static/assistant.png" class="avatar" alt="">
+      <img src="http://localhost:6969/static/assistant.png" class="avatar" alt="">
       <span class="msg"> Hi, How can I help you?</span>
     </div>
   </div>
@@ -36,7 +36,7 @@ submitBtn.addEventListener("click", () => {
   // ${} is String interpolation, it transforms the value of that variable into a string.
   let temp = `<div class="out-msg">
   <span class="my-msg">${userInput}</span>
-  <img src="../static/account_icons/${current_user_icon}" class="avatar">
+  <img src="http://localhost:6969/static/account_icons/${current_user_icon}" class="avatar">
   </div>`
 
   // Insert a new element before the end of the element chatArea.
