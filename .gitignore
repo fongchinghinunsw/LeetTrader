@@ -6,3 +6,5 @@ venv/
 .vscode
 leettrader/site.db
 leettrader/stock/tmp/*
+leettrader/static/account_icons/*
+.pytest_cache
