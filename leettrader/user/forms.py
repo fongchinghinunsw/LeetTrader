@@ -92,8 +92,6 @@ class deleteRequestForm(FlaskForm):
   submit = SubmitField('Confirm and Send Request')
 
 
-
-
 class accountUpdatedForm(FlaskForm):
   ''' direct change username and password Form '''
   username = StringField(
@@ -106,12 +104,13 @@ class accountUpdatedForm(FlaskForm):
       ])
 
   email = StringField('Email', validators=[DataRequired(), Email()])
-  icon = FileField('Change Your Icon ', validators=[FileAllowed(['jpeg', 'jpg', 'png'])])
+  icon = FileField('Change Your Icon ',
+                   validators=[FileAllowed(['jpeg', 'jpg', 'png'])])
   submit = SubmitField('Update')
 
   def validate_username(self, username):
     if username.data != current_user.username:
-  
+
       user = User.query.filter_by(username=username.data).first()
       if user:
         raise ValidationError('The username has been taken')
@@ -121,7 +120,6 @@ class accountUpdatedForm(FlaskForm):
       user = User.query.filter_by(email=email.data).first()
       if user:
         raise ValidationError('The email has been registered')
-
 
 
 class OrderForm(FlaskForm):

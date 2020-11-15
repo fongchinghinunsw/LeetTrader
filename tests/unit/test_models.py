@@ -1,6 +1,7 @@
 from leettrader.models import User
 from leettrader import bcrypt
 
+
 def test_new_user(new_user):
   """
   GIVEN a User model

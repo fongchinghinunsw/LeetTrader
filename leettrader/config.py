@@ -1,10 +1,10 @@
-import os
 """
   Config class: used for configuring the Flask app.
 """
 
 
 class Config:
+  """ A helper class for configuring the Flask app """
   SERVER_NAME = "localhost:6969"
 
   SECRET_KEY = '7b0dff182c1a883a7c12855dcc6f411d'
