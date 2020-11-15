@@ -13,27 +13,28 @@
 {% endwith %}
 
 <div class='form-container container'>
-    <legend class="border-bottom account-text">Manage Account</legend>
-    <br>
+    <legend class="border-bottom account-text account-font">Manage Account</legend>
+
     <div class="content-section">
       <div class="media">
         <img class="rounded-circle account-img" src="{{ icon }}">
         <div class="media-body">
-          <h2 class="account-heading">{{ current_user.username }}</h2>
-          <p class="text-secondary">{{ current_user.email }}</p>
+          <h2 class="account-heading account-font">{{ current_user.username }}</h2>
+          <p class="text-secondary account-font">{{ current_user.email }}</p>
         </div>
         <form style="padding-top: 10px;" action="{{ url_for('users.deleteRequest') }}">
-          <button class="btn btn-outline-danger" type="submit">Delete Account</button>
+          <button class="btn btn-outline-danger account-font" type="submit">Delete Account</button>
        </form>
       </div>
 
       <form method="POST" action="" enctype="multipart/form-data">
           <!-- protect our form from certain attacks -->
           {{ update_form.hidden_tag() }}
-          <legend class="border-bottom mb-4">Update your Account</legend>
+          <br>
+          <legend class="border-bottom mb-4 account-font">Update your Account</legend>
           
           <div class="form-group">
-            {{ update_form.username.label(class="form-control-label") }}
+            {{ update_form.username.label(class="form-control-label account-font") }}
             {% if update_form.username.errors %}
         {{ update_form.username(class="form-control form-control-lg is-invalid my-customised") }}
               <div class="alert alert-danger" role="alert">
@@ -47,7 +48,7 @@
           </div>
           
           <div class="form-group">
-            {{ update_form.email.label(class="form-control-label") }}
+            {{ update_form.email.label(class="form-control-label account-font") }}
             {% if update_form.email.errors %}
              {{ update_form.email(class="form-control form-control-lg is-invalid my-customised") }}
               <div class="alert alert-danger" role="alert">
@@ -59,14 +60,20 @@
         {{ update_form.email(class="form-control form-control-lg my-customised") }}
             {% endif %}
           </div>
-
+          
           <div class="form-group">
-            <label class="file element">
-              {{ update_form.icon() }}
+            {{ update_form.icon(id="actual-button", accept="image/*") }}
+            <label for="actual-button" class="my-label">
+              <span class="material-icons">
+                add_photo_alternate
+              </span>
+              Choose your icon
+
             </label>
+
+            <!-- name of file chosen -->
+            <span id="file-chosen">No file chosen</span>
             
-            <div class="element">{{ update_form.icon.label() }}</div>
-    
             {% if update_form.icon.errors %}
             <div class="alert alert-danger" role="alert">
                 {% for error in update_form.icon.errors %}
@@ -77,7 +84,7 @@
           </div>
           
           <div class="form-group">
-              {{ update_form.submit(class="btn btn-outline-info") }}
+              {{ update_form.submit(class="btn btn-outline-info account-font") }}
           </div>
       </form>
     </div>
@@ -85,5 +92,12 @@
 
 <script>
   document.getElementById("search-stock-form").style.display = "none"
+  document.getElementById("actual-button").style.display = "none"
+  const actualBtn = document.getElementById('actual-button');
+  const fileChosen = document.getElementById('file-chosen');
+  actualBtn.addEventListener('change', function(){
+    fileChosen.textContent = this.files[0].name
+  })
 </script>
+
 {% endblock content %}

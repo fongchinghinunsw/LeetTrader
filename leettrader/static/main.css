@@ -416,7 +416,6 @@ button {
   margin-right: 10px;
 }
 
-<<<<<<< HEAD
 /* listgroup */
 
 .listgroup {
@@ -464,34 +463,39 @@ button {
   background: #F5F5F5;
   cursor: pointer;
 }
-=======
 
 /* account profile form */
 .my-customised {
   font-family: "Lucida Console", Monaco, monospace;
 }
 
-
-.file{
-  display:block;
-  position: relative;
-  width: 50px;
-  height: 50px;
-  background: url(http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/device-camera-icon.png) no-repeat center center;
-  background-size: cover;
+.my-label {
+  background-color: rgb(60, 216, 208);
+  color: black;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  font-family: "Montserrat", sans-serif;
 }
 
-.file input{
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.my-label:hover {
+  background: rgb(226, 164, 50);
   cursor: pointer;
 }
 
-.element {
-  display: inline-block;
+/* addjusting the place, put it at center using display and justify-content */
+#file-chosen{
+  margin-left: 0.3rem;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: center;
 }
->>>>>>> f30
+
+.account-font {
+  font-family: "Montserrat", sans-serif;
+}
