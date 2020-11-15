@@ -7,7 +7,6 @@
     5. OwnStock
     6. ActionType
 '''
-SECRET_KEY = '7b0dff182c1a883a7c12855dcc6f411d'
 
 import enum
 from sqlalchemy.ext.mutable import MutableDict
@@ -16,6 +15,8 @@ from flask_login import UserMixin
 from leettrader import db, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import datetime
+
+SECRET_KEY = '7b0dff182c1a883a7c12855dcc6f411d'
 
 watchlist_items = db.Table(
     'watchlist_items',
@@ -52,8 +53,7 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
-  balance = db.Column(MutableDict.as_mutable(PickleType),
-                  default=dict())
+  balance = db.Column(MutableDict.as_mutable(PickleType), default=dict())
   icon = db.Column(db.String(20), nullable=False, default='user.png')
   login_time = db.Column(db.DateTime)
 
@@ -76,15 +76,19 @@ class User(db.Model, UserMixin):
     return user
 
   def getUserName(self):
+    """ get the user name of the user """
     return self.username
 
   def get_id(self):
+    """ get the id of the user """
     return self.id
-    
+
   def get_time(self):
+    """ get the login time of the user """
     return self.login_time
-    
+
   def get_new_token(self, secs=1800):
+    """  generate a new token  """
     # create a serializer with an expiration time of 1800s
     s = Serializer(SECRET_KEY, secs)
     # add the payload and create a token
@@ -93,6 +97,7 @@ class User(db.Model, UserMixin):
 
   @staticmethod
   def verify_reset_password_token(token):
+    """  verify if the reset password token is correct """
     s = Serializer(SECRET_KEY)
     try:
       # check if the token is valid, try to load the token
@@ -104,6 +109,7 @@ class User(db.Model, UserMixin):
 
   @staticmethod
   def verify_confirmation_token(token):
+    """  verify if the confirmation token is correct """
     s = Serializer(SECRET_KEY)
     try:
       # check if the token is valid, try to load the token
@@ -114,6 +120,7 @@ class User(db.Model, UserMixin):
 
   @staticmethod
   def verify_delete_account_token(token):
+    """  verify if the delete account token is correct """
     s = Serializer(SECRET_KEY)
     try:
       # check if the token is valid, try to load the token
@@ -142,6 +149,7 @@ class MarketType(enum.Enum):
 
   @staticmethod
   def get_market_labels():
+    """ get fullname, area code of the markets """
     return [['New Zealand', 'nz'], ['Australia', 'au']]
 
 
@@ -162,12 +170,15 @@ class Stock(db.Model):
     return f"Stock('{self.name}', '{self.code}')"
 
   def get_id(self):
+    """ get id of the stock """
     return self.id
 
   def get_name(self):
+    """ get name of the stock """
     return self.name
 
   def get_code(self):
+    """ get code of the stock """
     return self.code
 
 
@@ -218,16 +229,21 @@ class Reminder(db.Model):
     return cls.query.filter_by(user_id=user_id).all()
 
   def get_id(self):
+    """ get id of the reminder """
     return self.id
 
   def get_user_id(self):
+    """ get user id of the reminder """
     return self.user_id
 
   def get_stock_id(self):
+    """ get stock id of the reminder """
     return self.stock_id
 
   def get_orig_price(self):
+    """ get original price of the reminder """
     return self.orig_price
 
   def get_target_price(self):
+    """ get target price of the reminder """
     return self.target_price

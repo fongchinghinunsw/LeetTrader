@@ -43,7 +43,7 @@ def format_watchlist_item(name, code, price, currency, change, percent):
   ''' Export HTML string of watchlist '''
   # Hyperlink & Stock Name
   ans = '<li id="' + code.replace(
-      ".", "_") + '"class="list-group-item list-group-item-light">'
+    ".", "_") + '"class="list-group-item list-group-item-light">'
   ans += a_href(str(name + ' (' + code + ')'), code)
 
   # Price Tags
