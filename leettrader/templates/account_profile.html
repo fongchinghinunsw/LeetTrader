@@ -70,18 +70,16 @@
           </div>
           
           <div class="form-group">
-            <div id="upload-icon-btn">
             {{ update_form.icon(id="actual-button", accept="image/*") }}
             <label for="actual-button" class="my-label">
               <span class="material-icons">
                 add_photo_alternate
               </span>
               Choose your icon
-
             </label>
-            </div>
+
             <!-- name of file chosen -->
-            <span id="file-chosen">No file chosen</span>
+            <span id="file-chosen">No Icon Chosen</span>
             
             {% if update_form.icon.errors %}
             <div class="alert alert-danger" role="alert">
