@@ -4,7 +4,8 @@
 '''
 
 from flask_login import current_user
-from leettrader import db, OwnStock
+from leettrader import db
+from leettrader.models import OwnStock
 
 def reset_account():
   ''' Reset all investment records of user '''

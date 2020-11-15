@@ -2,12 +2,13 @@
   Routing of Balance Sheet Displayed At Home
 """
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, redirect, url_for
 from flask_login import current_user, login_required
 from leettrader import db
 from leettrader.models import Stock, OwnStock
 from leettrader.stock.utils import get_search_result
 from leettrader.ownedList.bal_sheet import BalanceSheet
+from leettrader.ownedList.reset import reset_account
 
 ownedList = Blueprint('ownedList', __name__)
 
@@ -24,6 +25,12 @@ def get_owned_list():
   # Get balance sheet, jsonify it & return
   ans = get_balance_sheet()
   return jsonify(ownedList=ans), 200
+
+@ownedList.route('/accountResetting', methods=['GET'])
+@login_required
+def reset_user_account():
+  reset_account()
+  return redirect(url_for("users.home"))
 
 
 def get_balance_sheet():

@@ -23,7 +23,7 @@
           <p class="text-secondary account-font">{{ current_user.email }}</p>
         </div>
         <div class="media-body">
-          <form style="padding-top: 10px;" action="">
+          <form style="padding-top: 10px;" action="{{ url_for('ownedList.reset_user_account') }}">
             <button id="reset-account-btn" class="btn btn-outline-warning account-font" type="submit">
               <span class="material-icons">
                 restore
