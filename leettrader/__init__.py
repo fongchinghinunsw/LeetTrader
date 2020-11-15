@@ -32,14 +32,16 @@ def create_app(config_class=Config):
         transactions = db.session.query(TransactionRecord).count()
         stocks = db.session.query(Stock).count()
         return self.render('admin/index.html', users=users, transactions = transactions, stocks = stocks)
-
+  class UserView(ModelView):
+    can_edit = False 
+    can_create = False
   app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
   admin = Admin(app,
                 name='Admin',
                 index_view = AdminView(),
                 template_mode='bootstrap3')
-  admin.add_view(ModelView(User, db.session))
-
+  admin.add_view(UserView(User, db.session))
+  
   db.init_app(app)
   login_manager.init_app(app)
   bcrypt.init_app(app)

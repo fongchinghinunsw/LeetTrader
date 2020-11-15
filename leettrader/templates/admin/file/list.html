@@ -28,9 +28,9 @@
             <tr>
                 {% block list_header scoped %}
                 {% if actions %}
-                <th class="list-checkbox-column">
+                <!-- <th class="list-checkbox-column">
                     <input type="checkbox" name="rowtoggle" class="action-rowtoggle" />
-                </th>
+                </th> -->
                 {% endif %}
                 <th class="col-md-1">&nbsp;</th>
                 {% for column in admin_view.column_list %}
@@ -62,7 +62,7 @@
             {% if actions %}
             <td>
                 {% if not is_dir %}
-                <input type="checkbox" name="rowid" class="action-checkbox" value="{{ path }}" />
+                <!-- <input type="checkbox" name="rowid" class="action-checkbox" value="{{ path }}" /> -->
                 {% endif %}
             </td>
             {% endif %}
