@@ -23,7 +23,12 @@
           <p class="text-secondary account-font">{{ current_user.email }}</p>
         </div>
         <form style="padding-top: 10px;" action="{{ url_for('users.deleteRequest') }}">
-          <button class="btn btn-outline-danger account-font" type="submit">Delete Account</button>
+          <button id="delete-account-btn" class="btn btn-outline-danger account-font" type="submit">
+            <span class="material-icons">
+              delete_forever
+            </span>
+            Delete Account
+          </button>
        </form>
       </div>
 
@@ -36,14 +41,14 @@
           <div class="form-group">
             {{ update_form.username.label(class="form-control-label account-font") }}
             {% if update_form.username.errors %}
-        {{ update_form.username(class="form-control form-control-lg is-invalid my-customised") }}
+              {{ update_form.username(class="form-control form-control-lg is-invalid my-customised") }}
               <div class="alert alert-danger" role="alert">
                   {% for error in update_form.username.errors %}
                     <span>{{ error }}</span>
                   {% endfor %}
               </div>
             {% else %}
-        {{ update_form.username(class="form-control form-control-lg my-customised") }}
+              {{ update_form.username(class="form-control form-control-lg my-customised") }}
             {% endif %}
           </div>
           
@@ -71,7 +76,7 @@
             </label>
 
             <!-- name of file chosen -->
-            <span id="file-chosen">No Icon Chosen</span>
+            <span id="file-chosen" style="display: none;">No Icon Chosen</span>
             
             {% if update_form.icon.errors %}
             <div class="alert alert-danger" role="alert">
@@ -80,6 +85,15 @@
                 {% endfor %}
             </div>
             {% endif %}
+          </div> 
+          
+          <div class="form-group">
+            <label class="my-label">
+              <span class="material-icons">
+                lock_open
+              </span>
+              Reset Your Password here
+            </label>
           </div>
           
           <div class="form-group">
@@ -95,6 +109,7 @@
   const actualBtn = document.getElementById('actual-button');
   const fileChosen = document.getElementById('file-chosen');
   actualBtn.addEventListener('change', function(){
+    fileChosen.style.display = "block"
     fileChosen.textContent = this.files[0].name
   })
 </script>
