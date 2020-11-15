@@ -378,7 +378,8 @@ def view_trading_history():
   stocks = []
   for record in records:
     stock = Stock.query.filter_by(id=record.stock_id).first()
-    stocks.append(stock)
+    if record.user_id == current_user.get_id():
+      stocks.append(stock)
 
   return render_template("trading_history.html",
                          records=records,
