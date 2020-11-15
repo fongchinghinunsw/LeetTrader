@@ -373,13 +373,12 @@ def delete_reminder():
 @user.route("/trading_history")
 @login_required
 def view_trading_history():
-  records = TransactionRecord.query.all()
+  records = TransactionRecord.query.filter_by(user_id=current_user.get_id()).all()
   records.reverse()
   stocks = []
   for record in records:
     stock = Stock.query.filter_by(id=record.stock_id).first()
-    if record.user_id == current_user.get_id():
-      stocks.append(stock)
+    stocks.append(stock)
 
   return render_template("trading_history.html",
                          records=records,
