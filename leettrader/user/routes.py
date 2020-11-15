@@ -216,7 +216,7 @@ def reset_request():
   #   return jsonify({'user-email': user.email})
   return render_template('reset_request.html',
                          title='reset password',
-                         form=form)
+                         reset_password_form=form)
 
 
 @user.route("/process", methods=['POST'])

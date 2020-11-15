@@ -14,15 +14,15 @@
           <div class="main-login-form">
             <div class="login-group">
               <div class="form-group">
-                {% if form.email.errors %}
-                  {{ form.email(id="email-input", class="form-control form-control-lg is-invalid", placeholder="Enter your email") }}
+                {% if reset_password_form.email.errors %}
+                  {{ reset_password_form.email(id="email-input", class="form-control form-control-lg is-invalid", placeholder="Enter your email") }}
                   <div class="alert alert-danger" role="alert">
-                    {% for error in form.email.errors %}
+                    {% for error in reset_password_form.email.errors %}
                       <span>{{ error }}</span>
                     {% endfor %}
                   </div>
                 {% else %}
-                  {{ form.email(id="email-input", class="form-control form-control-lg", placeholder="Enter your email") }}
+                  {{ reset_password_form.email(id="email-input", class="form-control form-control-lg", placeholder="Enter your email") }}
                 {% endif %}
 
               </div>
@@ -34,7 +34,7 @@
         <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
         
         <div class="form-group">
-          {{ form.submit(id="reset-button", class="btn btn-outline-info") }}
+          {{ reset_password_form.submit(id="reset-button", class="btn btn-outline-info") }}
         </div>
    
         <script>
