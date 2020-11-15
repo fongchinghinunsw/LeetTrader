@@ -15,6 +15,7 @@ from sqlalchemy import PickleType
 from flask_login import UserMixin
 from leettrader import db, login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from datetime import datetime
 
 watchlist_items = db.Table(
     'watchlist_items',
@@ -54,6 +55,7 @@ class User(db.Model, UserMixin):
   balance = db.Column(MutableDict.as_mutable(PickleType),
                   default=dict())
   icon = db.Column(db.String(20), nullable=False, default='user.png')
+  login_time = db.Column(db.DateTime)
 
   # backref is a way to declare a new property on the TransactionRecord class
   # You can then use transaction.person to get to the person at that address
@@ -70,7 +72,7 @@ class User(db.Model, UserMixin):
   def __repr__(self):
     user = "User("
     user += f"'{self.username}', '{self.email}', "
-    user += f"'{self.password}', '{self.balance}')"
+    user += f"'{self.password}', '{self.balance}', '{self.login_time}')"
     return user
 
   def getUserName(self):
@@ -78,7 +80,10 @@ class User(db.Model, UserMixin):
 
   def get_id(self):
     return self.id
-
+    
+  def get_time(self):
+    return self.login_time
+    
   def get_new_token(self, secs=1800):
     # create a serializer with an expiration time of 1800s
     s = Serializer(SECRET_KEY, secs)
@@ -126,7 +131,7 @@ class Watchlist(db.Model):
   """Watchlist class"""
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-  date_added = db.Column(db.Date, nullable=False)
+  date_added = db.Column(db.DateTime, nullable=False)
   stocks = db.relationship('Stock', secondary=watchlist_items, lazy=True)
 
 

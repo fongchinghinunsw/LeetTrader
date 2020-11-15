@@ -9,6 +9,8 @@ from flask_mail import Mail
 from leettrader.config import Config
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_admin import AdminIndexView
+from flask_appbuilder.api import expose
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -22,14 +24,24 @@ def create_app(config_class=Config):
   app.config.from_object(Config)
 
   # Admin page config
+  from leettrader.models import User, TransactionRecord, Stock
+  class AdminView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        users = db.session.query(User).count()
+        transactions = db.session.query(TransactionRecord).count()
+        stocks = db.session.query(Stock).count()
+        return self.render('admin/index.html', users=users, transactions = transactions, stocks = stocks)
+  class UserView(ModelView):
+    can_edit = False 
+    can_create = False
   app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
   admin = Admin(app,
                 name='Admin',
-                base_template='admin/base.html',
+                index_view = AdminView(),
                 template_mode='bootstrap3')
-  from leettrader.models import User
-  admin.add_view(ModelView(User, db.session))
-
+  admin.add_view(UserView(User, db.session))
+  
   db.init_app(app)
   login_manager.init_app(app)
   bcrypt.init_app(app)
