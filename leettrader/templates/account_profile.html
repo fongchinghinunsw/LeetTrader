@@ -22,14 +22,26 @@
           <h2 class="account-heading account-font">{{ current_user.username }}</h2>
           <p class="text-secondary account-font">{{ current_user.email }}</p>
         </div>
-        <form style="padding-top: 10px;" action="{{ url_for('users.deleteRequest') }}">
-          <button id="delete-account-btn" class="btn btn-outline-danger account-font" type="submit">
-            <span class="material-icons">
-              delete_forever
-            </span>
-            Delete Account
-          </button>
-       </form>
+        <div class="media-body">
+          <form style="padding-top: 10px;" action="">
+            <button id="reset-account-btn" class="btn btn-outline-warning account-font" type="submit">
+              <span class="material-icons">
+                restore
+              </span>
+              &nbspReset Account&nbsp
+
+            </button>
+          </form>
+
+          <form style="padding-top: 10px;" action="{{ url_for('users.deleteRequest') }}">
+            <button id="delete-account-btn" class="btn btn-outline-danger account-font" type="submit">
+              <span class="material-icons">
+                delete_forever
+              </span>
+              Delete Account
+            </button>
+         </form>
+        </div>
       </div>
 
       <form method="POST" action="" enctype="multipart/form-data">
