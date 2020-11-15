@@ -369,8 +369,8 @@ def get_list_of_users_sorted_by_login_time():
   users_list = User.query.order_by(User.login_time.desc())
   u_list = []
   for i in users_list:
-    if i.get_time() != NoneType:
-      time = i.get_time().strftime('%Y-%m-%d-%H:%M:%S') #.strftime('%Y-%m-%d') #.strftime('%Y-%m-%d-%H:%M:%S')
+    if i.get_time() != None:
+      time = i.get_time().strftime('%Y-%m-%d-%H:%M:%S') 
       if i.is_admin():  
         u_type = "Admin"
       else:
