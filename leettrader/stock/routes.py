@@ -77,8 +77,4 @@ def search_page(code):
 @stock.route('/get_csv/<string:code>', methods=['GET'])
 @login_required
 def get_csv(code):
-  tmp_bin = "leettrader/stock/tmp/"
-  '''
-  caching the csv file if called repeatedly, use for testing
-  '''
   return get_historical_data(code)
