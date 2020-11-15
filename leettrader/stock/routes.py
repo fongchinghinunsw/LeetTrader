@@ -81,11 +81,4 @@ def get_csv(code):
   '''
   caching the csv file if called repeatedly, use for testing
   '''
-  # if os.path.isfile("leettrader/stock/tmp/"+ code + ".csv"):
-  #   return send_file("stock/tmp/"+ code + ".csv")
-
-  for root, dirs, files in os.walk(tmp_bin):
-    for f in files:
-      os.remove(os.path.join(root, f))
-  get_historical_data(code)
-  return send_file("stock/tmp/" + code + ".csv")
+  return get_historical_data(code)

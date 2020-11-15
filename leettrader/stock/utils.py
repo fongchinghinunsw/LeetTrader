@@ -122,11 +122,4 @@ def get_historical_data(stock_code):
       stock_code, prev_year, curr_time)
   response = request.urlopen(request_url)
   csv = response.read()
-  csv = str(csv).strip("b'")
-  lines = csv.split("\\n")
-  if not os.path.isdir("leettrader/stock/tmp/"):
-    os.mkdir("leettrader/stock/tmp/")
-  f = open("leettrader/stock/tmp/" + stock_code + ".csv", 'w')
-  for line in lines:
-    f.write(line + "\n")
-  f.close()
+  return csv
