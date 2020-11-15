@@ -118,6 +118,7 @@ def login():
     if user and bcrypt.check_password_hash(user.password,
                                            login_form.password.data):
       login_user(user, remember=login_form.remember.data)
+      print(datetime.now().strftime('%Y-%m-%d-%H:%M:%S') )
       current_user.login_time = datetime.now()
       db.session.commit()
       if user.is_admin():

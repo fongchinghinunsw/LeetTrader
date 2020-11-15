@@ -52,7 +52,7 @@ class User(db.Model, UserMixin):
   username = db.Column(db.String(20), unique=True, nullable=False)
   email = db.Column(db.String(100), unique=True, nullable=False)
   password = db.Column(db.String(30), nullable=False)
-  login_time = db.Column(db.Date)
+  login_time = db.Column(db.DateTime)
   balance = db.Column(MutableDict.as_mutable(PickleType), default=dict())
 
   # backref is a way to declare a new property on the TransactionRecord class
@@ -129,7 +129,7 @@ class Watchlist(db.Model):
   """Watchlist class"""
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-  date_added = db.Column(db.Date, nullable=False)
+  date_added = db.Column(db.DateTime, nullable=False)
   stocks = db.relationship('Stock', secondary=watchlist_items, lazy=True)
 
 
