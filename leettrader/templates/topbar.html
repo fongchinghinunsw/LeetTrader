@@ -29,10 +29,10 @@
         <li class="nav-item mr-3">
           <form method="POST" id="search-stock-form" class="form-inline" style="padding-right: 15px;" action="{{ url_for('stocks.search_stock', stock=form.stock.data) }}">
             {{form.hidden_tag() }}
-            <div class="input-group">
+            <div class="input-group mt-1">
               {{ form.stock(id="search-bar", class="form-control mr-sm-2") }}
             </div>
-            <div class="input-group">
+            <div class="input-group mt-1">
               {{ form.submit(class="btn btn-outline-success my-2 my-sm-0") }}
             </div>
           </form>
