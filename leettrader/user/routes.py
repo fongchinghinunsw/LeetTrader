@@ -5,8 +5,10 @@ import os
 import operator
 import secrets
 from flask import render_template, url_for, flash, redirect, Blueprint, jsonify, request
-from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm, resetPasswordForm, deleteRequestForm, 
-                                  accountUpdatedForm, OrderForm, CheckoutForm, ReminderForm)
+from leettrader.user.forms import (LoginForm, RegisterForm, resetRequestForm,
+                                   resetPasswordForm, deleteRequestForm,
+                                   accountUpdatedForm, OrderForm, CheckoutForm,
+                                   ReminderForm)
 
 from leettrader.user.reminder import add_and_start_reminder
 from leettrader.stock.utils import get_search_result
@@ -134,6 +136,7 @@ def login():
   # Fail to login, stay in login page
   return render_template('login.html', title='login', loginForm=login_form)
 
+
 # save the user chosen icon to the local
 # return the icon file name after hex
 def save_icon_pic(icon_file):
@@ -147,8 +150,10 @@ def save_icon_pic(icon_file):
   parent_dir = os.path.dirname(user.root_path)
 
   # remove the previous icon pic to save space
-  prev_icon_path = os.path.join(parent_dir, 'static', 'account_icons', current_user.icon)
-  if os.path.exists(prev_icon_path) and os.path.basename(prev_icon_path) != 'user.png':
+  prev_icon_path = os.path.join(parent_dir, 'static', 'account_icons',
+                                current_user.icon)
+  if os.path.exists(
+      prev_icon_path) and os.path.basename(prev_icon_path) != 'user.png':
     os.remove(prev_icon_path)
 
   # get the whole icon file path
@@ -157,28 +162,33 @@ def save_icon_pic(icon_file):
   icon_file.save(icon_path)
   return icon_name
 
+
 @user.route("/account", methods=['GET', 'POST'])
 @login_required
 def account_profile():
   update_form = accountUpdatedForm()
- 
+
   user_icon = url_for('static', filename='account_icons/' + current_user.icon)
   if request.method == 'GET':
     update_form.username.data = current_user.username
     update_form.email.data = current_user.email
-  
+
   if update_form.validate_on_submit():
     if update_form.icon.data:
       profile_icon_name = save_icon_pic(update_form.icon.data)
       current_user.icon = profile_icon_name
-    
+
     current_user.username = update_form.username.data
     current_user.email = update_form.email.data
     db.session.commit()
     print(current_user.email, current_user.username)
     flash('Your account info has been updated successfuly!', 'success')
     return redirect(url_for('users.account_profile'))
-  return render_template('account_profile.html', title='User Account', icon=user_icon, update_form = update_form)
+  return render_template('account_profile.html',
+                         title='User Account',
+                         icon=user_icon,
+                         update_form=update_form)
+
 
 @user.route("/settings")
 @login_required
@@ -303,6 +313,8 @@ def delete_account_token(token):
 
 
 ''' =========== REMINDERS =========== '''
+
+
 @user.route("/add_reminder", methods=['GET', 'POST'])
 @login_required
 def add_reminder():
@@ -373,7 +385,8 @@ def delete_reminder():
 @user.route("/trading_history")
 @login_required
 def view_trading_history():
-  records = TransactionRecord.query.filter_by(user_id=current_user.get_id()).all()
+  records = TransactionRecord.query.filter_by(
+      user_id=current_user.get_id()).all()
   records.reverse()
   stocks = []
   for record in records:
@@ -399,7 +412,10 @@ def checkout(stock, action):
   ''' Routing for Checkout Form'''
   return checkout_stock(stock, action)
 
+
 ''' ======================= admin dashboard =========================== '''
+
+
 @user.route("/admin/get_list_of_users_sorted_by_login_time", methods=['GET'])
 @login_required
 def get_list_of_users_sorted_by_login_time():
@@ -408,11 +424,11 @@ def get_list_of_users_sorted_by_login_time():
   u_list = []
   for i in users_list:
     if i.get_time() != None:
-      time = i.get_time().strftime('%Y-%m-%d-%H:%M:%S') 
-      if i.is_admin():  
+      time = i.get_time().strftime('%Y-%m-%d-%H:%M:%S')
+      if i.is_admin():
         u_type = "Admin"
       else:
         u_type = "User"
       i.id
-      u_list.append((i.id, u_type , i.username , time))
+      u_list.append((i.id, u_type, i.username, time))
   return jsonify(u_list), 200
