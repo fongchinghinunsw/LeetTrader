@@ -48,8 +48,8 @@ def format_watchlist_item(name, code, price, currency, change, percent):
 
   # Price Tags
   ans += '</br> Price: ' + str(price) + ' ' + currency
-  ans += '</br> Price change: ' + color_span(change)
-  ans += '</br> Percentage change: ' + color_span(percent) + '%</br>'
+  ans += '</br> Price change: ' + color_span_wl(change, False)
+  ans += '</br> Percentage change: ' + color_span_wl(percent, True) + '</br>'
   ans += '</li>'
 
   return ans
@@ -68,6 +68,22 @@ def wrap_tr(item, color):
 def wrap_td(item):
   tag = '<td class="ownedList-data">'
   return tag + item + "</td>"
+
+
+
+def color_span_wl(num, percent):
+  ans = str(num)
+  if percent:
+    ans += '%'
+
+  if num == 0:
+    return '<span> ' + ans + '</span>'
+
+  if num > 0:
+    return '<span style="color: green"> +' + ans + '</span>'
+
+  return '<span style="color: red"> ' + ans + '</span>'
+
 
 
 def color_span(num):
