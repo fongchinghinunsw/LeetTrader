@@ -256,7 +256,7 @@ def reset_password_token(token):
           form.password.data).decode('utf-8')
       user.password = password_hashed
       db.session.commit()
-      flash('Account has been reset, please login !', 'success')
+      flash('Password has been reset successfully !', 'success')
       return redirect(url_for('users.login'))
     return render_template('reset_password_token.html',
                            title='reset password',
