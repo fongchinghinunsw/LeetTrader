@@ -5,13 +5,14 @@
 
 from flask_login import current_user
 from leettrader import db
-from leettrader.models import OwnStock, TransactionRecord
+from leettrader.models import OwnStock, TransactionRecord, Reminder
 
 def reset_account():
   ''' Reset all investment records of user '''
   reset_bank()
   reset_owned_list()
   reset_record()
+  reset_reminders()
 
 
 def reset_bank():
@@ -37,4 +38,12 @@ def reset_record():
 
   for record in records:
     db.session.delete(record)
+  db.session.commit()
+
+
+def reset_reminders():
+  ''' Reset user all the reminders set by user'''
+  user_related_reminders = Reminder.query.filter_by(user_id=current_user.get_id()).all()
+  for reminder in user_related_reminders:
+    db.session.delete(reminder)
   db.session.commit()
