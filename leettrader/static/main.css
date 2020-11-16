@@ -500,12 +500,16 @@ button {
   font-family: "Montserrat", sans-serif;
 }
 
-#delete-account-btn {
-  display: flex;
-  justify-content: center;
-}
-
 #reset-account-btn {
   display: flex;
   justify-content: center;
 }
+
+#delete-account-btn {
+  display: flex;
+  justify-content: center;
+
+}
+
+
+
