@@ -47,3 +47,7 @@ Week 9
 I have completed the transaction history, I have also add a side navbar on the tutorial and usage guide page so that users can easily navigate with these two pages.
 I have improved the UI of the whole app, making it more dynamic and look prettier.
 I have written a script to build and run the app on vlab, previously, not all of our functionalities can be demonstrated on vlab because of the virtual environment issue but now I've managed to fix it.
+I and Tran completed around 60% of the report before other groupmates finish their coding part and join us.
+
+Week 10
+I do final checking on the report and software before the submission.

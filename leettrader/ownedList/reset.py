@@ -5,12 +5,13 @@
 
 from flask_login import current_user
 from leettrader import db
-from leettrader.models import OwnStock
+from leettrader.models import OwnStock, TransactionRecord
 
 def reset_account():
   ''' Reset all investment records of user '''
   reset_bank()
   reset_owned_list()
+  reset_record()
 
 
 def reset_bank():
@@ -26,4 +27,14 @@ def reset_owned_list():
 
   for item in own_list:
     db.session.delete(item)
-    db.session.commit()
+  db.session.commit()
+
+
+def reset_record():
+  ''' Reset user's transaction records '''
+  records = TransactionRecord.query.filter_by(
+      user_id=current_user.get_id()).all()
+
+  for record in records:
+    db.session.delete(record)
+  db.session.commit()
