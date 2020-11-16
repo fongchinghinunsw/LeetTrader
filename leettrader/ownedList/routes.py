@@ -29,8 +29,8 @@ def get_owned_list():
 @ownedList.route('/accountResetting', methods=['GET'])
 @login_required
 def reset_user_account():
-  flash("Your account has been reset successfully !", "success")
   reset_account()
+  flash("Your account has been reset successfully !", "success")
   return redirect(url_for("users.home"))
 
 

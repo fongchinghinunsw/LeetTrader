@@ -20,7 +20,7 @@ from datetime import datetime
 
 from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
 from leettrader.order.route import order_stock, checkout_stock
-from leettrader.ownedList.reset import delete_account
+from leettrader.ownedList.reset import delete_account_related
 
 user = Blueprint('users', __name__)
 
@@ -280,15 +280,12 @@ def deleteRequest():
                              title='Delete your account',
                              delete_form=form)
 
-    # user = User.query.filter_by(email=form.email.data).first()
-    # print(user)
-
     if bcrypt.check_password_hash(current_user.password, form.password.data):
       curr_user = User.query.filter_by(email=form.email.data).first()
       send_delete_account_email(curr_user)
       flash('An email has been sent to cancel your account', 'info')
-      logout_user()
-      return redirect(url_for('users.login'))
+      # logout_user()
+      # return redirect(url_for('users.login'))
     else:
       flash('Wrong password, please try again', 'danger')
 
@@ -315,13 +312,13 @@ def delete_account_token(token):
     flash('The token has expired !', 'warning')
     return redirect(url_for('users.deleteRequest'))
   else:
-    
     # do the deletion if the token is valid
+    delete_user_icon_picture()
+    delete_account_related()
+    
     db.session.delete(user)
     db.session.commit()
-    delete_account()
-    delete_user_icon_picture()
-  
+    
     flash('Your account has been deleted successfully', 'success')
     return redirect(url_for('users.login'))
 
