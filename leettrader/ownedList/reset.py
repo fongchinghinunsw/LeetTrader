@@ -13,6 +13,7 @@ def reset_account():
   reset_bank()
   reset_owned_list()
   reset_record()
+  delete_watchlist()
 
 def delete_account_related():
   ''' delete all investment records of user '''
