@@ -71,7 +71,10 @@ def wrap_td(item):
 
 
 def color_span(num):
-  if num >= 0:
+  if num == 0:
+    return '<span> ' + str(num) + '</span>'
+
+  if num > 0:
     return '<span style="color: green"> +' + str(num) + '</span>'
 
   return '<span style="color: red"> ' + str(num) + '</span>'
@@ -81,10 +84,11 @@ def color_span_2dp(num):
   if '{0:.2f}'.format(num) == "-0.00":
     return '<span style="color: green"> +0.00 </span>'
 
-  if num >= 0:
+  if num > 0.0000:
     return '<span style="color: green"> +' + '{0:.2f}'.format(num) + '</span>'
-
-  return '<span style="color: red"> ' + '{0:.2f}'.format(num) + '</span>'
+  elif num < 0.0000:
+    return '<span style="color: red"> ' + '{0:.2f}'.format(num) + '</span>'
+  return '<span> ' + '{0:.2f}'.format(num) + '</span>'
 
 
 def div(content):
