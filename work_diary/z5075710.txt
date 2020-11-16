@@ -15,3 +15,42 @@ Updated the format of the project objective.
 Added in more objectives to reflect the additional novel functionalities and the respective user stories.
 Made sure all user stories were accounted for in the project objectives.
 Grammar check on user stories and the proposal. Made sure the corrections were updated in the proposal and Jira.
+
+Week 4
+Installed applications to develop and run the application on personal machine for ease of access.
+Worked on user stories I was assigned. Stuggled a bit since I am inexperienced in frontend development.
+Studied the code done by other team members to learn more.
+
+Week 5
+Had a meeting for the retrospective.
+Worked on buy/sell functionality with Stephen's help.
+Looked at the code before the progressive demo.
+
+Week 6
+Had a meeting to assign user stories to team members.
+Had a meeting to discuss new user stories to implement since we were progressing at a fast rate.
+Proof read the new user stories and acceptance criteria.
+
+Week 7
+Start working on asssigned user stories: usage guide and tutorial
+Helped with the intents.json file that the chatbot, usage guide and tutorial used.
+Tested the intents.json on the web application using the chatbot and visiting the usage guide and tutorial pages.
+Added some HTML formatting to make the page a bit better looking.
+
+Week 8
+Added more content for intents.json to include some trading strategies and extra trading terminology.
+Tested chatbot so it would give the correct response to common questions. (Tested for all tags in intents.json)
+Had a meeting to test the overall functionality of the web application before the second progressive demo.
+
+Week 9
+Group members decide to implement a few more user stories before the presentation. I opted to forgo adding a user story to get started on the report.
+Started on the functionalities section of the report.
+Reviewed user stories on Jira to prepare for the functionalities section of the report.
+
+Week 10
+Finished functionalities section.
+Started third-party packages used section. Since I'm not sure of the specific use of each package in the web application, I develop a skeleton for team members to fill in.
+Referenced the packages.
+Searched the licenses for the third-party packages.
+Proof read the report for grammar/spelling mistakes.
+A bit of formatting.
