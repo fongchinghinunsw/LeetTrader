@@ -20,6 +20,7 @@ from datetime import datetime
 
 from leettrader.user.send_emails import send_confirmation_email, send_reset_password_email, send_delete_account_email
 from leettrader.order.route import order_stock, checkout_stock
+from leettrader.ownedList.reset import delete_account
 
 user = Blueprint('users', __name__)
 
@@ -308,6 +309,8 @@ def delete_account_token(token):
     # do the deletion if the token is valid
     db.session.delete(user)
     db.session.commit()
+    delete_account()
+  
     flash('Your account has been deleted successfully', 'success')
     return redirect(url_for('users.login'))
 
