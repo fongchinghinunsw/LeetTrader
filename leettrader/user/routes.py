@@ -296,6 +296,15 @@ def deleteRequest():
                          title='Delete your account',
                          delete_form=form)
 
+# when delete the user account, delete the user icon pic as weel
+# however not delete the default icon pic, when use hasnt change their icon
+def delete_user_icon_picture():
+  parent_dir = os.path.dirname(user.root_path)
+  
+  user_icon_path = os.path.join(parent_dir, 'static', 'account_icons',
+                                current_user.icon)
+  if os.path.exists(user_icon_path) and os.path.basename(user_icon_path) != 'user.png':
+    os.remove(user_icon_path)
 
 @user.route("/deleteAcount/<token>", methods=['GET', 'POST'])
 # reset their password when the token is active
@@ -306,10 +315,12 @@ def delete_account_token(token):
     flash('The token has expired !', 'warning')
     return redirect(url_for('users.deleteRequest'))
   else:
+    
     # do the deletion if the token is valid
     db.session.delete(user)
     db.session.commit()
     delete_account()
+    delete_user_icon_picture()
   
     flash('Your account has been deleted successfully', 'success')
     return redirect(url_for('users.login'))
