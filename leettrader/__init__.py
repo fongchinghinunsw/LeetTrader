@@ -46,6 +46,7 @@ def create_app(config_class=Config):
       self.session.delete(user)
       self.session.commit()
       return True
+      
     
 
   app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
