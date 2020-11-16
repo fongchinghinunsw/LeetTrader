@@ -26,7 +26,7 @@ def create_app(config_class=Config):
 
   # Admin page config
   from leettrader.models import User, TransactionRecord, Stock
-
+  from leettrader.ownedList.reset import reset_account
   class AdminView(AdminIndexView):
     @expose('/')
     def index(self):
@@ -41,6 +41,12 @@ def create_app(config_class=Config):
   class UserView(ModelView):
     can_edit = False
     can_create = False
+    def delete_model(self, user):
+      reset_account(user)
+      self.session.delete(user)
+      self.session.commit()
+      return True
+    
 
   app.config['FLASK_ADMIN_SWATCH'] = 'cosmo'
   admin = Admin(app,
