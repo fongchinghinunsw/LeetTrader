@@ -260,7 +260,7 @@ def reset_password_token(token):
       return redirect(url_for('users.login'))
     return render_template('reset_password_token.html',
                            title='reset password',
-                           form=form)
+                           reset_ps_token_form=form)
 
 
 # delete account
