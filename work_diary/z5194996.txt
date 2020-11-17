@@ -40,3 +40,8 @@ Working on US 16 (6 points)
 
 Week 8
 Finish US 16
+
+Week 9
+Finish US 29
+Worked on the final report
+Fixed bug in the applications
