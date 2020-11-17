@@ -40,3 +40,11 @@ Final refinement of codes before working on project:
   - Bank balance implemented (Both UI & Backend)
   - Refractor user.routes.py. Codes related to Buy / Sell are moved to the folder "order"
   - Refractor the folder "ownList". Now the entire balance sheet is encapsulated in OOP style.
+  - Make Reset Account button to reset balance sheet
+  - Did several Debugs
+
+Week 10
+ - Work on the report together with team. Wrote section 1 (Software Design), and Objective 1 to 6. 
+ - Attend group meeting to practice for presentation. Make timing for the group and made suggestion of improvements.
+ - Finalize the target time duraction of each section of the presentation. 
+
