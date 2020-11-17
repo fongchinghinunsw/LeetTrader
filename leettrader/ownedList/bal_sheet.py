@@ -46,7 +46,7 @@ class BalanceSheet:
 
     # Calcuate the new profit, worth, update stock list
     self.profit[currency] += profit
-    self.stock_worth[currency] += purchase
+    self.stock_worth[currency] += market
     self.stock_list[currency].append(item)
 
   def get_final_bs(self):
