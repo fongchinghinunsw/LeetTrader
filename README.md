@@ -90,7 +90,7 @@ lists aggregate statistics for each stock type simul-owned, including: total uni
 total current worth of simul-owned units, total paid for currently simul-owned units.
 
 ---
-### Project Objectives
+### Deployment
 1. Install all the packages listed in requirements.txt
 2. Run `python utils.py`
 3. Run `python run.py`
