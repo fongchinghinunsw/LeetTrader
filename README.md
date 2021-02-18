@@ -9,6 +9,8 @@ Scrum Members: Jeffrey Yip, Luna Yang, Oliver Guo, Stephen Fong, The Tran {z5194
 
 ![demo0](asset/demo0.png)
 
+---
+
 ![demo1](asset/demo1.png)
 
 For coding style, please see [style.md](style.md)
@@ -86,3 +88,10 @@ their current market price per unit. They must be able to view the total profit 
 ould make for any given stock they simul-own, if all the units they simul-own for that stock were sold at the current market price per unit. Investors must be able to see a page that 
 lists aggregate statistics for each stock type simul-owned, including: total units simul-owned, 
 total current worth of simul-owned units, total paid for currently simul-owned units.
+
+---
+### Project Objectives
+1. Install all the packages listed in requirements.txt
+2. Run `python utils.py`
+3. Run `python run.py`
+4. Open your browser and visit localhost:6969 and enjoy your investing journey.
